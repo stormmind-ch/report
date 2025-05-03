@@ -26,7 +26,7 @@
         #v(1fr)
 
         #grid(
-          columns: (1fr, 60%), align(horizon, image("../images/zhaw_rgb.jpg", width: 75%)), align(left)[
+          columns: (1fr, 60%), align(horizon, image("images/zhaw_rgb.jpg", width: 75%)), align(left)[
           
             Submitted on: \
             #h(2cm) 06.06.2025\

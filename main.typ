@@ -24,11 +24,11 @@
 
 #show: main-matter
 
-#include "main/ch1_introduction.typ"
-#include "main/ch2_theoretical_background.typ"
-#include "main/ch3_methodology.typ"
-#include "main/ch4_results.typ"
-#include "main/ch5_discussion_outlook.typ"
+#include "chapters/ch1_introduction/ch1_introduction.typ"
+#include "chapters/ch2theoretical_background/ch2_theoretical_background.typ"
+#include "chapters/ch3_methodology/ch3_methodology.typ"
+#include "chapters/ch4_results/ch4_results.typ"
+#include "chapters/ch5_discussion_outlook/ch5_discussion_outlook.typ"
   
 #show: back-matter
 #include "tail/biblio.typ"
