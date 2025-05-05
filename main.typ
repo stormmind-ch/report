@@ -1,4 +1,5 @@
 #import "@preview/scholarly-epfl-thesis:0.2.0": template, front-matter, main-matter, back-matter
+#import "@preview/abbr:0.2.3"
 
 #show: template.with(author: "Nils Gämperli, Damian Ueltschi")
 
@@ -20,6 +21,8 @@
 
 #show: front-matter
 #outline(title: "Contents")
+#abbr.list()
+#abbr.load("abbrevations.csv")
 
 
 #show: main-matter
