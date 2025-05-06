@@ -95,13 +95,13 @@ A #abbr.a[RNN] consits of the following components:
   columns: 2, align: center,
   grid.cell([
     #figure(
-      image("images/rnn_simple.png", height: 40%),
+      image("images/rnn_simple.png", height: 20%),
       caption: [#abbr.a[RNN]],
     )<fig:rnn>
   ]),
   grid.cell([
     #figure(
-      image("images/rnn_unrolled.png", height: 40%),
+      image("images/rnn_unrolled.png", height: 20%),
       caption: [4 times unrolled #abbr.a[RNN]],
     )<fig:unrolled_rnn>
   ]),
