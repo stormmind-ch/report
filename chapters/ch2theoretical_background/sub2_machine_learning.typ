@@ -121,13 +121,19 @@ The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow
 
 At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations:
 
-- Input Gate: Decides which new information will be added to the cell state and is calculated as: $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
-- Forget Gate: This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
-- Candidate Cell State: Computes possible candidates $tilde(c_t)$ which can be added to the cell state, computed as: $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$
-- Cell state update: Given the candidates, the cell state can be updated as: $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
-- Output Gate: Determines which part of the cell state influences the hidden state and therefore the output. It is computed with: $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
-- Hidden state update:  The final hidden state is computed by applying the output gate to the activated cell state. It is computed with: $h_t = o_t dot tanh(c_t)$
-Note: $w_i$ represents a complete weight matrix, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function.
+- Input Gate: Decides which new information will be added to the cell state and is calculated as:
+  - $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
+- Forget Gate: This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: 
+  - $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
+- Candidate Cell State: Computes possible candidates $tilde(c_t)$ which can be added to the cell state, computed as: 
+  - $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$
+- Cell state update: Given the candidates, the cell state can be updated as:
+  - $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
+- Output Gate: Determines which part of the cell state influences the hidden state and therefore the output. It is computed with: 
+  - $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
+- Hidden state update:  The final hidden state is computed by applying the output gate to the activated cell state. It is computed with: 
+  - $h_t = o_t dot tanh(c_t)$
+Note: $w_x$ represents a complete weight matrix for each gate, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function.
 
 
 @sherstinskyFundamentalsRecurrentNeural2020 @aggarwalNeuralNetworksDeep2023 @schillingLecture05Sequential2025 @thakurLSTMItsEquations2018
