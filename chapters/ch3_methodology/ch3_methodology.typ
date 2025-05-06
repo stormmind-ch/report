@@ -29,7 +29,7 @@ In a subsequent experiment/*@fnn_experiment*/, snowfall was found to have no sig
 === Data Cleaning
 
 The damage data referenced in @data required several processing steps before it could be used in the modeling phase.
-As noted in @disclaimer, the municipality names correspond to the administrative boundaries of 1996 and are thus not up to date. To identify outdated names, GPS coordinates were retrieved using the Geocoding API @GeocodingAPIAPI. For approximately 300 out of 2759 municipalities, no coordinates could be retrieved. Manual analysis of these cases revealed recurring issues.
+As noted in @disclaimer, the municipality names correspond to the administrative boundaries of 1996 and are thus not up to date. To identify outdated names, GPS coordinates were retrieved using the Geocoding API @OpenCageEasyOpen. For approximately 300 out of 2759 municipalities, no coordinates could be retrieved. Manual analysis of these cases revealed recurring issues.
 
 For some incidents, as described in @data, #abbr.s[WSL] could not determine the exact location and had to assign them to a canton (30 of 28,515 cases), region (3), or district (10). Due to their low frequency, these entries were excluded from the dataset.
 
