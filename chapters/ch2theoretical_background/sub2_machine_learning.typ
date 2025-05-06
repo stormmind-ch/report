@@ -1,20 +1,19 @@
 #import "@preview/abbr:0.2.3"
-
 == Machine Learning
 Machine Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.pla[NN] architectures, as they form the core modeling approach used in this project.
 
 
-=== Neural Networks<nn>
-#abbr.pla[NN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.pla[NN] mimic this behavior by using computational units, also called neurons, connected by weighted links. These weights are adjusted during training to improve the model's predictions, analogous to synaptic strength adjustments in the brain.
+=== Feedforward Neural Networks<fnn>
+#abbr.pla[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.pla[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links. These weights are adjusted during training to improve the model's predictions, analogous to synaptic strength adjustments in the brain.
 
-Each artificial neuron receives inputs, scales them using learned weights, applies a non-linear activation function, and forwards the result to subsequent neurons. Through this architecture, an #abbr.a[NN] models complex functions by propagating signals from input to output layers. Learning in #abbr.pla[NN] occurs via exposure to training data consisting of input–output pairs. The network adjusts its weights to reduce the difference between its predictions and the target outputs, thereby minimizing the prediction error.
+Each artificial neuron receives inputs, scales them using learned weights, applies a non-linear activation function, and forwards the result to subsequent neurons. Through this architecture, an #abbr.a[FNN] models complex functions by propagating signals from input to output layers. Learning in #abbr.pla[FNN] occurs via exposure to training data consisting of input–output pairs. The network adjusts its weights to reduce the difference between its predictions and the target outputs, thereby minimizing the prediction error.
 
-While the biological analogy is imperfect, it has historically guided the development of neural architectures. More formally, #abbr.pla[NN] can also be viewed as compositions of simple mathematical units—such as logistic or linear regressors—structured into a computational graph. Their expressive power arises from stacking these units into deeper networks, enabling them to approximate highly non-linear relationships in data. This capacity to learn from examples and generalize to unseen inputs makes #abbr.pla[NN] a powerful tool in modern machine learning.
+While the biological analogy is imperfect, it has historically guided the development of neural architectures. More formally, #abbr.pla[FNN] can also be viewed as compositions of simple mathematical units—such as logistic or linear regressors—structured into a computational graph. Their expressive power arises from stacking these units into deeper networks, enabling them to approximate highly non-linear relationships in data. This capacity to learn from examples and generalize to unseen inputs makes #abbr.pla[FNN] a powerful tool in modern machine learning.
 
 
 *Architecture*
 
-An #abbr.a[NN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic Graph with inter-connections. It contains a set of neurons distributed in different layers.
+An #abbr.a[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic Graph with inter-connections. It contains a set of neurons distributed in different layers.
 - Each neuron has a activation function.
 - The first layer, shown on the left side in @nn-img, is called the input layer and has no predacessors in the inter-connection graph. Additionally, is their input value the same as their output value.
 - The last layer, shown on the right side in @nn-img, is called the output layer and have no successors in the inter-connection graph. Their value represents the output of the Network
@@ -27,7 +26,7 @@ caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSV
 
 *Computation of the Output* 
 
-The calculation of the output of the #abbr.a[NN] is also called a forward pass. To do so, the value of each neuron needs to be calculated. This is done by summing all the inputs and then put this value into a given activation function. Mathematically, this process can be represented as: $y = f(sum_i^n xi_i)$ wher $f$ represents the activation function of the neuron and $xi_i$ the input or also called the potential of a neuron. To compute a full forward pass, this is done for each neuron from the input layer towards the output layer. When a value is passed throughtouh a weight to a successor neuron, the value is multiplied by the value of the weight. This process can then be summarized to:
+The calculation of the output of the #abbr.a[FNN] is also called a forward pass. To do so, the value of each neuron needs to be calculated. This is done by summing all the inputs and then put this value into a given activation function. Mathematically, this process can be represented as: $y = f(sum_i^n xi_i)$ wher $f$ represents the activation function of the neuron and $xi_i$ the input or also called the potential of a neuron. To compute a full forward pass, this is done for each neuron from the input layer towards the output layer. When a value is passed throughtouh a weight to a successor neuron, the value is multiplied by the value of the weight. This process can then be summarized to:
 
 #math.equation(block: true, supplement: auto, 
 $
@@ -78,11 +77,12 @@ where $P$ is the number of training patterns, $N$ the number of output neurons, 
     w_(i j)(t + 1) = w_(i j) + Delta_E w_(i j) (t) \
     Delta_E w_(i j) = - (partial E) / (partial w_(i j)) = - (partial E) / (partial y_j) (partial y_j) / (partial xi_j) (partial xi_j) / (partial w_(i j))
   $
-)
+)#cite(<mrazovaMultilayeredNeuralNetworks>)
+
 where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$ and $w_(i j)$ the weight with index $i$ at layer $j$.
 
 === Recurrent Neural Networks
-The feedforward #abbr.pla[NN] discussed in @nn are inherently limited to fixed-size, unordered input representations. This makes them unsuitable for sequential data, where both the order and length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]
+The feedforward #abbr.pla[FNN] discussed in @fnn are inherently limited to fixed-size, unordered input representations. This makes them unsuitable for sequential data, where both the order and length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]
 
 *Architecture*
 A #abbr.a[RNN] consits of the following components:
