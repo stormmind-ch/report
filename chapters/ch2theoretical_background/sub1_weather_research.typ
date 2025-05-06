@@ -1,20 +1,33 @@
 == Weather Research<weather-research>
 
-The reasons mentioned in this section are neighter complete nor all the reasons for the in @dmg_xl listed damages. During a conversation @liechtiAustauschUnwetterschaedenUnd2025 with K. Liechti some causes were discussed and even less causes were used for the model. The discussed influencing factures were: \
-*Topological gradients*: Were the question was if there are some known thresholds of slope in percentage or degree that separates low intermediat and high risk of landslide. Sadly the answer was no and with the limited research time due to the deadline of this thesis, googleearches as well did not profide any usefull answer.\
-*Forrest/deforrestation*: According to Wikipedia@Erdrutsch2025 deforrestation contributes to landslides by killing the trees and therefore killing the ground stabilizing roots. K. Liechti confirmed this statement but also pointet to the fact that a forrest has a significant weight and therefore can contribute to landlside too. To make use of this information, additional research and information is necessary and therfore deprioritized due to time constraints. \
-*Soil condition*: _specified in each toppic_\
-*ground frost*: Frozen soil has a better cohisiv strength and therefore prevents landslide.\
-*rainfall*: Is linked to soil condition and is specifical mentioned in each toppic.\
-*snowfall*: The active process of snowfall does not influence any of the damages of interest but it provides the ressource (snow) that is used in the snow melt.\
-*snow melt*: Does definitifely contribute to the amount of released water and has the same effect as rainfall.
-*small animals and other organisms in the forest soil*: This is not part of K. Liechtis expertiese and was deprioritized due to time constraints.\
+The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with K. Liechti (@liechtiAustauschUnwetterschaedenUnd2025), several contributing factors were discussed, of which only a subset were considered in the model. The discussed influencing factors were:\
+
+*Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. Unfortunately, the answer was negative. Due to time constraints during the thesis project, further research — e.g., literature reviews — could not provide any conclusive information.\
+
+*Forest/Deforestation*: According to Wikipedia (@Erdrutsch2025), deforestation contributes to landslides by eliminating trees, thereby destroying the stabilizing effect of their roots. K. Liechti confirmed this statement but also pointed out that forests themselves possess considerable weight, which may also contribute to slope instability. Applying this insight would require additional data and investigation, and was therefore deprioritized due to time limitations.\
+
+*Soil condition*: This factor is discussed in detail within each relevant subsection.\
+
+*Ground frost*: Frozen soil exhibits increased cohesive strength, which helps prevent landslides.\
+
+*Rainfall*: Closely linked to soil conditions; specifically addressed in each subsection.\
+
+*Snowfall*: Snowfall itself does not directly cause the damages under investigation but serves as a source for later snowmelt.\
+
+*Snowmelt*: Significantly contributes to the total volume of water input and has effects comparable to rainfall.\
+
+*Small animals and soil organisms*: This topic lies outside the scope of K. Liechti's expertise and was excluded from further consideration due to limited time.\
 
 === Reason for Flooding
-Flooding is primarily mitigated by the soil's capacity to absorb water. The composition of the topsoil is the most apparent variable: a non-permeable surface such as rock or compacted clay prevents any infiltration, resulting in the entirety of the applied water contributing to surface runoff. In contrast, permeable substances such as sand or loose soil can absorb substantial amounts of water, depending on their depth (further details in @rfls). However, even permeable ground can become temporarily impermeable during early spring when it is frozen. All of these mechanisms are governed by the amount of applied water, which originates either from rainfall or melting snow.@liechtiAustauschUnwetterschaedenUnd2025
 
-Prolonged precipitation supplies a continuous input of water to the soil. If the ground is permeable and allows for both infiltration and subsurface drainage, the impact remains limited. However, if the infiltrated water cannot drain away, the soil will gradually saturate. Once its maximum capacity is reached, even originally permeable ground becomes effectively impermeable and behaves similarly to rock or clay, promoting surface runoff.
-Furthermore, sudden and sustained temperature increases — possible indicative of intense snowmelt — can significantly augment the water load applied to the soil in addition to rainfall.@liechtiAustauschUnwetterschaedenUnd2025
+Flooding is primarily mitigated by the soil's capacity to absorb water. The composition of the topsoil is the most relevant factor: a non-permeable surface, such as rock or compacted clay, prevents infiltration, resulting in all water being converted to surface runoff. In contrast, permeable materials such as sand or loose soil can absorb substantial amounts of water, depending on the depth of the soil layer (further details in @rfls). Even permeable ground can temporarily become impermeable during early spring when frozen. All these mechanisms are controlled by the total water input, originating either from rainfall or melting snow @liechtiAustauschUnwetterschaedenUnd2025.
+
+Prolonged precipitation continuously supplies water to the soil. If the ground is permeable and enables both infiltration and subsurface drainage, the overall impact remains limited. However, when the absorbed water cannot drain away, saturation occurs. Once the soil reaches full capacity, it effectively becomes impermeable—regardless of its natural permeability—and behaves like rock or clay, leading to increased surface runoff.  
+In addition, sudden and sustained temperature increases—often indicative of significant snowmelt—can further augment the water load on the soil surface alongside rainfall @liechtiAustauschUnwetterschaedenUnd2025.
 
 === Reason for Landslide<rfls>
-One of the three obvious reasons for landslide is loose gravel or loose rocks but the are not directly influenced by the current weather and therefore this reason was neglected. Another reason is: Water flows into small cracks in the bedrock and expands them at subzero temperatures, causing the loosening of previously solid rock (Hauptprozess: Sturz). The third and final reason taken into account is the water absorbtion capacity of loose soil e.g. dirt. By absorbing a substantial amount of water, the ground mass gains significant amount of weight from dry ()$0.83 k g \/ d m^3$@mariaGewichtNasserErde2020) to wet ($1.6 - 1.76 k g \/ d m^3$@designerpartSchuettgutGewichtBigBag). Due to the gain in weight, the soil looses its capability to stay attached. A subsurface layer of clay limits the amount of absorbt water on the one hand but also facilitates landslide by providing a slippery and distinct survaces betwen types of soil.@liechtiAustauschUnwetterschaedenUnd2025
+
+Of the potential causes for landslides, three were considered. The first—loose gravel or rock—is not directly influenced by current weather conditions and was therefore excluded. The second reason relates to water infiltrating small cracks in bedrock, where it freezes and expands at sub-zero temperatures, causing the rock to fracture (Hauptprozess: *Sturz*).  
+The third and most relevant factor is the water absorption capacity of loose soil (e.g., dirt). As water is absorbed, the soil mass increases in weight—from dry ($0.83 k g \/ d m^3$ @mariaGewichtNasserErde2020) to wet ($1.6 - 1.76 k g \/ d m^3$ @designerpartSchuettgutGewichtBigBag). This gain in mass reduces the soil's ability to remain stable.  
+Additionally, subsurface clay layers limit water infiltration on the one hand, but on the other hand, they promote landslides by forming smooth and slippery interfaces between different soil types and by preventing subsurface drainage.  
+In contrast, a jagged and solid rock surface also impedes subsurface drainage but may reduce landslide risk by mechanically anchoring the overlying soil layer @liechtiAustauschUnwetterschaedenUnd2025.
