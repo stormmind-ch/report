@@ -85,6 +85,7 @@ where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to
 The feedforward #abbr.pla[FNN] discussed in @fnn are inherently limited to fixed-size, unordered input representations. This makes them unsuitable for sequential data, where both the order and length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]
 
 *Architecture*
+
 A #abbr.a[RNN] consits of the following components:
 - Input signal: The external data which is fed into the network at a timestep $n$ and represent the current information which the network is processing.
 - State signal: Also known as the hidden state, represents the memory of the #abbr.a[RNN] for a given neuron. It contains information about the past inputs in the sequence and is updated at each time step based on the current input and the previous state. The hidden state is updated with the following formula: $h_t = f(h_(t-1), x_t)$. After the update, the hidden state of neuron $i$ serves as input into the neuron $i+1$ 
