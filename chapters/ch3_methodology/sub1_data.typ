@@ -51,10 +51,14 @@ After collecting all relevant datasets, a series of preprocessing steps were app
 
 *Adding  Non-damage Data*: 
 
-The original dataset, discussed in @data provided by #abbr.a[WSL] contained only records of storm damage events, each described by the attributes: Date, Municipality, Main Process, and Extent of Damage. However, to train a forecasting model, it was necessary to include days and locations with no reported damage. Therefore, the dataset was extended by computing the Cartesian product of: $ "Dates" times "municiaplities" $ Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on @AmtlichesGemeindeverzeichnisSchweiz of 2024. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was raported, the fields `Extent of Damage`and `Main Process`were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52,399,36 rows of which:
-  - 52,372,088 represented non-damage instances
-  - 24,613 corresponded to small damage events
-  - 1,800 were classified as medium damage
+The original dataset, discussed in @data provided by #abbr.a[WSL] contained only records of storm damage events, each described by the attributes: Date, Municipality, Main Process, and Extent of Damage. However, to train a forecasting model, it was necessary to include days and locations with no reported damage. Therefore, the dataset was extended by computing the Cartesian product of: 
+$ 
+  "Dates" times "Municiaplities" 
+$ 
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was raported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52,399,36 rows of which:
+  - 52'372'088 represented non-damage instances
+  - 24'613 corresponded to small damage events
+  - 1'800 were classified as medium damage
   - 859 indicated large-scale damages
 
 *Spatial Clustering*: 
@@ -63,7 +67,18 @@ To address the extreme class imbalance and to comply with #abbr.pla[WSL] data us
 $
 sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2 
 $ @23Clustering
-where $mu_j$ denotes the the centroid of cluster $j$. This was implemented using the `KMeans`algorithim from SciKitLearn @ScikitlearnMachineLearning. Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $k$ time series, one for each cluster. 
+where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the `KMeans` algorithim from SciKitLearn @ScikitlearnMachineLearning. 
+
+To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: `random_state`= $42$ and `n_init` = $10$.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning
+
+@6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. The black crosses indicate the centroids of the respective clusters.
+
+#figure(
+  image("images/kmeans-clusters6-plot.png", width: 60%),
+caption: [Example clustering of all Swiss municiaplities with $k=6$]
+)<6-clusters>
+
+Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $k$ time series, one for each cluster.
 
 *Temporal Grouping*: 
 

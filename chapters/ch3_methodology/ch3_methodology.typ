@@ -6,7 +6,7 @@
 #include "sub1_data.typ"
 
 == Deep Learning Experiments <experiemnt-set-up>
-#include "sub1_deep_learning_experiments.typ"
+#include "sub2_deep_learning_experiments.typ"
 
 == Software Engineering
 
