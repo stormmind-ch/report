@@ -39,7 +39,7 @@ The input to the #abbr.a[FNN] consisted of three weather-related variables: mean
 
 *Training*
 
-The Feedforward Neural Network was trained to minimize the weighted cross-entropy loss, using class weights computed via sklearn's @ScikitlearnMachineLearning `compute_class_weight` function. This approach addresses class imbalance in the training data by assigning higher loss penalties to underrepresented classes. The computed class weights were passed to the PyTorch @PyTorchFoundation `CrossEntropyLoss` function, allowing the model to pay more attention to minority class predictions.
+The Feedforward Neural Network was trained to minimize the weighted cross-entropy loss, using class weights computed via sklearn's @ScikitlearnMachineLearning `compute_class_weight` function. This approach addresses class imbalance in the training data by assigning higher loss penalties to underrepresented classes. The computed class weights were passed during initailitation to the PyTorch @PyTorchFoundation `CrossEntropyLoss` function, allowing the model to pay more attention to minority class predictions.
 
 We used the Adam @kingmaAdamMethodStochastic2017 optimizer with a learning rate of $1e^(-4)$, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks involving sparse gradients. To further improve training stability and avoid overfitting, we employed a learning rate scheduler (`ReduceLROnPlateau`), which reduces the learning rate by a factor of 0.5 if the validation loss does not improve for 5 consecutive epochs.
 
