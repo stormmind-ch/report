@@ -128,7 +128,7 @@ The internal structure of an #abbr.a[LSTM] cell is shown in @lstm-illustration. 
 
 @lstm-illustration shows an illustration of an #abbr.a[LSTM] Cell. 
 #figure(
-  image("images/LSTM_Cell_illustration.001.png"),
+  image("images/LSTM_Cell_illustration.png"),
   caption: [Visualisation of an #abbr.a[LSTM] cell]
   )<lstm-illustration>
 
