@@ -90,7 +90,8 @@ A #abbr.a[RNN] consits of the following components:
 - Input signal: The external data which is fed into the network at a timestep $n$ and represent the current information which the network is processing.
 - State signal: Also known as the hidden state, represents the memory of the #abbr.a[RNN] for a given neuron. It contains information about the past inputs in the sequence and is updated at each time step based on the current input and the previous state. The hidden state is updated with the following formula: $h_t = f(h_(t-1), x_t)$. After the update, the hidden state of neuron $i$ serves as input into the neuron $i+1$ 
 - Weights: The weights of the #abbr.a[RNN] neurons are shared among all different states. 
-- Output: Each neuron has a output, which is denoted as $y_1$ - $y_4$ in @fig:unrolled_rnn. This output can serve as the output for the current state or as input into the next neuron.
+- Output: Each neuron has a output, which is denoted as $y_1$ - $y_4$ in @fig:unrolled_rnn. This output can serve as the output for the current state or as input into the next neuron. 
+@schillingLecture05Sequential2025, @aggarwalNeuralNetworksDeep2023
 
  #grid(
   columns: 2, align: center,
@@ -107,34 +108,61 @@ A #abbr.a[RNN] consits of the following components:
     )<fig:unrolled_rnn>
   ]),
 )
+
+
 *Vanishing Gradient Problem*
 
 The #abbr.a[VGP] is a challenge encountered during the training of of #abbr.pla[RNN], particullary dealing with deep #abbr.pla[RNN] and long input sequences. It arieses from the way how gradients are updated during the backpropagation algorithm (discussed in @backprop), which updates the network's paramertes / weights by propagating gradients backward through each time step. In backpropagation, gradients are computed via the chain rule, resulting in repeated multiplication of weight matrices and derivatives of activation functions across time steps. When these values are consistently smaller than one, the gradients exponentially decrease as they traverse earlier layers or time steps. Consequently, the gradients become vanishingly small, leading to negligible updates for earlier parameters and impairing the network's ability to learn long-range dependencies. The same principle aries, when the gradients become too large. In this case, the problem is called the exploding gradient problem.
 
+@aggarwalNeuralNetworksDeep2023
 
 
 
 === Long Short Term Memory Neural Networks
-#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the problem of Vanishing Gradients while having a more fine-grained control over the previous input data. #abbr.pla[LSTM] are an enhanement of #abbr.pla[RNN], because the recurrence conditaions of how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
+#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the problem of Vanishing Gradients while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. #abbr.pla[LSTM] are an enhanement of #abbr.pla[RNN], because the recurrence conditaions of how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
 The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow of information using a set of gating mechanisms. These gates regulate how information is added to, removed from, or exposed from the cell state. Each gate is implemented as a sigmoid-activated neural layer and serves a distinct role in the update process.
 
 *Architecture*
 
+The internal structure of an #abbr.a[LSTM] cell is shown in @lstm-illustration. The figure illustrates how, at each time step $t$, the cell takes in the input vector $x_t$, the previous hidden state $h_(t-1)$, and the previous cell state $c_(t-1)$, and uses them to compute updated values for the current cell state $c_t$ and hidden state $h_t$. The colored regions in the diagram correspond to the core gating components: the Forget Gate (blue), Input Gate (green), and Output Gate (red), each of which plays a role in regulating the flow of information.
+
+@lstm-illustration shows an illustration of an #abbr.a[LSTM] Cell. 
+#figure(
+  image("images/LSTM_Cell_illustration.001.png"),
+  caption: [Visualisation of an #abbr.a[LSTM] cell]
+  )<lstm-illustration>
+
 At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations:
 
-- Input Gate: Decides which new information will be added to the cell state and is calculated as:
-  - $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
-- Forget Gate: This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: 
+- Forget Gate (shown in the blue part of @lstm-illustration): This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: 
   - $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
+- Input Gate (shown in the green part of @lstm-illustration ): Decides which new information will be added to the cell state and is calculated as:
+  - $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
+- Output Gate (shown as the red part in @lstm-illustration): Determines which part of the cell state influences the hidden state and therefore the output. It is computed with: 
+  - $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
 - Candidate Cell State: Computes possible candidates $tilde(c_t)$ which can be added to the cell state, computed as: 
   - $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$
 - Cell state update: Given the candidates, the cell state can be updated as:
   - $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
-- Output Gate: Determines which part of the cell state influences the hidden state and therefore the output. It is computed with: 
-  - $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
 - Hidden state update:  The final hidden state is computed by applying the output gate to the activated cell state. It is computed with: 
   - $h_t = o_t dot tanh(c_t)$
 Note: $w_x$ represents a complete weight matrix for each gate, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function.
 
+@PyTorchFoundation, @thakurLSTMItsEquations2018  
 
-@sherstinskyFundamentalsRecurrentNeural2020 @aggarwalNeuralNetworksDeep2023 @schillingLecture05Sequential2025 @thakurLSTMItsEquations2018
+=== Transformer
+With the advent of Large Language Models and influential works such as Attention Is All You Need @vaswaniAttentionAllYou2023, Transformer architectures have gained significant traction in the field of machine learning. Originally developed for natural language processing tasks, Transformers have since been successfully adapted to a variety of domains, such as time series forcasting as shown by Q. Wen et. al. in  "Transformers in Time Series: A Survey" @wenTransformersTimeSeries2023 due to their ability to model long-range dependencies.
+
+In the following section, the core components and mechanisms of the Transformer architecture are outlined. Furthermore, special emphasis is placed on its applicability to time series forecasting—a setting in which capturing temporal patterns and complex dependencies is crucial.
+
+*Architecture*
+
+Transformers follow a Encoder-Decoder Architecture which is illustrated in @encoder-decoder-architecture-ill
+#figure(
+  image("images/encoder_decoder_architecture_illustration.png"),
+  caption: [Encoder Decoder Architecture Illustrated]
+)<encoder-decoder-architecture-ill>
+
+To dive into the architecture of the Transformer model, we need to describe the 
+
+@vaswaniAttentionAllYou2023
