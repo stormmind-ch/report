@@ -23,11 +23,11 @@ As shown in @datasets_split dataset was temporally split into training, validati
 
 
 
-==== Feedforward Neural Network<fnn_setup>
+==== #abbr.l[FNN]<fnn_setup>
 Our first experiment employed a baseline #abbr.l[FNN], whose architecture is illustrated in @fnn_experiment. The network consists of 10 fully connected layers with ReLU activation functions. The model was trained using the Adam optimizer and crossentropyloss.
 
 #figure(
-  image("images/fnn_illustartion.png", width: 60%),
+  image("images/fnn_illustartion-experiment1.png"),
   caption: [Illustration of the used #abbr.a[FNN]]
   )<fnn_experiment>
 
@@ -47,9 +47,11 @@ Training was performed over 100 epochs using mini-batches of 64 patterns per bat
 
 This training setup was chosen to ensure stable convergence, account for class imbalance, and enable dynamic adjustment of the learning rate during training.
 
-==== Long Short Term Neural Network
+==== #abbr.l[LSTM]
 TBD
 
+=== Transformer
+TBD
 
 
 
