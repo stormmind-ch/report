@@ -1,6 +1,6 @@
 #import "@preview/abbr:0.2.3"
-== Machine Learning
-Machine Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.pla[NN] architectures, as they form the core modeling approach used in this project.
+== Deep Learning
+Deep Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.pla[NN] architectures, as they form the core modeling approach used in this project.
 
 
 === Feedforward Neural Networks<fnn>
@@ -20,7 +20,7 @@ An #abbr.a[FNN] trained with backpropagation, which is discussed in @backprop, c
 - All other neurons are grouped in the so called hidden layers. In @nn-img this is represented by the layer in the middle. A neural network can have an arbitrary amount of hidden layers. 
 - The edges in the inter-connection graph, are so called weights, which represent an arbitrary number in $RR$. These weights are updated during the trianing process.
 
-#figure(image("images/Neural_Network_Illustration.png", width: 50%), 
+#figure(image("images/Neural_Network_Illustration.png", width: 60%), 
 caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSVG])
 <nn-img>
 
@@ -97,13 +97,13 @@ A #abbr.a[RNN] consits of the following components:
   columns: 2, align: center,
   grid.cell([
     #figure(
-      image("images/rnn_simple.png", height: 20%),
+      image("images/rnn_simple.png", height: 25%),
       caption: [#abbr.a[RNN]],
     )<fig:rnn>
   ]),
   grid.cell([
     #figure(
-      image("images/rnn_unrolled.png", height: 20%),
+      image("images/rnn_unrolled.png", height: 25%),
       caption: [4 times unrolled #abbr.a[RNN]],
     )<fig:unrolled_rnn>
   ]),
@@ -124,12 +124,14 @@ The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow
 
 *Architecture*
 
-The internal structure of an #abbr.a[LSTM] cell is shown in @lstm-illustration. The figure illustrates how, at each time step $t$, the cell takes in the input vector $x_t$, the previous hidden state $h_(t-1)$, and the previous cell state $c_(t-1)$, and uses them to compute updated values for the current cell state $c_t$ and hidden state $h_t$. The colored regions in the diagram correspond to the core gating components: the Forget Gate (blue), Input Gate (green), and Output Gate (red), each of which plays a role in regulating the flow of information.
+The internal structure of an #abbr.a[LSTM] cell is shown in @lstm-illustration. The figure illustrates how, at each time step $t$, the cell takes in the input vector $x_t$, the previous hidden state $h_(t-1)$, and the previous cell state $c_(t-1)$, and uses them to compute updated values for the current cell state $c_t$ and hidden state $h_t$.
 
 @lstm-illustration shows an illustration of an #abbr.a[LSTM] Cell. 
 #figure(
   image("images/LSTM_Cell_illustration.png"),
-  caption: [Visualisation of an #abbr.a[LSTM] cell]
+  caption: [
+Schematic illustration of an #abbr.a[LSTM] cell highlighting the internal gating structure. The colored blocks represent the three core gates—Forget (blue), Input (green), and Output (red)—and show how they interact with the cell and hidden states to regulate information flow.
+]
   )<lstm-illustration>
 
 At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations:
@@ -157,12 +159,35 @@ In the following section, the core components and mechanisms of the Transformer 
 
 *Architecture*
 
-Transformers follow a Encoder-Decoder Architecture which is illustrated in @encoder-decoder-architecture-ill
+An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. In tasks involving sequential data, such as language modeling or time series forecasting, the model should not have access to future positions when making a prediction. To enforce this constraint, the Transformer uses a technique called masked attention, in which the attention weights for all positions beyond the current one are set to zero. This ensures that, when computing the representation for position $x_n$, the model can only attend to $x_(<n)$ through $x_n$, but not to any $x_(>n)$.
+
+
+
+
+
+#figure(image("images/self-attention.png"),
+caption: [
+Self-attention mechanism illustrated with matrices. All matrices have shape $D dot N$, where $D$ is the sequence length and $N$ is the feature dimension. The input matrix is projected into three separate matrices: Queries ($Q$), Keys ($K$), and Values ($V$). The attention weights are computed by multiplying $Q$ with the transpose of $K$, followed by the Softmax function. The result is then used to weight the $V$ matrix, producing the final output as $"Softmax"(Q K^T) dot V$.
+@princeUnderstandingDeepLearning
+]
+)<self-attention-ill>
+
+@vaswaniAttentionAllYou2023, @frank-peter09_Transformers2025, @princeUnderstandingDeepLearning
+
+Transformers follow an encoder–decoder architecture, as illustrated in @encoder-decoder-architecture-ill. In this framework, the encoder processes the full input sequence and produces a contextual representation, called the Encoder Vector as shown in @encoder-decoder-architecture-ill in grey. The decoder uses the Encoder Vector to generate the output sequence token by token. While both encoder and decoder are composed of multiple stacked layers and share a similar modular structure, including feedforward sub-layers, skip connections, and normalization steps. The decoder includes additional mechanisms to ensure autoregressive generation, which refers to the process of generating output tokens one at a time and each token is generated based on all previous generated tokens.
 #figure(
   image("images/encoder_decoder_architecture_illustration.png"),
-  caption: [Encoder Decoder Architecture Illustrated]
+  caption: [Abstracted illustration of the encoder–decoder architecture. The encoder receives an input sequence $x_1, dots, x_n$ and transforms it into a sequence of contextualized representations, here called the Encoder Vector, which is symbolically represented by two arrows to emphasize its role in guiding the decoding process. The encoder vector are passed to the decoder, which generates an output sequence $y_1, dots, y_k$, where the output length $k$ may differ from the input length $n$.@aggarwalNeuralNetworksDeep2023. 
+]
 )<encoder-decoder-architecture-ill>
 
-To dive into the architecture of the Transformer model, we need to describe the 
+Combining the encoder–decoder structure with the attention mechanism results in the full Transformer model. In this architecture, self-attention is used within both the encoder and decoder to enable each position in a sequence to access contextual information from all other positions. 
 
-@vaswaniAttentionAllYou2023
+
+During training, the encoder receives the full observed input sequence, such as past weather patterns over several weeks in the domain of weather forcasting. The decoder is provided with the leftmost portion of the target sequence, which is, the known values from the beginning of the forecast window. For example, if the goal is to predict the temperature over the next 10 days, the decoder might initially receive only a start-of-sequence token or the first known value and must predict the next value in the sequence. To prevent the decoder from accessing future values during training, a masking strategy is applied in the self-attention, layers. This ensures that each prediction depends only on earlier positions in the output sequence, simulating real-world forecasting conditions. The model is trained by comparing each predicted value to the actual value using a suitable loss function such as cross-entropy or mean squared error, depending on the output type. This approach enables the model to learn autoregressive generation, where each future value is predicted step by step, conditioned on both the encoder input and previously predicted outputs. @aggarwalNeuralNetworksDeep2023
+
+
+Although the original Transformer combines encoder and decoder modules, simplified variants such as BERT and GPT-3 omit either the decoder or encoder component. BERT uses an encoder-only architecture suited for classification and representation tasks, while GPT-3 is built on a decoder-only architecture optimized for generative tasks.
+@frank-peter09_Transformers2025
+
+
