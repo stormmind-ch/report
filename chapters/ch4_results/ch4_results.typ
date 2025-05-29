@@ -13,6 +13,22 @@ INSERT COMPARISON OF ALL MODELS TABLE
 
 #include "sub1_fnn.typ"
 #include "sub2_lstm_nn.typ"
+#include "sub3_transformer.typ"
+
+== Combined
+== Conclusion
+
+#figure(
+table(
+  columns: 5,
+  [*Model*], [Accuracy], [Precision], [F1], [AUC],
+
+  [FNN], [], [], [], [],
+  [LSTM], [0.703], [0.672], [0.676], [0.747],
+  [Transformer], [], [], [],[]
+),
+caption: [Results of the different experiments on the hold out test set]
+)<moel-comparision>
 
 == Software Results
 
