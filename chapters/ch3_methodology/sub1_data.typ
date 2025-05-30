@@ -1,8 +1,9 @@
 #import "@preview/abbr:0.2.3"
-The basis of the data was provided by the #abbr.a[WSL]. The correspondence partner was K. Liechti, who provided valuable insights into the data as well as into the relevant geographical and meteorological processes.
-To comply with the legal restrictions cited in @disclaimer, the use of #abbr.pla[WSL] data in this thesis was limited. These limitations ultimately proved beneficial to the modeling process, as demonstrated by the experiments.
+The underlying data was provided by the #abbr.a[WSL], with Dr. K. Liechti serving as the primary contact. Her contributions offered valuable insights not only into the dataset itself but also into the relevant geographical and meteorological processes.
 
-The sources for the recorded incidents were Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.
+In accordance with the legal restrictions outlined in @disclaimer—specifically, the rounding of damage values and the aggregation of location data—the use of #abbr.pla[WSL] data in this thesis was subject to certain limitations. Interestingly, these constraints ultimately proved advantageous for the modeling process, as evidenced by the experimental results.
+
+The sources for the recorded incidents were local and regional Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.
 
 As outlined in @weather-features, the scope of the dataset was extensive. The features selected for this thesis were limited to the following: “Gemeindenamen”, “Datum”, “Hauptprozess”, and “Schadensausmass”, which were identified as the most relevant variables related to damage.
 

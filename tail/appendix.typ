@@ -1,4 +1,7 @@
 #import "@preview/abbr:0.2.3"
+
+#set heading(numbering: "A.1.1", supplement: [Appendix])
+
 = Appendix
 
 //== Informationen zu den Daten aus der Unwetterschadens-Datenbank WSL

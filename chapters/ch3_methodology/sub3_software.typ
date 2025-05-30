@@ -12,8 +12,8 @@
   caption: [
     web routing: created with
     apple freeform, laptop from chatgpt
-    (prompt: erstelle mir ein png eines minimalistischen
-    laptops ohne hintergrund)
+    (prompt: "erstelle mir ein png eines minimalistischen
+    laptops ohne hintergrund")
 
   ],
 )
