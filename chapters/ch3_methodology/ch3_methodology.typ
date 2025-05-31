@@ -1,7 +1,7 @@
 #import "@preview/abbr:0.2.3"
 #import "@preview/abbr:0.2.3"
 = Methodology
-
+TODO write introduction
 == Data<data>
 #include "sub1_data.typ"
 

@@ -69,16 +69,21 @@ sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2
 $ @23Clustering
 where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the `KMeans` algorithim from SciKitLearn @ScikitlearnMachineLearning. 
 
-To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: `random_state`= $42$ and `n_init` = $10$.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning
-
-@6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. The black crosses indicate the centroids of the respective clusters.
+To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: `random_state`= $42$ and `n_init` = $10$.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
 
 #figure(
   image("images/kmeans-clusters6-plot.png", width: 60%),
-caption: [Example clustering of all Swiss municiaplities with $k=6$]
+caption: [Example clustering of all Swiss municiaplities with $k=6$. The black crosses indicate the centroids of the respective clusters.]
 )<6-clusters>
 
+Determining the optimal number of clusters proved challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a range of cluster counts between $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters.
+#figure(image("images/kmeans-cluster-elbow.png", width: 60%),
+caption: [Elbow plot showing the number of clusters on the x-axis and the corresponding within-cluster sum of squares (WCSS) on the y-axis]
+)<elbow-plot>
+
 Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $k$ time series, one for each cluster.
+
+To choose the right size of clusters, we used the "Elbow Method" 
 
 *Temporal Grouping*: 
 

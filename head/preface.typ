@@ -1,8 +1,5 @@
 // English abstract
 = Preface
+*TODO*
 
-#lorem(100)
-
-#lorem(50)
-
-Key words:// put your text here
+Key words: Machine Learning, Timeseries Forecasting, Software Engineering
