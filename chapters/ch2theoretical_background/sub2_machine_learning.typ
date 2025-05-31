@@ -199,8 +199,7 @@ To address this limitation, positional encodings are introduced to inject inform
 This encoding matrix $P_i$ can either be fixed e.g. using sinus function as it was done in "Attention is All You Need" @vaswaniAttentionAllYou2023 or learned during training. 
 By learning absolute position information in this way, the Transformer model gains the ability to capture the sequential structure of the data, which is essential for tasks like damage forecasting or language understanding.
 
-
-
+*Encoder Decoder*
 
 Transformers follow an encoder–decoder architecture, as illustrated in @encoder-decoder-architecture-ill. In this framework, the encoder processes the full input sequence and produces a contextual representation, called the Encoder Vector as shown in @encoder-decoder-architecture-ill in grey. The decoder uses the Encoder Vector to generate the output sequence token by token. While both encoder and decoder are composed of multiple stacked layers and share a similar modular structure, including Multi Head Attention Layers, feedforward sub-layers, skip connections, and normalization steps. The decoder includes additional mechanisms to ensure autoregressive generation, which refers to the process of generating output tokens one at a time and each token is generated based on all previous generated tokens.
 #figure(
@@ -211,7 +210,6 @@ Transformers follow an encoder–decoder architecture, as illustrated in @encode
 
 
 Combining the encoder–decoder structure with the attention mechanism results in the full Transformer model. In this architecture, self-attention is used within both the encoder and decoder to enable each position in a sequence to access contextual information from all other positions. 
-
 
 During training, the encoder receives the full observed input sequence, such as past weather patterns over several weeks in the domain of weather forcasting. The decoder is provided with the leftmost portion of the target sequence, which is, the known values from the beginning of the forecast window. For example, if the goal is to predict the temperature over the next 10 days, the decoder might initially receive only a start-of-sequence token or the first known value and must predict the next value in the sequence. To prevent the decoder from accessing future values during training, a masking strategy is applied in the self-attention, layers. This ensures that each prediction depends only on earlier positions in the output sequence, simulating real-world forecasting conditions. The model is trained by comparing each predicted value to the actual value using a suitable loss function such as cross-entropy or mean squared error, depending on the output type. This approach enables the model to learn autoregressive generation, where each future value is predicted step by step, conditioned on both the encoder input and previously predicted outputs. @aggarwalNeuralNetworksDeep2023
 
