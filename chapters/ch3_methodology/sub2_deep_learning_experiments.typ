@@ -13,10 +13,13 @@ All features were normalized using Z-score normalization, defined as $Z = (X - m
 
 #figure(
   table(
-    columns: 5,
-    table.header([Set], [Number of Patterns], [Years], [Damages], [No Damages]),
-    [Train], [13'146], [1971–2013], [2872],[10'274],
-    [Test], [3'132], [2013–2023], [910], [2'222]
+    columns: 6,
+    table.header([Nr of Clusters], [Set], [Number of Patterns], [Years], [Damages], [No Damages]),
+    [3],[Train], [6'573], [1971–2013], [2'242],[4'331],
+    [3],[Test], [1'566], [2013–2023], [697], [859],
+    [6],[Train], [13'146], [1971–2013], [2'872],[10'274],
+    [6],[Test], [3'132], [2013–2023], [910], [2'222],
+
   ),
   caption: [Summary of dataset splits used for training and evaluation.]
 )<datasets_split>
@@ -44,7 +47,7 @@ caption: [End-to-end training pipeline, from dataset preparation through cross-v
 
 === Initial Findings and Design Decisions
 
-In the early stages of model development, we conducted exploratory experiments using a prototype model to predict the exact extent of storm damage, framed either as a multi-class classification or regression task. These experiments included variations in the number of clusters $k$ used for spatial grouping. However, initial results revealed that the model consistently converged toward predicting only the majority class or mean value, regardless of the input sequence. This behavior led to deceptively low loss values, while offering poor discriminative power in practice.
+In the early stages of model development, we conducted exploratory experiments using a prototype model to predict the exact extent of storm damage, framed either as a multi-class classification or regression task. These experiments included variations in the number of clusters $k$ used for spatial grouping. However, initial results revealed that the model consistently converged toward predicting only the majority class or mean value, regardless of the input sequence. This behavior led to poor discriminative power in practice.
 
 As shown in @data, the dataset is highly imbalanced, with the vast majority of events corresponding to class 0 (no damage) or low average damage values. This imbalance caused the model to exploit the loss function by minimizing risk through constant prediction of the dominant class. Consequently, it failed to capture meaningful distinctions between damage levels.
 

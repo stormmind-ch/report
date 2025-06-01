@@ -77,7 +77,7 @@ To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @Sci
 caption: [Example clustering of all Swiss municiaplities with $k=6$. The black crosses indicate the centroids of the respective clusters.]
 )<6-clusters>
 
-Determining the optimal number of clusters proved challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a range of cluster counts between $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters.
+Determining the optimal number of clusters proved challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a set of cluster counts with $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters.
 #figure(image("images/kmeans-cluster-elbow.png", width: 60%),
 caption: [Elbow plot showing the number of clusters on the x-axis and the corresponding within-cluster sum of squares (WCSS) on the y-axis]
 )<elbow-plot>

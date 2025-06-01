@@ -12,13 +12,19 @@
 )
 
 = Results
+This chapter presents the outcomes of both the deep learning experiments and the software engineering components developed during this project. Together, these results address the overarching research goal: to build a reliable and interpretable system for binary storm damage forecasting, supported by a user-oriented software solution.
 
+The first part of this chapter focuses on the quantitative evaluation of machine learning models, where different deep learning architectures were compared with respect to their predictive performance on temporally and spatially structured weather data. These results provide empirical insight into how model complexity and spatial clustering affect classification accuracy and robustness under real-world forecasting conditions.
+
+The second part of this chapter presents the outcomes of the software engineering effort. It details the implementation of the system's user interface and back-end components, designed to support decision-making and visualization for storm damage predictions. We report the results of functional testing, performance measurements, and usability considerations for the final application.
+
+By combining rigorous model evaluation with software, this chapter demonstrates both the predictive capabilities and the practical deployment potential of the proposed solution.
 
 == Results of AI Engineering<results-ai>
 The following section presents the results of our comparative evaluation of three deep learning architectures—#abbr.a[FNN], #abbr.a[LSTM], and Transformer—applied to the task of binary storm damage forecasting. This experimental block aims to answer three key questions:
 -  Which architecture achieves the best performance on the held out test set?
 - Does increased model complexity (e.g., through temporal modeling in LSTM or long-range dependency modeling in Transformers) lead to better forecasting performance compared to the baseline #abbr.a[FNN]?
-- How does spatial granularity, operationalized via cluster sizes $k in {3,4,5,6}$, affect model performance? 
+- How does spatial granularity, operationalized via cluster sizes $k in {3, 6}$, affect model performance? 
 
 To assess these dimensions, each model was trained independently on datasets grouped by different cluster counts. For every architecture–cluster configuration, we performed 20 independent training runs to capture the effects of stochasticity in optimization and initialization.
 
@@ -30,7 +36,7 @@ To ensure statistically robust comparisons, we report the mean and variance of a
 
   table.header( [*Clusters*], [*3*],[*4*], [*5*], [*6*]),
    align: center,
-  [*#abbr.a[FNN]*], [$0.66 plus.minus script(3.6e-5)$],[$53% plus.minus script(0.3)$],[$53% plus.minus script(0.3)$],[$53% plus.minus script(0.3)$],
+  [*#abbr.a[FNN]*], [$0.66 plus.minus script(3.6e-5)$],[$0.65 plus.minus script(0.0039)$],[],[],
   [*#abbr.a[LSTM]*],[],[],[],[],
   [*Transformer*],[$0.65 plus.minus script(0.0048)$],[],[],[],
 ),
