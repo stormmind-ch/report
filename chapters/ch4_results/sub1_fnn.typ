@@ -4,16 +4,16 @@
 *Cross Validation Results*
 
 *Test Set Performance*
-#figure(table(columns: 5,
+#figure(table(columns: 4,
   align: center,
 
-  [*Cluster*], [*3*],[*4*], [*5*], [*6*],
+  [*Cluster*], [*3*],[*6*], [*26*], 
 
-  [*Accuracy*],[$67.55% plus.minus script(0.35)$],[],[],[],
-  [*AUC*], [$0.71 plus.minus script(2.2e-5)$],[],[],[],
-  [*F1*], [$0.66 plus.minus script(3.6e-5)$],[],[],[],
-  [*Precision*], [$0.67 plus.minus script(4.9e-5)$],[],[],[],
-  [*Specificity*], [$0.66 plus.minus script(3.5e-5)$],[],[],[],
+  [*Accuracy*],[$67.55% plus.minus script(0.35)$],[],[],
+  [*AUC*], [$0.71 plus.minus script(2.2e-5)$],[],[],
+  [*F1*], [$0.66 plus.minus script(3.6e-5)$],[],[],
+  [*Precision*], [$0.67 plus.minus script(4.9e-5)$],[],[],
+  [*Specificity*], [$0.66 plus.minus script(3.5e-5)$],[],[],
 ),
 caption: [Performance Metrics of the #abbr.a[FNN] model. We provide the mean over the 20 runs and the variance]
 )<fnn-resutls-table>

@@ -5,7 +5,7 @@ The goal of the experiments was to identify the most suitable deep learning arch
 
 *Datasets*
 
-As shown in @datasets_split, the dataset was split temporally into a training set and a hold-out test set in order to simulate realistic forecasting scenarios and to prevent information leakage. The training set spans the years 1971–2013, while the test set covers the period from 2013 to 2023.
+As shown in @datasets_split, the dataset was split temporally into a training set and a hold-out test set in order to simulate realistic forecasting scenarios and to prevent information leakage. The training set spans the years 1972–2013, while the test set covers the period from 2013 to 2023.
 
 To further support model selection and hyperparameter tuning, the training set was divided using 5-fold time-aware cross-validation. Each fold was split into a training and a validation subset. This approach allowed us to assess model generalization performance over temporally consistent data splits, where earlier data was used for training and later data for validation.
 

@@ -84,8 +84,6 @@ caption: [Elbow plot showing the number of clusters on the x-axis and the corres
 
 Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $k$ time series, one for each cluster.
 
-To choose the right size of clusters, we used the "Elbow Method" 
-
 *Temporal Grouping*: 
 
 The data were then aggregated at weekly intervals. For each cluster and week, the total storm damage was computed by summing the mean monetary value assigned to each damage class. Specifically, each daily damage event was replaced by the average monetary damage associated with its class (as derived from the original dataset). Then, the total weekly damage was calculated as:
