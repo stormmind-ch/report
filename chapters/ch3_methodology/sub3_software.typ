@@ -10,7 +10,7 @@ BEcause of its reliability and years of improvement as the base of the backend, 
 *TODO*
 
 #figure(
-  image("images/stormmind_calss_diagramm.png", width: 100%),
+  image("images/stormmind_calss_diagramm.png", width: 87%),
   caption: [
     Class Diagramm: generated from JetBrains IntelliJ IDEA
   ],
