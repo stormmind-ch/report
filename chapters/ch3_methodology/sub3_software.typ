@@ -19,7 +19,7 @@ BEcause of its reliability and years of improvement as the base of the backend, 
 === Frontend
 
 #figure(
-  image("images/web_route_BA_v2.png", width: 100%),
+  image("images/Stormmind_Deployment.png", width: 110%),
   caption: [
     web routing: created with
     apple freeform, laptop from chatgpt
