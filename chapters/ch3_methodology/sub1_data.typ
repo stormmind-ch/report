@@ -3,14 +3,14 @@ The underlying data was provided by the #abbr.a[WSL], with Dr. K. Liechti servin
 
 In accordance with the legal restrictions outlined in @disclaimer—specifically, the rounding of damage values and the aggregation of location data—the use of #abbr.pla[WSL] data in this thesis was subject to certain limitations. Interestingly, these constraints ultimately proved advantageous for the modeling process, as evidenced by the experimental results.
 
-The sources for the recorded incidents were local and regional Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.
+The sources for the recorded incidents were local and regional Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. /*Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.*/
 
 As outlined in @weather-features, the scope of the dataset was extensive. The features selected for this thesis were limited to the following: “Gemeindenamen”, “Datum”, “Hauptprozess”, and “Schadensausmass”, which were identified as the most relevant variables related to damage.
 
-Based on the inputs of K. Liechti, the relevant meteorological variables were identified as sunshine duration, ground temperature, snowfall, and rainfall.\ 
+Based on the inputs of K. Liechti, the relevant meteorological variables were identified as sunshine duration, temperature, snowfall, and rainfall.\ 
 The rationale for this selection is briefly summarized below; detailed explanations can be found in @weather-research:\
 Sunshine hours influence ground temperature, which in turn can cause snowmelt or thaw ground frost.\
-Ground temperature was not available via open-meteo@zippenfenigOpenMeteocomWeatherAPI2023; therefore, the temperature at 2 meters above ground was used as a proxy.\
+The temperature at 2 meters above ground (from @zippenfenigOpenMeteocomWeatherAPI2023) was used, as it provides a more meaningful indication of potential snowmelt. In this context, the influence of frozen ground was considered less significant and therefore not explicitly taken into account.\
 Snowfall can contribute to snowmelt processes later in the seasonal cycle.\
 Rainfall directly contributes to the potential for flooding and can also indirectly increase ground temperature. 
 
@@ -33,7 +33,7 @@ The weather data required less preprocessing. In eight municipalities, occasiona
 The data currently in use was collected with relatively little difficulty. The damage data was kindly provided by K. Liechti from the #abbr.a[WSL] following a formal request via email @liechtiREAnfrageZur2024.
 
 For the collection of weather data, the initial approach was to use official government data provided by MeteoSwiss @MeteoSwissIDAWEBLogin. However, due to the structure of the website and the raw nature of the station-based measurement data, this approach was ultimately abandoned.  
-During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
+During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered.The open-meteo API is an open-source project that aggregates weather data from various national meteorological services @OpenMeteocom. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
 
 To obtain information on soil conditions, the first resource consulted was the Swiss federal geoportal map.geo.admin @MapsSwitzerlandSwiss. However, the format of the data was mostly incompatible with the tools available for this thesis.  
 An alternative considered was the GIS Browser @GISBrowserGeoportalKanton, which is the cantonal equivalent of map.geo.admin @MapsSwitzerlandSwiss. Unfortunately, it posed the same limitations as the federal source.
