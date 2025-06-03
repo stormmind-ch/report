@@ -3,7 +3,7 @@
 
 *Technologies*
 
-BEcause of its reliability and years of improvement as the base of the backend, java was chosen. To imporve the startup time and quickly create functioning code, springboot was the chosen framework. its dependency on new weather data provided through an API arrose the need for a database to relieve the API. ostgreSQL was chosen for its reliability and strong compatibility with standard SQL.
+Java was selected as the backend language due to its reliability and long-standing maturity. To improve startup time and enable rapid development of functional components, the Spring Boot framework was used. Since the system depends on frequently updated weather data provided via an external API, a database was introduced to reduce the load on the API. PostgreSQL was chosen for its robustness and strong compatibility with standard SQL.
 
 *Architecture*
 
@@ -35,7 +35,9 @@ All technically relevant logic components (e.g., services, handlers, business lo
 
 *Technologies*
 
-The Frontend consists of a react/vite repository. The DNS Entree was made on Hosttech and references an instance on the Openstack cluster of ZHAW @LoginOpenStackDashboard
+The frontend of the application is implemented using *React* and structured as a separate repository based on the *Vite* build tool. It follows a modular and maintainable architecture, distinguishing clearly between application logic and user interface components.
+
+Routing is handled on the client side, and the overall structure aligns with modern single-page application principles. The development setup emphasizes performance, scalability, and a clear separation of concerns.
 
 *Test Concept*
 
@@ -43,3 +45,5 @@ Given the small scope of the frontend, automated testing was not conducted. Func
 
 
 === CI/CD and Deployment
+
+Deployment is managed via an instance hosted on the *OpenStack* cluster of ZHAW @LoginOpenStackDashboard, accessible through the *OpenStack Dashboard*. DNS configuration was carried out using *Hosttech*, pointing to the appropriate backend infrastructure.
