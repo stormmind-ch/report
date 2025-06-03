@@ -1,0 +1,73 @@
+---
+config:
+  theme: neutral
+  look: classic
+  layout: elk
+---
+classDiagram
+direction LR
+    class AbstractForecastHandler {
+	    -  next: ForecastRequestHandler
+	    + handle(ForecastRequest) 
+	    + setNext(ForecastRequestHandler) 
+      + doHandle(ForecastRequest) 
+    }
+    class BuildForecastRequestHandler {
+      doHandle(ForecastRequest) 
+    }
+    class ForecastRequestHandler {
+	    + setNext(ForecastRequestHandler) 
+	    + handle(ForecastRequest) 
+    }
+    class ForecastService {
+	    - chain : List<ForecastRequestHandler
+      - head : ForecastRequestHandler 
+	    + getForecastForAllMunicipalities(String) 
+	    + getForecast(String, String) Forecast
+    }
+    class ModelInferenceForecastRequestHandler {
+      - ModelInferenceServiceProvider 
+	    doHandle(ForecastRequest) 
+    }
+    class MunicipalityForecastRequestHandler {
+	    - MunicipalityToClusterPort
+	    - MunicipalityPort
+	    + doHandle(ForecastRequest)
+    }
+    class MunicipalityPort {
+	    + findByName(String) :  Municipality
+	    + findAll() : List
+    }
+    class MunicipalityToClusterPort {
+	    + findByMunicipality(String) : MunicipalityToCluster
+	    + getAllMunicipalityToCluster() : List
+    }
+    class WeatherFetcherProvider {
+	    + getWeatherFetcher(String)
+    }
+    class WeatherForecastRequestHandler {
+	    - WeatherFetcherProvider :  weatherFetcherProvider
+	    doHandle(ForecastRequest) 
+    }
+    class ModelInferenceServiceProvider {
+	    + getModelInferenceService(String) : ModelInferenceService
+    }
+
+	<<Interface>> ForecastRequestHandler
+	<<Interface>> MunicipalityPort
+	<<Interface>> MunicipalityToClusterPort
+	<<Interface>> WeatherFetcherProvider
+	<<Interface>> ModelInferenceServiceProvider
+
+    AbstractForecastHandler ..> ForecastRequestHandler
+    AbstractForecastHandler "1" *--> "next 1" ForecastRequestHandler
+    BuildForecastRequestHandler --> AbstractForecastHandler
+    ForecastService "1" *--> "chain *" ForecastRequestHandler
+    ForecastService "1" *--> "1" MunicipalityToClusterPort
+    ModelInferenceForecastRequestHandler --> AbstractForecastHandler
+    ModelInferenceForecastRequestHandler "1" *--> "1" ModelInferenceServiceProvider
+    MunicipalityForecastRequestHandler --> AbstractForecastHandler
+    MunicipalityForecastRequestHandler "1" *--> "1" MunicipalityPort
+    MunicipalityForecastRequestHandler "1" *--> "1" MunicipalityToClusterPort
+    WeatherForecastRequestHandler --> AbstractForecastHandler
+    WeatherForecastRequestHandler "1" *--> "1" WeatherFetcherProvider
