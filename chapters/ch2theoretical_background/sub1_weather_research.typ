@@ -2,7 +2,7 @@
 == Weather Research<weather-research>
 
 The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with K. Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung
-Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered in the model. The influencing factors discussed were:\
+Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered in the model. The influencing factors discussed were:
 
 *Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. Unfortunately, the answer was negative. Given the limited timeframe of the thesis project, further research — e.g., literature reviews — could not provide any conclusive information.\
 

@@ -38,7 +38,7 @@ For inter-model comparison, we primarily use the macro-averaged F1 score on the 
   table.header( [*Clusters*], [*3*],[*6*], [*26*]),
    align: center,
   [*#abbr.s[FNN]*], [$0.67 plus.minus script(9.5e-6)$],[$0.67 plus.minus script(9.9e-6)$],[],
-  [*#abbr.s[LSTM]*],[$0.67 plus.minus script(2.2e-6)$],[],[],
+  [*#abbr.s[LSTM]*],[$0.67 plus.minus script(2.2e-6)$],[$0.65 plus.minus script(3e-7)$],[],
   [*Transformer*],[$0.68 plus.minus script(1.4e-6)$],[$0.67 plus.minus script(7.9e-8)$],[]
 ),
 caption: [Average test macro F1-score and variance for each model across different spatial cluster configurations.Each value represents the mean F1-score over the top 3 runs from the  20 independent training runs, with the corresponding variance shown. Results are grouped by the number of spatial clusters $k in {3, 6, 26}$ used during data preparation.]

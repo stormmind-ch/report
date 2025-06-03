@@ -7,5 +7,4 @@ The second part introduces the machine learning and deep learning concepts that 
 By combining insights from both atmospheric science and data-driven modeling, this chapter establishes the conceptual framework for the design and implementation of the storm damage forecasting pipeline.
 #include "sub1_weather_research.typ"
 #include "sub2_machine_learning.typ"
-#include "sub3_software_engineering.typ"
 
