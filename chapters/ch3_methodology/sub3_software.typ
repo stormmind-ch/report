@@ -1,18 +1,25 @@
 #import "@preview/abbr:0.2.3"
 === Backend
+
+*Technologies*
+
+BEcause of its reliability and years of improvement as the base of the backend, java was chosen. To imporve the startup time and quickly create functioning code, springboot was the chosen framework. its dependency on new weather data provided through an API arrose the need for a database to relieve the API. ostgreSQL was chosen for its reliability and strong compatibility with standard SQL.
+
+*Architecture*
+
 *TODO*
-==== Technologies
-*TODO*
-==== Architecture
-*TODO*
-We used Clean Architecture by Robert C. Martin @martinCleanArchitectureCraftsmans2018
-#figure(image("images/backend-clean-architecture.png"),
-caption: [Clean Architecture layers])
+
+#figure(
+  image("images/stormmind_calss_diagramm.png", width: 87%),
+  caption: [
+    Class Diagramm: generated from JetBrains IntelliJ IDEA
+  ],
+)
 
 === Frontend
 
 #figure(
-  image("images/web_route_BA_v2.png", width: 100%),
+  image("images/Stormmind_Deployment.png", width: 110%),
   caption: [
     web routing: created with
     apple freeform, laptop from chatgpt
@@ -22,7 +29,7 @@ caption: [Clean Architecture layers])
   ],
 )
 
-==== Technologies
+*Technologies*
 
 The Frontend consists of a react/vite repository. The DNS Entree was made on Hosttech and references an instance on the Openstack cluster of ZHAW @LoginOpenStackDashboard
 

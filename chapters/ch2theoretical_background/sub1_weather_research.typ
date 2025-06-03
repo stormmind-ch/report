@@ -25,8 +25,6 @@ Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing fa
 Flooding is primarily mitigated by the soil's capacity to absorb water. The composition of the topsoil is the most relevant factor: a non-permeable surface—such as rock or compacted clay—prevents infiltration, resulting in all incoming water contributing to surface runoff. In contrast, permeable materials such as sand or loose soil can absorb substantial amounts of water, depending on the depth of the soil layer (as elaborated in @rfls).  
 Even permeable ground can temporarily become impermeable during early spring when frozen. Conversely, drought has a similar effect: extended periods of high temperature and absent precipitation dry out the surface layer of the soil, thereby reducing or even eliminating its ability to absorb water. The behavior of completely dry soil is comparable to that of any other non-permeable material.  
 All of these mechanisms are governed by the total water input, which originates either from rainfall, melting snow, or temperature conditions. @liechtiAustauschUnwetterschaedenUnd2025
-// es referenziert eine besprechung als quelle
-// TODO
 
 Prolonged precipitation continuously supplies water to the soil. If the ground is permeable and allows both infiltration and subsurface drainage, the overall impact remains limited. However, when the absorbed water cannot drain away, saturation occurs. Once the soil reaches full capacity, it effectively becomes impermeable—regardless of its natural permeability—and behaves like rock or clay, leading to increased surface runoff.  
 In addition, sudden and sustained temperature increases—often indicative of significant snowmelt—can further augment the water load on the soil surface alongside rainfall.
