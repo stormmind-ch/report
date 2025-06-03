@@ -7,6 +7,10 @@ BEcause of its reliability and years of improvement as the base of the backend, 
 
 *Architecture*
 
+*Test Concept*
+
+All technically relevant logic components (e.g., services, handlers, business logic classes) are covered by unit tests. These tests verify the behavior of each class in isolation from external dependencies by using mocks or stubs. The goal is to achieve high test coverage of the core logic and to ensure the correct handling of inputs, states, and error scenarios.
+
 *TODO*
 
 #figure(
@@ -33,4 +37,6 @@ BEcause of its reliability and years of improvement as the base of the backend, 
 
 The Frontend consists of a react/vite repository. The DNS Entree was made on Hosttech and references an instance on the Openstack cluster of ZHAW @LoginOpenStackDashboard
 
-=== Test Concept
+*Test Concept*
+
+Given the small scope of the frontend, automated testing was not conducted. Functional correctness was instead ensured through manual testing during development.
