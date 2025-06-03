@@ -1,9 +1,13 @@
 #import "@preview/abbr:0.2.3"
 === Backend
-
+*TODO*
 ==== Technologies
-
+*TODO*
 ==== Architecture
+*TODO*
+We used Clean Architecture by Robert C. Martin @martinCleanArchitectureCraftsmans2018
+#figure(image("images/backend-clean-architecture.png"),
+caption: [Clean Architecture layers])
 
 === Frontend
 

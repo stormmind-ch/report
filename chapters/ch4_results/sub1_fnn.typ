@@ -9,11 +9,11 @@
 
   [*Cluster*], [*3*],[*6*], [*26*], 
 
-  [*Accuracy*],[$67.55% plus.minus script(0.35)$],[],[],
-  [*AUC*], [$0.71 plus.minus script(2.2e-5)$],[],[],
-  [*F1*], [$0.66 plus.minus script(3.6e-5)$],[],[],
-  [*Precision*], [$0.67 plus.minus script(4.9e-5)$],[],[],
-  [*Specificity*], [$0.66 plus.minus script(3.5e-5)$],[],[],
+  [*Accuracy*],[$67.55% plus.minus script(0.35)$],[$70.68% plus.minus script(0.56)$],[],
+  [*AUC*], [$0.71 plus.minus script(2.2e-5)$],[$0.72 plus.minus script(5.5e-5)$],[],
+  [*F1*], [$0.66 plus.minus script(3.6e-5)$],[$0.67 plus.minus script(9.9e-6)$],[],
+  [*Precision*], [$0.68 plus.minus script(3.8e-5)$],[$0.66 plus.minus script(6.7e-6)$],[],
+  [*Specificity*], [$0.66 plus.minus script(3.5e-5)$],[$0.68 plus.minus script(3.3e-5)$],[],
 ),
 caption: [Performance Metrics of the #abbr.a[FNN] model. We provide the mean over the 20 runs and the variance]
 )<fnn-resutls-table>

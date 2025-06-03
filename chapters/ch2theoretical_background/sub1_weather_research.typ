@@ -1,3 +1,4 @@
+#import "@preview/abbr:0.2.3"
 == Weather Research<weather-research>
 
 The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with K. Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung

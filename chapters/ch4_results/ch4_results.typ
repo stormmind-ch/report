@@ -24,7 +24,7 @@ By combining rigorous model evaluation with software, this chapter demonstrates 
 The following section presents the results of our comparative evaluation of three deep learning architectures, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, applied to the task of binary storm damage forecasting. This experimental block aims to answer three key questions:
 -  Which architecture achieves the best performance on the held out test set?
 - Does increased model complexity (e.g., through temporal modeling in LSTM or long-range dependency modeling in Transformers) lead to better forecasting performance compared to the baseline #abbr.a[FNN]?
-- How does spatial granularity, operationalized via cluster sizes $k in {3, 6}$, affect model performance? 3 and 6 were chosen as number of clusters due to the highest decreasing within sum of cluster centroid as described in @data. The number of 26 was chosen as it aligns with the number of Cantons of Switzerland and we wanted to test on a more finer granularity.
+- How does spatial granularity, operationalized via cluster sizes $k in {3, 6, 26}$, affect model performance? 3 and 6 were chosen as number of clusters due to the highest decreasing within sum of cluster centroid as described in @data. The number of 26 was chosen as it aligns with the number of Cantons of Switzerland and we wanted to test on a more finer granularity. It is explicitly stated that the constructed clusters do not precisely correspond to the canton borders, as municipalities are assigned to clusters using the K-means algorithm, as detailed in @data_preparation.
 
 To assess these dimensions, each model was trained independently on datasets grouped by different cluster counts. For every architecture–cluster configuration, we performed 20 independent training runs to capture the effects of stochasticity in optimization and initialization.
 
@@ -37,9 +37,9 @@ For inter-model comparison, we primarily use the macro-averaged F1 score on the 
 
   table.header( [*Clusters*], [*3*],[*6*], [*26*]),
    align: center,
-  [*#abbr.a[FNN]*], [$0.67 plus.minus script(9.5e-6)$],[],[],
-  [*#abbr.a[LSTM]*],[$0.67 plus.minus script(2.2e-6)$],[],[],
-  [*Transformer*],[$0.68 plus.minus script(1.4e-6)$],[],[]
+  [*#abbr.s[FNN]*], [$0.67 plus.minus script(9.5e-6)$],[$0.67 plus.minus script(9.9e-6)$],[],
+  [*#abbr.s[LSTM]*],[$0.67 plus.minus script(2.2e-6)$],[],[],
+  [*Transformer*],[$0.68 plus.minus script(1.4e-6)$],[$0.67 plus.minus script(7.9e-8)$],[]
 ),
 caption: [Average test macro F1-score and variance for each model across different spatial cluster configurations.Each value represents the mean F1-score over the top 3 runs from the  20 independent training runs, with the corresponding variance shown. Results are grouped by the number of spatial clusters $k in {3, 6, 26}$ used during data preparation.]
 )<model-comparison-to-cluster>
