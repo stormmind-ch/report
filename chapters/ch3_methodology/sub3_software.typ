@@ -40,3 +40,6 @@ The Frontend consists of a react/vite repository. The DNS Entree was made on Hos
 *Test Concept*
 
 Given the small scope of the frontend, automated testing was not conducted. Functional correctness was instead ensured through manual testing during development.
+
+
+=== CI/CD and Deployment
