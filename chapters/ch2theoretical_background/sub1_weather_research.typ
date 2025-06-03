@@ -32,19 +32,19 @@ In addition, sudden and sustained temperature increases—often indicative of si
 
 === Reasons for Landslide<rfls>
 
-Of the potential causes for landslides, three were selected for consideration, as they were highlighted by Liechti @liechtiAustauschUnwetterschaedenUnd2025 as the most relevant and easily identifiable, without requiring in-depth geological analysis. The first—loose gravel or rock—is not directly influenced by current weather conditions and was therefore excluded. /*The second reason relates to water infiltrating small cracks in bedrock, where it freezes and expands at sub-zero temperatures, causing the rock to fracture (Hauptprozess: *Sturz*).  gem. kätthi grund für sturz meisst unbekannt*/
+/*Of the potential causes for landslides, three were selected for consideration, as they were highlighted by Liechti @liechtiAustauschUnwetterschaedenUnd2025 as the most relevant and easily identifiable, without requiring in-depth geological analysis. The first—loose gravel or rock—is not directly influenced by current weather conditions and was therefore excluded. /*The second reason relates to water infiltrating small cracks in bedrock, where it freezes and expands at sub-zero temperatures, causing the rock to fracture (Hauptprozess: *Sturz*).  gem. kätthi grund für sturz meisst unbekannt*/
 The second and relevant factor is the water absorption capacity of loose soil (e.g., dirt). As water is absorbed, the soil mass increases in weight—from dry ($0.83 k g \/ d m^3$ @mariaGewichtNasserErde2020) to wet ($1.6 - 1.76 k g \/ d m^3$ @designerpartSchuettgutGewichtBigBag). This gain in mass reduces the soil's ability to remain stable.  
 Third, subsurface clay layers limit water infiltration on the one hand, but on the other hand, they promote landslides by forming smooth and slippery interfaces between different soil types and by preventing subsurface drainage.  
 In contrast, a jagged and solid rock surface also impedes subsurface drainage but may reduce landslide risk by mechanically anchoring the overlying soil layer. 
-@liechtiAustauschUnwetterschaedenUnd2025
+@liechtiAustauschUnwetterschaedenUnd2025*/
 
 
 
 
 Of the potential causes for landslides, three were selected for consideration, as they were highlighted by Liechti @liechtiAustauschUnwetterschaedenUnd2025 as the most relevant and easily identifiable, without requiring in-depth geological analysis:
 
-1. Loose gravel or rock, is not directly influenced by current weather conditions and was therefore excluded. /*The second reason relates to water infiltrating small cracks in bedrock, where it freezes and expands at sub-zero temperatures, causing the rock to fracture (Hauptprozess: *Sturz*).  gem. kätthi grund für sturz meisst unbekannt*/
+1. *Loose gravel or rock*, is not directly influenced by current weather conditions and was therefore excluded. /*The second reason relates to water infiltrating small cracks in bedrock, where it freezes and expands at sub-zero temperatures, causing the rock to fracture (Hauptprozess: *Sturz*).  gem. kätthi grund für sturz meisst unbekannt*/
 
-2. Water absorption capacity of loose soil (e.g., dirt). As water is absorbed, the soil mass increases in weight, from dry ($0.83 k g \/ d m^3$ @mariaGewichtNasserErde2020) to wet ($1.6 - 1.76 k g \/ d m^3$ @designerpartSchuettgutGewichtBigBag). This gain in mass reduces the soil's ability to remain stable.  
+2. *Water absorption* capacity of loose soil (e.g., dirt). As water is absorbed, the soil mass increases in weight, from dry ($0.83 k g \/ d m^3$ @mariaGewichtNasserErde2020) to wet ($1.6 - 1.76 k g \/ d m^3$ @designerpartSchuettgutGewichtBigBag). This gain in mass reduces the soil's ability to remain stable.  
 
-3. Subsurface clay layers limit water infiltration on the one hand, but on the other hand, they promote landslides by forming smooth and slippery interfaces between different soil types and by preventing subsurface drainage. In contrast, a jagged and solid rock surface also impedes subsurface drainage but may reduce landslide risk by mechanically anchoring the overlying soil layer. @liechtiAustauschUnwetterschaedenUnd2025
+3. *Subsurface clay* layers limit water infiltration on the one hand, but on the other hand, they promote landslides by forming smooth and slippery interfaces between different soil types and by preventing subsurface drainage. In contrast, a jagged and solid rock surface also impedes subsurface drainage but may reduce landslide risk by mechanically anchoring the overlying soil layer. @liechtiAustauschUnwetterschaedenUnd2025
