@@ -40,7 +40,11 @@ caption: [Average test macro F1-score and variance for each model across differe
 #include "sub3_transformer.typ"
 
 
-== Conclusion
+== Comparison
+This thesis conducted a comparative evaluation of three deep learning architectures—FNN, LSTM, and Transformer—for the task of binary storm damage classification using weather-based features across varying spatial granularities.
 
+While the overall performance differences between models were modest, the Transformer consistently outperformed both the FNN and LSTM models, achieving the highest macro-F1 scores across cluster configurations ($k = 3$ and $k = 6$). These findings demonstrate that self-attention mechanisms and long-range dependency modeling can be beneficial in storm damage forecasting, even when using relatively short input sequences.
 
+Despite the Transformer’s edge, the performance gains over the simpler FNN were relatively small. This suggests that in resource-constrained or real-time settings, the FNN could remain a viable and efficient baseline. Nevertheless, the successful application of the Transformer architecture to this problem provides a promising direction for more advanced modeling approaches.
 
+Future work should focus on evaluating the models at finer spatial resolutions, incorporating additional non-meteorological features (e.g., infrastructure vulnerability, vegetation cover), and validating generalizability across different regions and storm types. As this study only used weather data, integrating domain knowledge and diverse data sources will likely be crucial for building a reliable operational forecasting system.

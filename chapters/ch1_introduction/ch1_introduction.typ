@@ -12,7 +12,7 @@ To achieve this, we:
 
 This thesis serves two purposes: to empirically evaluate deep learning methods for storm damage forecasting, and to provide a extensible framework for future research.
 
-== Comparable projects
+== Comparable projects<compareable-projects>
 The following projects demonstrate how AI is being applied in practice to address specific natural hazard challenges, from storm damage assessment to avalanche forecasting.
 
 Swiss Re's #abbr.a[RDA] leverages deep learning algorithms alongside existing #abbr.a[NatCat] models, satellite imagery, weather, and property data to:
