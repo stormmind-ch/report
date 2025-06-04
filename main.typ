@@ -1,10 +1,7 @@
 #import "abbr-impl.typ"
 #import "abbr.typ"
-#abbr.load("abbreviations.csv", delimiter:",")
-
-
 #import "template.typ"
-
+#abbr.load("abbreviations.csv", delimiter:",")
 
 #show: template.template.with(author: "Nils Gämperli, Damian Ueltschi")
 
@@ -24,8 +21,8 @@
 
 #outline(title: "Contents")
 
-#abbr.load("abbreviations.csv", delimiter:",")
-#abbr.list()
+
+
 
 #show: template.main-matter
 
@@ -36,9 +33,10 @@
 #include "chapters/ch5_discussion_outlook/ch5_discussion_outlook.typ"
 
 
-#abbr.list()
+
 
 #show: template.back-matter
+#abbr.list()
 #include "tail/biblio.typ"
 #outline(title: "List of Figures", target: figure.where(kind: image))
 #outline(title: "List of Tables", target: figure.where(kind: table))
