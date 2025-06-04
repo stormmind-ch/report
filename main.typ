@@ -24,6 +24,21 @@
 
 #outline(title: "Contents")
 
+//#abbr.load("abbreviations.csv", delimiter:",")
+#abbr.make(
+  ("NN", "Neural Network"),
+  ("RNN", "Recurrent Neural Network"),
+  ("VGP", "Vanishing Gradient Problem"),
+  ("LSTM", "Long Short Term Memory Neural Network"),
+  ("WSL", "Swiss Federal Institute for Forest Snow and Landscape Research WSL"),
+  ("Schadensausmass", "Schadensausmass: gering [0.01–0.4]; mittel [0.4–2]; gross/katastrophal [>2] oder Todesfall [Mio. CHF]"),
+  ("WANDB", "Weights & Biases"),
+  ("RDA", "Rapid Damage Assessment"),
+  ("NatCat", "natural catastrophes"),
+  ("DJL", "Deep Java Library"),
+  ("FNN", "Feedforward Neural Network")
+)
+#abbr.list()
 
 #show: template.main-matter
 

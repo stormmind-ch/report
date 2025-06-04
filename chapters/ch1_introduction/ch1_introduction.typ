@@ -1,7 +1,7 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
 = Introduction  
-The objective of this project is to explore initial steps toward predicting or forecasting environmental damage. While environmental damage often involves complex geological interactions, this thesis focuses exclusively on meteorological factors to maintain a manageable scope. The analysis centers on weather data, with damage records extracted from regional newspaper reports. We applied three deep learning models: a #abbr.l[FNN], a #abbr.l[LSTM], and a Transformer, to evaluate how weather patterns relate to reported storm damage and assess the feasibility of data-driven forecasting.
+The objective of this project is to explore initial steps toward predicting or forecasting environmental damage. While environmental damage often involves complex geological interactions, this thesis focuses exclusively on meteorological factors to maintain a manageable scope. The analysis centers on weather data, with damage records extracted from regional newspaper reports. We applied three deep learning models: a #abbr.s[FNN], a #abbr.a[LSTM], and a Transformer, to evaluate how weather patterns relate to reported storm damage and assess the feasibility of data-driven forecasting.
 
 To achieve this, we:
 

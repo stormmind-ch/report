@@ -68,6 +68,51 @@ caption: [Class Diagram for Infrastructure Layer of the Backend ]
 
 This separation of concerns enhances testability and makes it straightforward to substitute components (e.g., switch databases) without affecting core logic.
 
+*Caching:*
+
+After the initial deployment, user tests were conducted as outlined in the frontend test concept chapter. During these tests, a noticeable and user-unfriendly delay was observed. The issue was traced back to the request responsible for retrieving forecast data for all municipalities in Switzerland, which depends on the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023. Since this request must aggregate weather data across a large number of locations, it involves considerable processing time.
+
+To better assess the performance characteristics of this request, response times were measured and compared under different conditions. The following tables present both the individual request durations and the corresponding average values across varying caching and deployment scenarios.
+// (0.02+0.019+0.016+0.012+0.019+0.014+0.017+0.016+0.014)/9 = 
+// 0.0163333
+
+// (55.34+52.75+52.39+49.41+49.74+54.50+52.75+54.00+52.01+51.46)/10 = 
+// 52.112222222
+
+// (0.133+0.057+0.052+0.056+0.035+0.034+0.076+0.043+0.044+0.035)/10 =
+// 0.048
+
+#figure(table(
+  columns: 4,
+
+  table.header( [*request \#*], [*local cached*],[*local uncached*], [*production cached*]),
+   align: center,
+  [*1*], [54.69 s],[55.34 s],[133 ms],
+  [*2*],[20 ms],[52.75 s],[57 ms],
+  [*3*],[19 ms],[52.39 s],[52 ms],
+  [*4*],[16 ms],[49.41 s],[56 ms],
+  [*5*],[12 ms],[49.74 s],[35 ms],
+  [*6*],[19 ms],[54.50 s],[34 ms],
+  [*7*],[14 ms],[52.75 s],[76 ms],
+  [*8*],[17 ms],[54.00 s],[43 ms],
+  [*9*],[16 ms],[52.01 s],[44 ms],
+  [*10*],[14 ms],[51.46 s],[35 ms],
+),
+caption: [Comparison of forecast retrieval times for all municipalities: locally with caching, locally without caching, and via the production API with caching.\
+*Note:* For caching scenarios, the initial request populates the cache and thus exhibits similar latency to uncached retrieval. The cache is valid for 24 hours. In the case of the production system, the initial daily request had already been completed, resulting in no noticeable difference between the first and subsequent requests.]
+)<caching-times-test>
+#pagebreak()
+#figure(table(
+  columns: 4,
+
+  table.header( [*averages*], [*local cached*],[*local uncached*], [*production cached*]),
+   align: center,
+  [*ø*], [$16.#math.overline("3")$ ms],[$52'112.#math.overline("2")$ ms],[48 ms],
+),
+caption: [Average request times\
+*Note:* To account for cache warm-up, only requests two to ten were included in the calculation of the average request time.]
+)<caching-times-averages>
+
 *Test Concept*
 
 All technically relevant logic components (e.g., services, handlers, business logic classes) are covered by unit tests. These tests verify the behavior of each class in isolation from external dependencies by using mocks or stubs. The goal is to achieve high test coverage of the core logic and to ensure the correct handling of inputs, states, and error scenarios.
@@ -91,7 +136,7 @@ The frontend of the application is implemented using *React* and structured as a
 
 Routing is handled on the client side, and the overall structure aligns with modern single-page application principles. The development setup emphasizes performance, scalability, and a clear separation of concerns.
 
-*Test Concept*
+*Test Concept* <fft>
 
 Given the small scope of the frontend, automated testing was not conducted. Functional correctness was instead ensured through manual testing during development.
 
