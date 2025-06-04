@@ -1,4 +1,8 @@
-#import "@preview/abbr:0.2.3"
+#import "abbr-impl.typ"
+#import "abbr.typ"
+#abbr.load("abbreviations.csv", delimiter:",")
+
+
 #import "template.typ"
 
 
@@ -19,8 +23,7 @@
 
 
 #outline(title: "Contents")
-#abbr.load("abbreviations.csv", delimiter:",")
-#abbr.list()
+
 
 #show: template.main-matter
 
@@ -31,7 +34,7 @@
 #include "chapters/ch5_discussion_outlook/ch5_discussion_outlook.typ"
 
 
-
+#abbr.list()
 
 #show: template.back-matter
 #include "tail/biblio.typ"

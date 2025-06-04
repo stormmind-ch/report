@@ -10,7 +10,7 @@ long } }
 // ---
 
 #let front-matter(body) = {
-  set page(numbering: "i")
+  set page(numbering: "I")
   counter(page).update(1)
   set heading(numbering: none)
   show heading.where(level: 1): it => {
@@ -73,10 +73,10 @@ long } }
   // Configure page size and margins.
   set page(
     paper: paper-size, margin: (
-      bottom: 5cm, top: 4cm,
+      bottom: 4cm, top: 4cm,
       // The original LaTeX template references something called "hoffset", not sure what that is yet
-      inside: 26.2mm, outside: 37mm,
-    ), numbering: "1", number-align: right,
+      inside: 26.2mm, outside: 26.2mm,
+    ), numbering: "1", number-align: center,
   )
 
   // Configure paragraph properties.

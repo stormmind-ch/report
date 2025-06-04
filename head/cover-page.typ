@@ -7,9 +7,9 @@
         #let v-skip = v(1em, weak: true)
         #let v-space = v(2em, weak: true)
 
-        #text(size: 18pt)[
+        #text(size: 25pt)[
           StormMind \
-          Deep Learning based Web-Service for Storm Damage Forecasting \
+          Deep Learning based Web-Service\ for Storm Damage Forecasting \
           
           Bachelor Thesis\
         ]

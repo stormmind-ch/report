@@ -1,4 +1,5 @@
-#import "@preview/abbr:0.2.3"
+#import "../abbr-impl.typ"
+#import "../abbr.typ"
 
 #set heading(numbering: "A.1.1", supplement: [Appendix])
 

@@ -1,13 +1,15 @@
-#import "@preview/abbr:0.2.3"
+#import "../../abbr-impl.typ"
+#import "../../abbr.typ"
 == Deep Learning
 Deep Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.a[NN] architectures, as they form the core modeling approach used in this project.
 
 
-=== #abbr.pla()[FNN]<fnn>
-#abbr.a[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
+=== Feedforward Neural Networks <fnn>
+#abbr.l[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
+
 *Architecture*
 
-An #abbr.a[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic Graph with inter-connections. It contains a set of neurons distributed in different layers.
+An #abbr.pla[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic Graph with inter-connections. It contains a set of neurons distributed in different layers.
 - Each neuron has a activation function.
 - The first layer, shown on the left side in @nn-img, is called the input layer and has no predacessors. Additionally, is their input value the same as their output value.
 - The last layer, shown on the right side in @nn-img, is called the output layer and have no successors. Their value represents the output of the Network

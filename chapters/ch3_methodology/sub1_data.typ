@@ -1,4 +1,5 @@
-#import "@preview/abbr:0.2.3"
+#import "../../abbr-impl.typ"
+#import "../../abbr.typ"
 The underlying data was provided by the #abbr.a[WSL], with Dr. K. Liechti serving as the primary contact. Her contributions offered valuable insights not only into the dataset itself but also into the relevant geographical and meteorological processes.
 
 In accordance with the legal restrictions outlined in @disclaimer—specifically, the rounding of damage values and the aggregation of location data—the use of #abbr.pla[WSL] data in this thesis was subject to certain limitations. Interestingly, these constraints ultimately proved advantageous for the modeling process, as evidenced by the experimental results.

@@ -1,4 +1,5 @@
-#import "@preview/abbr:0.2.3"
+#import "../../abbr-impl.typ"
+#import "../../abbr.typ"
 //SETTINGS:
 #show table.cell.where(y: 0): strong
 #set table(

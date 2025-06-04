@@ -1,4 +1,5 @@
-#import "@preview/abbr:0.2.3"
+#import "../../abbr-impl.typ"
+#import "../../abbr.typ"
 === Backend
 
 The backend was implemented in Java, a type-safe language. To accelerate development and reduce boilerplate code, we adopted the Spring Boot framework, which offers a convention-over-configuration paradigm and seamless integration with web, data, and security components.

@@ -1,4 +1,5 @@
-#import "@preview/abbr:0.2.3"
+#import "../../abbr-impl.typ"
+#import "../../abbr.typ"
 
 The goal of the experiments was to identify the most suitable deep learning architecture for predicting storm damage events based on weather-related input features. We evaluated different types of neural networks, beginning with a baseline #abbr.l[FNN], and compared their performance on a held-out test set. The result of the different models are discussed in @results-ai.
 
