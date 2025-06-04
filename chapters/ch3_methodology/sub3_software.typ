@@ -38,35 +38,34 @@ A central part of this layer is the inference orchestration logic, which involve
   ],
 )<backend_application>
 - *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (`Ports`) defined in the Application Layer. It is responsible for integrating external systems and technologies, such as:
+  - PostgreSQL, using Spring Data JPA for data persistence,
+  - the Deep Java Library (DJL) for running deep learning model inference,
+  - and Open-Meteo APIs for weather data retrieval.
+  This layer encapsulates all technical details and external dependencies, keeping the rest of the system decoupled from implementation concerns.
 
-- PostgreSQL, using Spring Data JPA for data persistence,
-- the Deep Java Library (DJL) for running deep learning model inference,
-- and Open-Meteo APIs for weather data retrieval.
-This layer encapsulates all technical details and external dependencies, keeping the rest of the system decoupled from implementation concerns.
+  To support modular weather data retrieval, the Factory Pattern is employed in the `OpenMeteoWeatherFetcherFactory`. This allows dynamic instantiation of the appropriate `WeatherFetcher` implementation based on the request context.
 
-To support modular weather data retrieval, the Factory Pattern is employed in the `OpenMeteoWeatherFetcherFactory`. This allows dynamic instantiation of the appropriate `WeatherFetcher` implementation based on the request context.
+  In addition, the Decorator Pattern is used to compose weather fetchers with different temporal scopes:
+  The base fetcher retrieves current-week data.
+  It is then wrapped by decorators to add previous-month and previous-year data, respectively, forming a flexible and extensible weather data pipeline.
 
-In addition, the Decorator Pattern is used to compose weather fetchers with different temporal scopes:
-The base fetcher retrieves current-week data.
-It is then wrapped by decorators to add previous-month and previous-year data, respectively, forming a flexible and extensible weather data pipeline.
+  Persistence adapters implement the required interfaces by delegating to Spring Data JPA repositories. These adapters act as bridges between the domain model and the database, handling entity retrieval and storage.
 
-Persistence adapters implement the required interfaces by delegating to Spring Data JPA repositories. These adapters act as bridges between the domain model and the database, handling entity retrieval and storage.
+  The `ModelInferenceServiceFactory` uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type.
 
-The `ModelInferenceServiceFactory` uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type.
-
-The most important infrastructure classes are illustrated in @backend_infrastructure
+  The most important infrastructure classes are illustrated in @backend_infrastructure
 
 #figure(image("images/backend_infrastructure.png"), 
 caption: [Class Diagram for Infrastructure Layer of the Backend ]
 )<backend_infrastructure>
 
-- *Presentation Layer*: The Presentation Layer exposes the application's functionality to external clients via RESTful HTTP APIs, implemented using Spring MVC. It is responsible for handling incoming HTTP requests, delegating execution to the appropriate application services or adapters, and formatting responses using Data Transfer Objects (DTOs).
+- *Presentation Layer*: Exposes the application's functionality to external clients via RESTful HTTP APIs, implemented using Spring MVC. It is responsible for handling incoming HTTP requests, delegating execution to the appropriate application services or adapters, and formatting responses using Data Transfer Objects (DTOs).
+  
+  Each controller corresponds to a specific use case or domain concept:
 
-Each controller corresponds to a specific use case or domain concept:
-
-- `DamageController` manages endpoints for recording and retrieving individual damage events.
-- `GroupedDamageController` provides access to aggregated damage data grouped by municipality.
-`ForecastController` serves endpoints for requesting deep learning model forecasts, either for all municipalities or a specific one.
+  - `DamageController` manages endpoints for recording and retrieving individual damage events.
+  - `GroupedDamageController` provides access to aggregated damage data grouped by municipality.
+  - `ForecastController` serves endpoints for requesting deep learning model forecasts, either for all municipalities or a specific one.
 
 This separation of concerns enhances testability and makes it straightforward to substitute components (e.g., switch databases) without affecting core logic.
 
