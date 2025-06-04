@@ -1,6 +1,6 @@
 #import "@preview/abbr:0.2.3"
 #import "template.typ"
-#abbr.load("abbreviations.csv", delimiter:",")
+
 
 #show: template.template.with(author: "Nils Gämperli, Damian Ueltschi")
 
@@ -9,7 +9,7 @@
 
 #include "head/cover-page.typ"
 #pagebreak()
-#show: template.front-matter
+#show: template.front-matter        
 #include "head/declaration_of_authorship.typ"
 #pagebreak()
 #include "head/dedication.typ"
@@ -17,7 +17,9 @@
 #include "head/acknowledgments.typ"
 #include "head/preface.typ"
 
+
 #outline(title: "Contents")
+#abbr.load("abbreviations.csv", delimiter:",")
 #abbr.list()
 
 #show: template.main-matter

@@ -1,6 +1,6 @@
 #import "@preview/abbr:0.2.3"
 = Introduction  
-The objective of this project is to explore initial steps toward predicting or forecasting environmental damage. While environmental damage often involves complex geological interactions, this thesis focuses exclusively on meteorological factors to maintain a manageable scope. The analysis centers on weather data, with damage records extracted from regional newspaper reports. We applied three deep learning models: a #abbr.a[FNN], a #abbr.a[LSTM], and a Transformer, to evaluate how weather patterns relate to reported storm damage and assess the feasibility of data-driven forecasting.
+The objective of this project is to explore initial steps toward predicting or forecasting environmental damage. While environmental damage often involves complex geological interactions, this thesis focuses exclusively on meteorological factors to maintain a manageable scope. The analysis centers on weather data, with damage records extracted from regional newspaper reports. We applied three deep learning models: a #abbr.pla[FNN], a #abbr.a[LSTM], and a Transformer, to evaluate how weather patterns relate to reported storm damage and assess the feasibility of data-driven forecasting.
 
 To achieve this, we:
 
@@ -12,6 +12,7 @@ To achieve this, we:
 This thesis serves two purposes: to empirically evaluate deep learning methods for storm damage forecasting, and to provide a extensible framework for future research.
 
 == Comparable projects
+The following projects demonstrate how AI is being applied in practice to address specific natural hazard challenges, from storm damage assessment to avalanche forecasting.
 
 Swiss Re's #abbr.a[RDA] leverages deep learning algorithms alongside existing #abbr.a[NatCat] models, satellite imagery, weather, and property data to:
 - assess the damage potential to properties

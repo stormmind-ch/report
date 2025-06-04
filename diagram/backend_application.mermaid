@@ -59,7 +59,7 @@ direction LR
 	<<Interface>> WeatherFetcherProvider
 	<<Interface>> ModelInferenceServiceProvider
 
-    AbstractForecastHandler ..> ForecastRequestHandler
+    AbstractForecastHandler --|> ForecastRequestHandler
     AbstractForecastHandler "1" *--> "next 1" ForecastRequestHandler
     BuildForecastRequestHandler --|> AbstractForecastHandler
     ForecastService "1" *--> "chain *" ForecastRequestHandler

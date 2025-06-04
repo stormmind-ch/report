@@ -6,7 +6,7 @@ Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing fa
 
 *Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. Unfortunately, the answer was negative. Given the limited timeframe of the thesis project, further research — e.g., literature reviews — could not provide any conclusive information.\
 
-*Forest/Deforestation*: According to Wikipedia (@Erdrutsch2025), deforestation contributes to landslides by eliminating trees, thereby destroying the stabilizing effect of their roots. Liechti confirmed this statement but also pointed out that forests themselves possess considerable weight, which may also contribute to slope instability. Applying this insight would require additional data and investigation, and was therefore deprioritized due to time limitations.\
+*Forest/Deforestation*: Deforestation is widely recognized as a contributing factor to landslides, primarily due to the loss of root systems that stabilize the soil @Erdrutsch2025.  Liechti confirmed this statement but also pointed out that forests themselves possess considerable weight, which may also contribute to slope instability. Applying this insight would require additional data and investigation.
 
 *Soil condition*: This factor is discussed in detail within each relevant subsection.\
 

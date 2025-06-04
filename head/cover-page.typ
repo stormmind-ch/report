@@ -9,7 +9,7 @@
 
         #text(size: 18pt)[
           StormMind \
-          AI based Web-Service for Storm Damage Prediction \
+          Deep Learning based Web-Service for Storm Damage Forecasting \
           
           Bachelor Thesis\
         ]

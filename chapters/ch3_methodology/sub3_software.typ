@@ -1,11 +1,9 @@
 #import "@preview/abbr:0.2.3"
 === Backend
 
-*Technologies*
+The backend was implemented in Java, a type-safe language. To accelerate development and reduce boilerplate code, we adopted the Spring Boot framework, which offers a convention-over-configuration paradigm and seamless integration with web, data, and security components.
 
-The backend was implemented in Java, a mature and type-safe language widely adopted in enterprise-grade applications due to its performance, robust tooling ecosystem, and long-term support. To accelerate development and reduce boilerplate code, we adopted the Spring Boot framework, which offers a convention-over-configuration paradigm and seamless integration with web, data, and security components.
-
-Data persistence is handled by PostgreSQL, an open-source relational database known for its reliability, extensibility, and compatibility with spatial and time-series data, both of which are central to our application.
+Data persistence is handled by PostgreSQL, an open-source relational database.
 
 To enable model inference within the backend, we integrated the #abbr.a[DJL] @DJLDeepJava. DJL provides a high-level Java API for loading and running deep learning models, allowing seamless integration of our trained PyTorch models into the Spring Boot service. It also supports GPU acceleration via CUDA, significantly reducing inference latency on compatible hardware.
 
@@ -32,12 +30,12 @@ The architecture is organized as follows:
 A central part of this layer is the inference orchestration logic, which involves multiple sequential steps. To manage this complexity, we adopted the Chain of Responsibility design pattern @ChainResponsibility. This allows each step in the inference process to be encapsulated in a dedicated handler that can pass the request along the chain. The chain is hold by the `ForecastService` class, which is shown on the bottom left corner of @backend_application.
 
 #figure(
-  image("images/backend_application.png", width: 50%),
+  image("images/backend_application.png"),
   caption: [
     Class Diagram for Application Layer of the Backend
   ],
 )<backend_application>
-- *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (`Ports`) defined in the Application Layer. It is responsible for integrating external systems and technologies, such as:
+- *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (`Ports`) defined in the Application Layer. It is responsible for «integrating external systems and technologies, such as:
   - PostgreSQL, using Spring Data JPA for data persistence,
   - the Deep Java Library (DJL) for running deep learning model inference,
   - and Open-Meteo APIs for weather data retrieval.

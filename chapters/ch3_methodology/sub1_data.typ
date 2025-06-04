@@ -38,13 +38,7 @@ During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI20
 To obtain information on soil conditions, the first resource consulted was the Swiss federal geoportal map.geo.admin @MapsSwitzerlandSwiss. However, the format of the data was mostly incompatible with the tools available for this thesis.  
 An alternative considered was the GIS Browser @GISBrowserGeoportalKanton, which is the cantonal equivalent of map.geo.admin @MapsSwitzerlandSwiss. Unfortunately, it posed the same limitations as the federal source.
 
-Given that new buildings are constantly being constructed in Switzerland and that the Swiss Confederation is actively researching locations for a nuclear waste repository @VergrabenUndVergessen2019, it was assumed that public institutions must maintain relevant geotechnical data.
-
-First, the building construction office of Affoltern am Albis was contacted @duchaudPhoneCallHochbau2025. They referred the inquiry to the cantonal building construction office, which also denied possession of such data and redirected the request to the Office for Spatial Development @PhoneCallHochbau2025.
-
-The contact person from the Office for Spatial Development @muellerPhoneCallAmt2025 was likewise unable to provide relevant data or further contacts. Their suggestion was to consult the GIS Browser @GISBrowserGeoportalKanton or map.geo.admin @MapsSwitzerlandSwiss.  
-
-After these repeated unsuccessful attempts, the GIS Helpdesk was contacted @ueltschiBodenbeschaffenheitskarte. The proposed solution @fachstellegisAREJIRAGIS2262EXTERN was again to use the GIS Browser or map.geo.admin, which had already proven inadequate.  
+Given that new buildings are constantly being constructed in Switzerland and that the Swiss Confederation is actively researching locations for a nuclear waste repository @VergrabenUndVergessen2019, it was assumed that public institutions must maintain relevant geotechnical data. First, the building construction office of Affoltern am Albis was contacted @duchaudPhoneCallHochbau2025. They referred the inquiry to the cantonal building construction office, which also denied possession of such data and redirected the request to the Office for Spatial Development @PhoneCallHochbau2025. The contact person from the Office for Spatial Development @muellerPhoneCallAmt2025 was likewise unable to provide relevant data or further contacts. Their suggestion was to consult the GIS Browser @GISBrowserGeoportalKanton or map.geo.admin @MapsSwitzerlandSwiss. After these repeated unsuccessful attempts, the GIS Helpdesk was contacted @ueltschiBodenbeschaffenheitskarte. The proposed solution @fachstellegisAREJIRAGIS2262EXTERN was again to use the GIS Browser or map.geo.admin, which had already proven inadequate.  
 Due to time constraints, this approach was ultimately abandoned.
 
 === Data Preparation<data_preparation>
@@ -56,7 +50,7 @@ The original dataset, discussed in @data provided by #abbr.a[WSL] contained only
 $ 
   "Dates" times "Municiaplities" 
 $ 
-Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was raported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52,399,36 rows of which:
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was raported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
   - 52'372'088 represented non-damage instances
   - 24'613 corresponded to small damage events
   - 1'800 were classified as medium damage
@@ -111,3 +105,6 @@ They also depend on the number of spatial clusters $k$, which determines how man
   - Class 1: $(0, T_("low")]$
   - Class 2: $(T_("low"), T_("mid")]$
   - Class 3: $(T_("mid"), infinity)$
+
+*Weeather Data Interpolation*
+For each cluster and week, the corresponding weekly sum of rain, average temperature, and average sunshine duration were computed based on the weather at the cluster centroid. These values were then assigned to all municipalities within the respective cluster.
