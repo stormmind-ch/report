@@ -1,0 +1,86 @@
+---
+config:
+  theme: neutral
+  look: classic
+  layout: elk
+---
+classDiagram
+direction TB
+    class AbstractOpenMeteoWeatherFetcher {
+	    # fetchData(url: URL) : WeatherValue
+	    + fetch(source: Municipality, target: Municipality) : WeatherData
+    }
+    class DamagePersistenceAdapter {
+	    - damageRepository: DamageRepository
+    }
+    class DamageRepository {
+	    + getDamageById(id: Long) : Optional~Damage~
+    }
+    class GroupedDamagePersistenceAdapter {
+	    - groupedDamageRepository: GroupedDamageRepository
+	    + getAll() : List~GroupedDamage~
+	    + getByMunicipality(name: String) : List~GroupedDamage~
+    }
+    class GroupedDamageRepository {
+	    + findByMunicipality(name: String) : List~GroupedDamage~
+    }
+    class ModelInferenceServiceFactory {
+	    - fnnModelInferenceService: FNNModelInferenceService
+	    - lstmModelInferenceService: LSTMModelInferenceService
+	    - transformerInferenceService: TransformerInferenceService
+	    + getModelInferenceService(type: String) : ModelInferenceService
+    }
+    class FNNModelInferenceService {
+	    - fnnModelInferenceService: FNNModelInferenceService
+	    + makeInference(inference: Inference) : Prediction
+    }
+    class MunicipalityPersistenceAdapter {
+	    - municipalityRepository: MunicipalityRepository
+	    + findAll() : List~Municipality~
+	    + findByName(name: String) : Municipality
+    }
+    class MunicipalityRepository {
+	    + getMunicipalityByName(name: String) : Optional~Municipality~
+    }
+    class MunicipalityToClusterPersistenceAdapter {
+	    - municipalityToClusterRepository: MunicipalityToClusterRepository
+	    + findByMunicipality(name: String) : MunicipalityToCluster
+	    + getAllMunicipalityToCluster() : List~MunicipalityToCluster~
+    }
+    class MunicipalityToClusterRepository {
+	    + getMunicipalityToCluster6ByMunicipality(name: String) : MunicipalityToCluster
+    }
+    class OpenMeteoWeatherFetcherFactory {
+	    - weatherFetcherMap: Map~String, WeatherFetcher~
+	    + getWeatherFetcher(type: String) : WeatherFetcher
+    }
+    class OpenMeteoWeatherWeatherFetcherCurrentWeek {
+	    + fetch(source: Municipality, target: Municipality) : WeatherData
+    }
+    class OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator {
+	    - openMeteoWeatherFetcher: OpenMeteoWeatherWeatherFetcherCurrentWeek
+	    + fetch(source: Municipality, target: Municipality) : WeatherData
+    }
+    class OpenMeteoWeatherWeatherFetcherPreviousYearDecorator {
+	    - previousYearWeatherFetcher: OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator
+	    + fetch(source: Municipality, target: Municipality) : WeatherData
+    }
+
+	<<interface>> DamageRepository
+	<<interface>> GroupedDamageRepository
+	<<interface>> MunicipalityRepository
+	<<interface>> MunicipalityToClusterRepository
+
+    OpenMeteoWeatherFetcherFactory --> OpenMeteoWeatherWeatherFetcherCurrentWeek
+    OpenMeteoWeatherFetcherFactory --> OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator
+    OpenMeteoWeatherFetcherFactory --> OpenMeteoWeatherWeatherFetcherPreviousYearDecorator
+    ModelInferenceServiceFactory --> FNNModelInferenceService
+    DamagePersistenceAdapter --> DamageRepository : uses
+    GroupedDamagePersistenceAdapter --> GroupedDamageRepository : uses
+    MunicipalityPersistenceAdapter --> MunicipalityRepository : uses
+    MunicipalityToClusterPersistenceAdapter --> MunicipalityToClusterRepository : uses
+    OpenMeteoWeatherWeatherFetcherCurrentWeek --|> AbstractOpenMeteoWeatherFetcher
+    OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator --|> AbstractOpenMeteoWeatherFetcher
+    OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator --> OpenMeteoWeatherWeatherFetcherCurrentWeek : decorates
+    OpenMeteoWeatherWeatherFetcherPreviousYearDecorator --|> AbstractOpenMeteoWeatherFetcher
+    OpenMeteoWeatherWeatherFetcherPreviousYearDecorator --> OpenMeteoWeatherWeatherFetcherPreviousMonthDecorator : decorates

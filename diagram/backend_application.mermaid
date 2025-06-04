@@ -35,7 +35,7 @@ direction LR
 	    + doHandle(ForecastRequest)
     }
     class MunicipalityPort {
-	    + findByName(String) :  Municipality
+	    + findByName(String) :  Municipality    
 	    + findAll() : List
     }
     class MunicipalityToClusterPort {
@@ -61,13 +61,13 @@ direction LR
 
     AbstractForecastHandler ..> ForecastRequestHandler
     AbstractForecastHandler "1" *--> "next 1" ForecastRequestHandler
-    BuildForecastRequestHandler --> AbstractForecastHandler
+    BuildForecastRequestHandler --|> AbstractForecastHandler
     ForecastService "1" *--> "chain *" ForecastRequestHandler
     ForecastService "1" *--> "1" MunicipalityToClusterPort
-    ModelInferenceForecastRequestHandler --> AbstractForecastHandler
+    ModelInferenceForecastRequestHandler --|> AbstractForecastHandler
     ModelInferenceForecastRequestHandler "1" *--> "1" ModelInferenceServiceProvider
-    MunicipalityForecastRequestHandler --> AbstractForecastHandler
+    MunicipalityForecastRequestHandler --|> AbstractForecastHandler
     MunicipalityForecastRequestHandler "1" *--> "1" MunicipalityPort
     MunicipalityForecastRequestHandler "1" *--> "1" MunicipalityToClusterPort
-    WeatherForecastRequestHandler --> AbstractForecastHandler
+    WeatherForecastRequestHandler --|> AbstractForecastHandler
     WeatherForecastRequestHandler "1" *--> "1" WeatherFetcherProvider
