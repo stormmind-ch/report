@@ -97,4 +97,18 @@ Given the small scope of the frontend, automated testing was not conducted. Func
 
 === CI/CD and Deployment
 
-Deployment is managed via an instance hosted on the *OpenStack* cluster of ZHAW @LoginOpenStackDashboard, accessible through the *OpenStack Dashboard*. DNS configuration was carried out using *Hosttech*, pointing to the appropriate backend infrastructure.
+Deployment is managed via a virtual instance hosted on the *OpenStack* cluster of the ZHAW @LoginOpenStackDashboard. DNS configuration was performed using *Hosttech*, directing traffic to the appropriate backend infrastructure.
+
+The application consists of two components: a backend and a frontend. Both are containerized using Docker and deployed with Kubernetes. The use of Kubernetes enables dynamic scalability, allowing the application to adapt to changing resource demands.
+
+The frontend runs on port 80 within its pod and communicates over TCP. To manage and route incoming traffic, *Traefik* is used as an ingress controller. It is configured to forward requests to `stormmind.ch`, including the root path `/` and all subpaths, to the frontend pod. Requests to `api.stormmind.ch` are routed to the backend service, which listens on port 8080. All HTTP traffic is automatically redirected to HTTPS to ensure secure communication.
+
+Both the backend and frontend deployments are configured to always pull the latest Docker image and to retain only one previous ReplicaSet. This setup simplifies the deployment process and reduces potential ambiguity when identifying the active version.
+
+To enable HTTPS functionality, a `ClusterIssuer` and a `Certificate` resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*, making them available to Traefik for encrypted traffic handling.
+
+For continuous integration and deployment, two separate GitHub Actions pipelines were implemented—one for the frontend and one for the backend. Both workflows are triggered on each push to the `main` branch. The pipelines establish an SSH connection to the machine running the Kubernetes cluster, pull the latest project state, build new Docker images, push them to Docker Hub, and trigger a rollout of the updated containers.
+
+Given the moderate size of the project, this CI/CD approach was deliberately chosen over the integration of additional DevOps tools in order to keep operational overhead low.
+
+*Argo CD* is used to monitor the state of the Kubernetes cluster and manage application deployments, including version control and scaling.
