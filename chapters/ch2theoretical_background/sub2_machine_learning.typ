@@ -181,7 +181,7 @@ These $n$ parallel attention heads independently compute attention outputs, whic
 
 Multi-head attention not only improves model performance but also enables parallel computation of attention heads, which leads to efficient training, especially on modern hardware. @aggarwalNeuralNetworksDeep2023
 
-#figure(image("images/multiheadattention.png"),
+#figure(image("images/multiheadattention.png", width: 99%),
 caption: [Multi-head attention mechanism. The input matrix $X$ of shape $D times N$, is linearly projected into multiple sets of Queries, Keys, and Values. Each set defines an individual attention head (e.g., Head 1, Head 2), which independently computes scaled dot-product attention. The outputs from all $H$ heads, each of size $D/H times N$, are then concatenated and projected through a final linear layer to produce the output matrix $O$ of shape $D times N$. @princeUnderstandingDeepLearning])<multi-head-attention>
 #pagebreak()
 *Embedding*
