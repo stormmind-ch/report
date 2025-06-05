@@ -14,7 +14,7 @@ As outlined in @weather-features, the scope of the dataset was extensive. The fe
 Based on the inputs of Liechti, the relevant meteorological variables were identified as sunshine duration, temperature, snowfall, and rainfall.\ 
 The rationale for this selection is briefly summarized below; detailed explanations can be found in @weather-research:\
 Sunshine hours influence ground temperature, which in turn can cause snowmelt or thaw ground frost.\
-The temperature at 2 meters above ground (from @zippenfenigOpenMeteocomWeatherAPI2023) was used, as it provides a more meaningful indication of potential snowmelt. In this context, the influence of frozen ground was considered less significant and therefore not explicitly taken into account.\
+The temperature at 2 meters above ground was used, as it provides a more meaningful indication of potential snowmelt. In this context, the influence of frozen ground was considered less significant and therefore not explicitly taken into account.\
 Snowfall can contribute to snowmelt processes later in the seasonal cycle.\
 Rainfall directly contributes to the potential for flooding. 
 
@@ -37,7 +37,7 @@ The weather data required less preprocessing. In eight municipalities, occasiona
 The data currently in use was collected with relatively little difficulty. The damage data was kindly provided by Liechti from the #abbr.a[WSL] following a formal request via email @liechtiREAnfrageZur2024.
 
 For the collection of weather data, the initial approach was to use official government data provided by MeteoSwiss @MeteoSwissIDAWEBLogin. However, due to the structure of the website and the raw nature of the station-based measurement data, this approach was ultimately abandoned.  
-During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered. The open-meteo API is an open-source project that aggregates weather data from various national meteorological services @OpenMeteocom. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
+During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered and employed for structured acquisition all weather data. The open-meteo API is an open-source project that aggregates weather data from various national meteorological services @OpenMeteocom. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
 
 To obtain information on soil conditions, the first resource consulted was the Swiss federal geoportal map.geo.admin @MapsSwitzerlandSwiss. However, the format of the data was mostly incompatible with the tools available for this thesis.  
 An alternative considered was the GIS Browser @GISBrowserGeoportalKanton, which is the cantonal equivalent of map.geo.admin @MapsSwitzerlandSwiss. Unfortunately, it posed the same limitations as the federal source.

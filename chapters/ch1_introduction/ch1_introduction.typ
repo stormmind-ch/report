@@ -11,7 +11,7 @@ To achieve this, we:
 - Developed a software application that visualizes predictions and demonstrates how such a model could be applied in practice.
 
 This thesis serves two purposes: to empirically evaluate deep learning methods for storm damage forecasting, and to provide an extensible framework for future research.
-
+#pagebreak()
 == Comparable projects<compareable-projects>
 The following projects demonstrate how AI is being applied in practice to address specific natural hazard challenges, from storm damage assessment to avalanche forecasting.
 
