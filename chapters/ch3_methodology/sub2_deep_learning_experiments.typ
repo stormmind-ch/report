@@ -1,13 +1,13 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
 
-The goal of the experiments was to identify the most suitable deep learning architecture for predicting storm damage events based on weather-related input features. We evaluated different types of neural networks, beginning with a baseline #abbr.l[FNN], and compared their performance on a held-out test set. The result of the different models are discussed in @results-ai.
+The goal of the experiments was to identify the most suitable deep learning architecture for predicting storm damage events based on weather-related input features. We evaluated different types of neural networks, beginning with a baseline #abbr.a[FNN], and compared their performance on a held-out test set. The result of the different models are discussed in @results-ai.
 
 *Datasets*
 
 As shown in @datasets_split, the dataset was split temporally into a training set and a hold-out test set in order to simulate realistic forecasting scenarios and to prevent information leakage. The training set spans the years 1972–2013, while the test set covers the period from 2013 to 2023.
 
-All features were normalized using Z-score normalization, defined as $Z = (X - mu) / sigma$ @StandardScore2025. The mean $mu$ and standard deviation $sigma$ were computed from the training set only, and these values were reused to normalize the test set. This ensures that no information from the test set leaks into the training or validation stages.
+All features were normalized using Z-score normalization, defined as $Z = (X - mu) / sigma$ @StandardScore2025, where $X$ denotes the value to be normalized. The mean $mu$ and standard deviation $sigma$ were computed from the training set only, and these values were reused to normalize the test set. This ensures that no information from the test set leaks into the training or validation stages.
 
 #figure(
   table(
@@ -33,11 +33,11 @@ We first initialized the environment by detecting the available compute device (
 
 The dataset was initially split into training and test sets as shown in @datasets_split, followed by 5-fold cross-validation on the training portion using a custom splitter based on SciKit-Learn's `BaseCrossValidator` @ScikitlearnMachineLearning. This custom method, `ClusteredTimeSeriesSplit`, is shown in @cv-visualization. It ensures chronological consistency by keeping validation data strictly later in time than training data within each geographic cluster.
 
-#figure(image("images/fold-cross-validation.png", width: 50%),
+#figure(image("images/fold-cross-validation.png", width: 90%),
 caption: [Chronological 5-fold cross-validation. Each fold validates on a later time window, preserving the time series structure.])
 <cv-visualization>
 
-Within each fold, the model was trained over multiple epochs, which is shown in @training-pipeline on the 4th line. We used the Adam @kingmaAdamMethodStochastic2017 optimizer, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks. To further improve training stability and avoid overfitting, we employed a learning rate scheduler (`ReduceLROnPlateau`), which reduces the learning rate by a factor of 0.5 if the validation loss does not improve for 5 consecutive epochs.
+Within each fold, the model was trained over multiple epochs, which is shown in @training-pipeline on the 4th line. We used the Adam optimizer @kingmaAdamMethodStochastic2017, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks. To further improve training stability and avoid overfitting, we employed a learning rate scheduler (`ReduceLROnPlateau`), which reduces the learning rate by a factor of 0.5 if the validation loss does not improve for 5 consecutive epochs.
 To address class imbalance in the storm damage classes, class-specific weights were computed from the training set and used in the respective loss function. At the end of each epoch, the models performance was evaluated on the validation fold using accuracy, precision, recall, and F1 score, which were logged via #abbr.a[WANDB].
 
 After all folds were completed, the model with the highest average F1 score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
@@ -55,9 +55,9 @@ Given these outcomes and the underlying class distribution, we reframed the prob
 
 
 
-=== #abbr.a[FNN] based forecasting model <fnn_setup>
-Our first experiment employed a baseline #abbr.l[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
-The network consists of 10 fully connected layers with ReLU activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
+=== #abbr.l[FNN] based forecasting model <fnn_setup>
+Our first experiment employed a baseline #abbr.a[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
+The network consists of 10 fully connected layers with #abbr.a[ReLU] activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
 
 #figure(
   image("images/fnn_illustration-experiment.png", width: 70%),
@@ -66,14 +66,14 @@ The network consists of 10 fully connected layers with ReLU activation functions
 
 === #abbr.a[LSTM] based Forecasting Model<lstm-setup>
 
-To model temporal dependencies in the weather-related input features, we implemented a sequence model based on (#abbr.a[LSTM]) units. The architecture is illustrated in @lstm-model and consists of a stack of 10 #abbr.a[LSTM] layers followed by a fully connected output layer.
+To model temporal dependencies in the weather-related input features, we implemented a sequence model based on #abbr.a[LSTM] units. The architecture is illustrated in @lstm-model and consists of a stack of 10 #abbr.a[LSTM] layers followed by a fully connected output layer.
 
 The LSTM block, shown in the middle of @lstm-model, receives as input a multivariate time series of weather features, such as temperature, rainfall, and temperature, over a fixed sequence window.
 
 The output of the final LSTM layer is a hidden state for each time step in the input sequence. To reduce this sequence to a single prediction, we extract the hidden state from the last time step. This strategy assumes that the final time step contains the most relevant information for predicting the next event, which aligns with common practices in time series classification and forecasting as shown in the official PyTorch documentation @PyTorchFoundation.
 
 The last layer of the model is a #abbr.a[FNN] layer that maps the #abbr.a[LSTM] output to a 2-dimensional output space, corresponding to a binary classification task. This is shown on the right side in @lstm-model.
-This architecture was chosen based on the findings of Steven Elsworht et. al in "Time Series Forecasting Using LSTM Networks: A Symbolic Approach" @elsworthTimeSeriesForecasting2020. Additionally, this architecture had the advantages of having a balance between compactness and computational efficiency, which made it suitable for forecasting storm damages over a long historicaltime span. 
+This architecture was chosen based on the findings of Steven Elsworht et. al in "Time Series Forecasting Using LSTM Networks: A Symbolic Approach" @elsworthTimeSeriesForecasting2020. Additionally, this architecture had the advantages of having a balance between compactness and computational efficiency, which made it suitable for forecasting storm damages over a long historical time span. 
 
 #figure(image("images/lstm_illustration-experiment.png"), caption: [Architecture of the LSTM-based forecasting model. The model consists of stacked LSTM layers followed by a fully connected output layer.])<lstm-model>
 
@@ -114,6 +114,6 @@ To ensure a fair comparison, all models were trained under the same experimental
   caption: [Hyperparameter search space used during model sweeps.]
 )
 
-In addition, to assess the impact of spatial aggregation on model performance, each architecture was trained using different cluster counts \( k \in \{3, 4, 5, 6\} \), which determine the number of geographic regions derived from the spatial clustering process (see @data_preparation). By evaluating model performance across different levels of spatial granularity, we aimed to determine whether finer or coarser regional segmentation improves generalization and damage detection performance.
+In addition, to assess the impact of spatial aggregation on model performance, each architecture was trained using different cluster counts ($k in {3, 6, 26}$), which determine the number of geographic regions derived from the spatial clustering process (see @data_preparation). By evaluating model performance across different levels of spatial granularity, we aimed to determine whether finer or coarser regional segmentation improves generalization and damage detection performance.
 
 

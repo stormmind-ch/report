@@ -225,6 +225,7 @@ long } }
     set block(breakable: false)
     it
   }
+
   set table(stroke: none)
 
   // Set raw text font.

@@ -51,7 +51,7 @@ The original dataset, discussed in @data provided by #abbr.a[WSL] contained only
 $ 
   "Dates" times "Municiaplities" 
 $ 
-Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was raported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
   - 52'372'088 represented non-damage instances
   - 24'613 corresponded to small damage events
   - 1'800 were classified as medium damage
@@ -59,7 +59,7 @@ Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all
 
 *Spatial Clustering*: 
 
-To address the extreme class imbalance and to comply with #abbr.pla[WSL] data usage disclaimer (@disclaimer), we aggregated municipalities into $k$ spatial clusters using k-means clustering on geographic coordinates (latitude and longitude). Let $x_i= (lambda_i, phi_i)$ be the coordinates for municipality $i$. The clustering objective was to minimize: 
+To address the extreme class imbalance and to comply with #abbr.pla[WSL] data usage disclaimer (@disclaimer), we aggregated municipalities into $k$ spatial clusters using k-means clustering on geographic coordinates (latitude $lambda$ and longitude $phi$). Let $x_i= (lambda_i, phi_i)$ be the coordinates for municipality $i$. The clustering objective was to minimize: 
 $
 sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2 
 $ @23Clustering
@@ -72,12 +72,12 @@ To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @Sci
 caption: [Example clustering of all Swiss municiaplities with $k=6$. The black crosses indicate the centroids of the respective clusters.]
 )<6-clusters>
 
-Determining the optimal number of clusters proved challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a set of cluster counts with $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters.
+Determining the optimal number of clusters proved to be challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a set of cluster counts with $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters. Furthermore, we will use a more finer granularity of $k=26$.
 #figure(image("images/kmeans-cluster-elbow.png", width: 60%),
 caption: [Elbow plot showing the number of clusters on the x-axis and the corresponding within-cluster sum of squares (WCSS) on the y-axis]
 )<elbow-plot>
 
-Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $k$ time series, one for each cluster.
+Each damage entry was then aggregated per cluster center and normalized by a weighted sum reflecting the severity of the damage class (small, medium, large). This yielded a dataset with $n$ time series, where $n=k$.
 
 *Temporal Grouping*: 
 

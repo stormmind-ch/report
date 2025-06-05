@@ -3,6 +3,8 @@
 == Deep Learning
 Deep Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.a[NN] architectures, as they form the core modeling approach used in this project.
 
+=== Activation Functions
+*TODO*
 
 === #abbr.l[FNN] <fnn>
 #abbr.a[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
@@ -58,13 +60,14 @@ Where $P$ is the number of training patterns, $N$ the number of output neurons, 
 
 *Procedure*
 #figure(
-  box[
+  box([
     #set align(left)
     1. Compute the actual output for the presented pattern
     2. Compare the actual output with the desired output
     3. Adjustment of weights and thresholds against the gradient of the error function (@errorfunction) for each layer from the output layer towards the input layer
-  ], 
-  caption: [Training Procedure of the backpropagation algorithm]
+  ],
+  inset: (left: 1.5em, right: 1.5em)), 
+  caption: [Training Procedure of the backpropagation algorithm],
 )
 
 *Adjustment Rules*
@@ -79,14 +82,16 @@ Where $P$ is the number of training patterns, $N$ the number of output neurons, 
 
 where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$, $w_(i j)$ the weight with index $i$ at layer $j$ and $t$ to the timestep.
 
-=== Recurrent Neural Networks
-The feedforward #abbr.pla[FNN] discussed in @fnn are inherently limited to fixed-size input. This makes them unsuitable for sequential data, where the length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]. @fig:rnn shows a #abbr.a[RNN] for a input size of 1 and @fig:unrolled_rnn shows a unrolled #abbr.a[RNN] of size 4.
+=== #abbr.l[RNN]
+The feedforward #abbr.pla[FNN] models discussed in @fnn can only handle inputs of fixed size, making them ill-suited for sequential data such as time series or language, where the input length can vary. To overcome this limitation, we introduce #abbr.pla[RNN], a class of models designed specifically to handle sequences of arbitrary length.
+
+Unlike FNNs, an #abbr.a[RNN] processes input one step at a time while maintaining a hidden state that carries information across time steps. This allows the model to "remember" relevant context from earlier in the sequence. @fig:rnn shows a simple #abbr.a[RNN] with an input size of 1, while @fig:unrolled_rnn illustrates the same #abbr.a[RNN] unrolled over 4 time steps, highlighting how information flows through the sequence.
 
 *Architecture*
 
 A #abbr.a[RNN] consits of the following components:
-- Input signal: The external data which is fed into the network at a timestep $t$ and represent the current information which the network is processing.
-- State signal: Also known as the hidden state, represents the memory of the #abbr.a[RNN] for a given neuron. It contains information about the past inputs in the sequence and is updated at each time step based on the current input and the previous state. The hidden state is updated with the following formula: $h_t = f(h_(t-1), x_t)$. After the update, the hidden state of neuron $i$ serves as input into the neuron $i+1$ 
+- Input signal: The external data which is fed into the network at a time step $t$ and represent the current information which the network is processing.
+- State signal: Also known as the hidden state, represents the memory of the #abbr.a[RNN] for a given neuron. It contains information about the past inputs in the sequence and is updated at each time step based on the current input and the previous state. The hidden state is updated with the following formula: $h_t = f(h_(t-1), x_t)$, were $x_t$ is the input at  step $t$. After the update, the hidden state of neuron $i$ serves as input into the neuron $i+1$ 
 - Weights: The weights of the #abbr.a[RNN] neurons are shared among all different states. 
 - Output: Each neuron has a output, which is denoted as $y_1$ - $y_4$ in @fig:unrolled_rnn. This output can serve as the output for the current state or as input into the next neuron. 
 @schillingLecture05Sequential2025, @aggarwalNeuralNetworksDeep2023
@@ -95,44 +100,44 @@ A #abbr.a[RNN] consits of the following components:
   columns: 2, align: center,
   grid.cell([
     #figure(
-      image("images/rnn_simple.png", height: 24%),
+      image("images/rnn_simple.png", height: 25%),
       caption: [#abbr.a[RNN]],
     )<fig:rnn>
   ]),
   grid.cell([
     #figure(
-      image("images/rnn_unrolled.png", height: 24%),
+      image("images/rnn_unrolled.png", height: 25%),
       caption: [4 times unrolled #abbr.a[RNN]],
     )<fig:unrolled_rnn>
   ]),
 )
+An #abbr.a[RNN] processes input sequences one element at a time. As shown in @fig:rnn, the RNN takes a single input vector and produces an output. This corresponds to the case where the RNN processes the first element $x_1$ of an input sequence ${x_1, x_2, dots, x_n}$. In contrast, @fig:unrolled_rnn illustrates the #abbr.a[RNN] unrolled over four time steps.  By the time the RNN reaches input $x_4$, it has already processed  inputs $x_1$ through $x_3$. The output at this step, $y_4$ is influenced not only by $x_4$ but also by the hidden state $h_4$ that carries information from the previous inputs.
 
 
 *Vanishing Gradient Problem*
 
-The #abbr.a[VGP] is a challenge encountered during the training of of #abbr.pla[RNN], particullary dealing with deep #abbr.pla[RNN] and long input sequences. It arieses from the way how gradients are updated during the backpropagation algorithm (discussed in @backprop), resulting in repeated multiplication of weight matrices and derivatives of activation functions across time steps. When these values are consistently smaller than one, the gradients exponentially decrease as they traverse earlier layers or time steps. Consequently, the gradients become vanishingly small, leading to negligible updates for earlier parameters and impairing the network's ability to learn long-range dependencies. The same principle aries, when the gradients become too large. In this case, the problem is called the exploding gradient problem.
+The #abbr.a[VGP] is a challenge encountered during the training of #abbr.pla[RNN], particullary dealing with  #abbr.pla[RNN] and long input sequences. It arises from the way how gradients are updated during the backpropagation algorithm (discussed in @backprop), resulting in repeated multiplication of weight matrices and derivatives of activation functions across time steps. When these values are consistently smaller than one, the gradients exponentially decrease as they traverse earlier layers or time steps. Consequently, the gradients become vanishingly small, leading to negligible updates for previous parameters and impairing the network's ability to learn long-range dependencies. The same principle arise, when the gradients become too large. In this case, the problem is called the exploding gradient problem.
 
 @aggarwalNeuralNetworksDeep2023
 
 
 
-=== Long Short Term Memory Neural Networks
-#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the #abbr.a[VGP] while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. They are an enhancement because the recurrence conditaions of how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
+=== #abbr.l[LSTM]
+#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the #abbr.a[VGP] while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. They are an enhancement because the reccurent mechanism that controls how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
 The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow of information using a set of gating mechanisms. These gates regulate how information is added to, removed from, or exposed from the cell state. Each gate is implemented as a sigmoid-activated neural layer and serves a distinct role in the update process.
 
 *Architecture*
 
 The internal structure of an #abbr.a[LSTM] cell is shown in @lstm-illustration. The figure illustrates how, at each time step $t$, the cell takes in the input vector $x_t$, the previous hidden state $h_(t-1)$, and the previous cell state $c_(t-1)$, and uses them to compute updated values for the current cell state $c_t$ and hidden state $h_t$.
 
-@lstm-illustration shows an illustration of an #abbr.a[LSTM] Cell. 
 #figure(
-  image("images/LSTM_Cell_illustration.png"),
+  image("images/LSTM_CELL_illustration.png"),
   caption: [
 Schematic illustration of an #abbr.a[LSTM] cell highlighting the internal gating structure. The colored blocks represent the three core gates—Forget (blue), Input (green), and Output (red)—and show how they interact with the cell and hidden states to regulate information flow.
 ]
   )<lstm-illustration>
 
-At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations:
+At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations. Here $w_x$ represents a complete weights matrix for each gate, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function:
 
 - Forget Gate (shown in the blue part of @lstm-illustration): This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: 
   - $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
@@ -146,7 +151,6 @@ At each time step $t$ with a given input vector $x_t$, previous hidden state $h_
   - $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
 - Hidden state update:  The final hidden state is computed by applying the output gate to the activated cell state. It is computed with: 
   - $h_t = o_t dot tanh(c_t)$
-Note: $w_x$ represents a complete weight matrix for each gate, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function.
 
 @PyTorchFoundation, @thakurLSTMItsEquations2018  
 
@@ -154,24 +158,26 @@ Note: $w_x$ represents a complete weight matrix for each gate, $b_x$ denotes the
 With the advent of Large Language Models and influential works such as Attention Is All You Need @vaswaniAttentionAllYou2023, Transformer architectures have gained significant traction in the field of Deep Learning. Originally developed for natural language processing tasks, Transformers have since been successfully adapted to a variety of domains, such as time series forcasting as shown by Q. Wen et. al. in  "Transformers in Time Series: A Survey" @wenTransformersTimeSeries2023 due to their ability to model long-range dependencies.
 
 In the following section, the core components and mechanisms of the Transformer architecture are outlined. 
+
 *Architecture*
 
-An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "softmax"((Q K^T)/sqrt(d_k)) V $ @vaswaniAttentionAllYou2023 
+An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "softmax"((Q K^T)/sqrt(d_k)) V $ #footnote([$M^T$ represents the transposed matrix of $M$])
+@vaswaniAttentionAllYou2023 
 
-When the dot product $Q K^T$ yields large values, the resulting attention scores can produce extremely sharp probability distributions after applying the softmax function. This can lead to vanishing gradients during training, making optimization unstable. T To mitigate this effect, the attention scores are scaled by a factor of $1/(sqrt(d_k))$, where $d_k$ is the dimensionality of the key vector. @vaswaniAttentionAllYou2023
+When the dot product $Q K^T$ yields large values, the resulting attention scores can produce extremely sharp probability distributions after applying the softmax function. This can lead to vanishing gradients during training, making optimization unstable. To mitigate this effect, the attention scores are scaled by a factor of $1/(sqrt(d_k))$, where $d_k$ is the dimensionality of the key vector. @vaswaniAttentionAllYou2023
 
 In tasks involving sequential data, such as language modeling or time series forecasting, the model should not have access to future positions when making a prediction. To enforce this constraint, the Transformer uses a technique called masked attention, in which the attention weights for all positions beyond the current one are set to zero. This ensures that, when computing the representation for position $x_n$, the model can only attend to $x_(<=n)$ through $x_n$, but not to any $x_(>n)$.
 
-#figure(image("images/self-attention.png",width: 60%),
+#figure(image("images/self-attention.png"),
 caption: [
-Self-attention mechanism illustrated with matrices. All matrices have shape $D dot N$, where $D$ is the sequence length and $N$ is the feature dimension. The input matrix is projected into three separate matrices: Queries ($Q$), Keys ($K$), and Values ($V$). The attention weights are computed by multiplying $Q$ with the transpose of $K$, followed by the Softmax function. The result is then used to weight the $V$ matrix, producing the final output as $"Softmax"(Q K^T) dot V$.
+Self-attention mechanism illustrated with matrices. All matrices have shape $D dot N$, where $D$ is the sequence length and $N$ is the feature dimension. The input matrix is projected into three separate matrices: Queries ($Q$), Keys ($K$), and Values ($V$). The attention weights are computed by multiplying $Q$ with the transpose of $K$, followed by applying the Softmax function. The result is then used to weight the $V$ matrix, producing the final output as $"Softmax"(Q K^T) dot V$.
 @princeUnderstandingDeepLearning
 ]
 )<self-attention-ill>
 
 While basic self-attention allows a model to compute contextual relationships between sequence elements, it operates in a single projection space, potentially limiting the diversity of information captured. To address this, Transformers employ Multi-Head Attention, a mechanism that enables the model to attend to information from multiple representation subspaces simultaneously, which was firstly described in "Attention is All You Need" @vaswaniAttentionAllYou2023
-Instead of computing attention just once, the input sequence is projected into multiple sets of Queries, Keys, and Values using learned linear transformations—typically with smaller dimensionality $q < p$, where $p$ is the original embedding size. Each set of projections corresponds to a separate attention head, allowing the model to focus on different semantic or temporal aspects of the sequence.
-These $n$ parallel attention heads independently compute attention outputs, which are then concatenated into a single vector of dimension $k dot q$. Since this dimensionality may differ from the original embedding size, the concatenated output is passed through a final linear projection layer (denoted $W^(text)$) to produce the final attention output. This structure is illustrated conceptually in @multi-head-attention, and it significantly enhances the expressiveness and robustness of the attention mechanism. This process can also be caluclated with: $ "MultiHead"(Q, K, V) = "Conact"("head"_1, dots, "head"_h)W^(O) \
+Instead of computing attention just once, the input sequence is projected into multiple sets of Queries, Keys, and Values using learned linear transformations—typically with smaller dimensionality $q < D$, where $D$ is the original input size. Each set of projections corresponds to a separate attention head, allowing the model to focus on different semantic or temporal aspects of the sequence.
+These $n$ parallel attention heads independently compute attention outputs, which are then concatenated into a single vector of dimension $k dot q$. Since this dimensionality may differ from the original embedding size, the concatenated output is passed through a final linear projection layer (denoted $W^(text)$) to produce the final attention output. This structure is illustrated conceptually in @multi-head-attention, and it significantly enhances the expressiveness and robustness of the attention mechanism. This process can also be calculated using the following equation, where $W^O$ is a learnable output weight matrix, and $W^Q$, $W^K$, and $W^V$ are learnable weight matrices corresponding to the matrices $Q$, $K$, and $V$, respectively: $ "MultiHead"(Q, K, V) = "Concat"("head"_1, dots, "head"_h)W^(O) \
 "where " "head"_i = "Attention"(Q W_i^Q, K W_i ^K, V W_i ^V) $ @vaswaniAttentionAllYou2023
 
 
@@ -188,10 +194,10 @@ Although this operation is technically a linear projection, it is commonly refer
 
 *Positional Encoding*
 
-While the self-attention mechanism is effective at capturing relationships between elements in a sequence, it lacks an inherent notion of order. Specifically, self-attention is permutation-equivariant, which means it produces the same output, regardless of the input sequences order. However, order is important when the input is a time series or a sentence.
+While the self-attention mechanism is effective at capturing relationships between elements in a sequence, it lacks a notion of order. Specifically, self-attention is permutation-equivariant, which means it produces the same output, regardless of the input sequences order. However, order is important when the input is a time series or a sentence.
 To address this limitation, positional encodings are introduced to inject information about the position of each element in the input sequence. A common approach is to define a positional encoding matrix $P_i$ and add it to the original input matrix $X$. Each column of $P_i$ encodes a unique absolute position within the sequence, allowing the model to distinguish between inputs based not only on content but also on their order.
 
-This encoding matrix $P_i$ can either be fixed e.g. using sinus function as it was done in "Attention is All You Need" @vaswaniAttentionAllYou2023 or learned during training. 
+The positional encoding matrix $P_i$ can either be fixed—using functions such as sine and cosine, as in Attention Is All You Need @vaswaniAttentionAllYou2023—or it can be learned during training as part of the model parameters.
 By learning absolute position information in this way, the Transformer model gains the ability to capture the sequential structure of the data, which is essential for tasks like damage forecasting or language understanding.
 
 *Encoder Decoder*
@@ -199,7 +205,7 @@ By learning absolute position information in this way, the Transformer model gai
 Transformers are based on an encoder–decoder architecture, as illustrated in @encoder-decoder-architecture-ill. The encoder processes the full input sequence and generates a contextual representation, known as the encoder vector (shown in grey). The decoder then uses this representation to generate the output sequence token by token. Both components consist of stacked layers with a shared modular structure, including multi-head attention, feedforward sub-layers, residual connections, and normalization. 
 #figure(
   image("images/encoder_decoder_architecture_illustration.png"),
-  caption: [Abstracted illustration of the encoder–decoder architecture. The encoder receives an input sequence $x_1, dots, x_n$ and transforms it into a sequence of contextualized representations, here called the Encoder Vector, which is symbolically represented by two arrows to emphasize its role in guiding the decoding process. The encoder vector are passed to the decoder, which generates an output sequence $y_1, dots, y_k$, where the output length $k$ may differ from the input length $n$.@aggarwalNeuralNetworksDeep2023
+  caption: [High level illustration of the encoder–decoder architecture. The encoder receives an input sequence $x_1, dots, x_n$ and transforms it into a sequence of contextualized representations, here called the Encoder Vector, which is symbolically represented by two arrows to emphasize its role in guiding the decoding process. The encoder vector are passed to the decoder, which generates an output sequence $y_1, dots, y_o$, where the output length $o$ may differ from the input length $n$.@aggarwalNeuralNetworksDeep2023
 ]
 )<encoder-decoder-architecture-ill>
 
