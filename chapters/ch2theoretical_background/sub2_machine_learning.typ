@@ -205,7 +205,7 @@ By learning absolute position information in this way, the Transformer model gai
 Transformers are based on an encoder–decoder architecture, as illustrated in @encoder-decoder-architecture-ill. The encoder processes the full input sequence and generates a contextual representation, known as the encoder vector (shown in grey). The decoder then uses this representation to generate the output sequence token by token. Both components consist of stacked layers with a shared modular structure, including multi-head attention, feedforward sub-layers, residual connections, and normalization. 
 #figure(
   image("images/encoder_decoder_architecture_illustration.png"),
-  caption: [High level illustration of the encoder–decoder architecture. The encoder receives an input sequence $x_1, dots, x_n$ and transforms it into a sequence of contextualized representations, here called the Encoder Vector, which is symbolically represented by two arrows to emphasize its role in guiding the decoding process. The encoder vector are passed to the decoder, which generates an output sequence $y_1, dots, y_o$, where the output length $o$ may differ from the input length $n$.@aggarwalNeuralNetworksDeep2023
+  caption: [High level illustration of the encoder–decoder architecture. The encoder receives an input sequence $x_1, dots, x_n$ and transforms it into a sequence of contextualized representations, here called the Encoder Vector, which is symbolically represented by the grey box. The encoder vector are passed to the decoder, which generates an output sequence $y_1, dots, y_o$, where the output length $o$ may differ from the input length $n$.@aggarwalNeuralNetworksDeep2023
 ]
 )<encoder-decoder-architecture-ill>
 

@@ -42,7 +42,7 @@ To address class imbalance in the storm damage classes, class-specific weights w
 
 After all folds were completed, the model with the highest average F1 score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
 
-#figure(image("images/training-pipeline.png", width: 40%),
+#figure(image("images/training-pipeline.png", width: 60%),
 caption: [End-to-end training pipeline, from dataset preparation through cross-validation and final testing.])<training-pipeline>
 
 === Initial Findings and Design Decisions
@@ -60,7 +60,7 @@ Our first experiment employed a baseline #abbr.a[FNN], whose architecture is ill
 The network consists of 10 fully connected layers with #abbr.a[ReLU] activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
 
 #figure(
-  image("images/fnn_illustration-experiment.png", width: 70%),
+  image("images/fnn_illustration-experiment.png", width: 100%),
   caption: [Illustration of the  #abbr.a[FNN]: 3 Input Neurons, 2 Output Neurons. 8 hidden layers with Neurons variing between 8 and 64 as shown in the illustration respectively.]
   )<fnn_experiment>
 
