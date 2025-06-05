@@ -13,10 +13,10 @@ Deep Learning has gained increasing popularity in recent years, particularly thr
 
 A #abbr.a[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic graph with inter-connections. It contains a set of neurons distributed in different layers.
 - Each neuron has an activation function.
-- The first layer, shown on the left side in @nn-img, is called the input layer and has no predacessors. Furthermore, its input value the same as their output value.
+- The first layer, shown on the left side in @nn-img, is called the input layer and has no predecessors. Furthermore, its input value the same as their output value.
 - The last layer, shown on the right side in @nn-img, is called the output layer and has no successors. Its value represents the output of the Network.
 - All other neurons are grouped in the so called hidden layers. In @nn-img this is represented by the layer in the middle. A neural network can have an arbitrary amount of hidden layers. 
-- The edges in the graph, are the weights, which represent an arbitrary number in $RR$ and are updated during the trianing process.
+- The edges in the graph, are the weights, which represent an arbitrary number in $RR$ and are updated during the training process.
 
 #figure(image("images/Neural_Network_Illustration.png", width: 60%), 
 caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSVG])
@@ -80,7 +80,7 @@ Where $P$ is the number of training patterns, $N$ the number of output neurons, 
   $
 )#cite(<mrazovaMultilayeredNeuralNetworks2024>)
 
-where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$, $w_(i j)$ the weight with index $i$ at layer $j$ and $t$ to the timestep.
+where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$, $w_(i j)$ the weight with index $i$ at layer $j$ and $t$ to the time step.
 
 === #abbr.l[RNN]
 The feedforward #abbr.pla[FNN] models discussed in @fnn can only handle inputs of fixed size, making them ill-suited for sequential data such as time series or language, where the input length can vary. To overcome this limitation, we introduce #abbr.pla[RNN], a class of models designed specifically to handle sequences of arbitrary length.
@@ -89,7 +89,7 @@ Unlike FNNs, an #abbr.a[RNN] processes input one step at a time while maintainin
 #pagebreak()
 *Architecture*
 
-A #abbr.a[RNN] consits of the following components:
+A #abbr.a[RNN] consists of the following components:
 - Input signal: The external data which is fed into the network at a time step $t$ and represent the current information which the network is processing.
 - State signal: Also known as the hidden state, represents the memory of the #abbr.a[RNN] for a given neuron. It contains information about the past inputs in the sequence and is updated at each time step based on the current input and the previous state. The hidden state is updated with the following formula: $h_t = f(h_(t-1), x_t)$, were $x_t$ is the input at  step $t$. After the update, the hidden state of neuron $i$ serves as input into the neuron $i+1$ 
 - Weights: The weights of the #abbr.a[RNN] neurons are shared among all different states. 
@@ -123,7 +123,7 @@ The #abbr.a[VGP] is a challenge encountered during the training of #abbr.pla[RNN
 
 
 === #abbr.l[LSTM]
-#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the #abbr.a[VGP] while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. They are an enhancement because the reccurent mechanism that controls how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
+#abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the #abbr.a[VGP] while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. They are an enhancement because the recurrent mechanism that controls how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimension as $h_t$, which is called the cell state and is denoted as $c_t$. 
 The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow of information using a set of gating mechanisms. These gates regulate how information is added to, removed from, or exposed from the cell state. Each gate is implemented as a sigmoid-activated neural layer and serves a distinct role in the update process.
 
 *Architecture*
@@ -155,16 +155,16 @@ At each time step $t$ with a given input vector $x_t$, previous hidden state $h_
 @PyTorchFoundation, @thakurLSTMItsEquations2018  
 
 === Transformer
-With the advent of Large Language Models and influential works such as Attention Is All You Need @vaswaniAttentionAllYou2023, Transformer architectures have gained significant traction in the field of Deep Learning. Originally developed for natural language processing tasks, Transformers have since been successfully adapted to a variety of domains, such as time series forcasting as shown by Q. Wen et. al. in  "Transformers in Time Series: A Survey" @wenTransformersTimeSeries2023 due to their ability to model long-range dependencies.
+With the advent of Large Language Models and influential works such as Attention Is All You Need @vaswaniAttentionAllYou2023, Transformer architectures have gained significant traction in the field of Deep Learning. Originally developed for natural language processing tasks, Transformers have since been successfully adapted to a variety of domains, such as time series forecasting as shown by Q. Wen et. al. in  "Transformers in Time Series: A Survey" @wenTransformersTimeSeries2023 due to their ability to model long-range dependencies.
 
 In the following section, the core components and mechanisms of the Transformer architecture are outlined. 
 
 *Architecture*
 
-An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "softmax"((Q K^T)/sqrt(d_k)) V $ #footnote([$M^T$ represents the transposed matrix of $M$])
+An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "Softmax"((Q K^T)/sqrt(d_k)) V $ #footnote([$M^T$ represents the transposed matrix of $M$])
 @vaswaniAttentionAllYou2023 
 
-When the dot product $Q K^T$ yields large values, the resulting attention scores can produce extremely sharp probability distributions after applying the softmax function. This can lead to vanishing gradients during training, making optimization unstable. To mitigate this effect, the attention scores are scaled by a factor of $1/(sqrt(d_k))$, where $d_k$ is the dimensionality of the key vector. @vaswaniAttentionAllYou2023
+When the dot product $Q K^T$ yields large values, the resulting attention scores can produce extremely sharp probability distributions after applying the Softmax function. This can lead to vanishing gradients during training, making optimization unstable. To mitigate this effect, the attention scores are scaled by a factor of $1/(sqrt(d_k))$, where $d_k$ is the dimensionality of the key vector. @vaswaniAttentionAllYou2023
 
 In tasks involving sequential data, such as language modeling or time series forecasting, the model should not have access to future positions when making a prediction. To enforce this constraint, the Transformer uses a technique called masked attention, in which the attention weights for all positions beyond the current one are set to zero. This ensures that, when computing the representation for position $x_n$, the model can only attend to $x_(<=n)$ through $x_n$, but not to any $x_(>n)$.
 
@@ -210,7 +210,7 @@ Transformers are based on an encoder–decoder architecture, as illustrated in @
 )<encoder-decoder-architecture-ill>
 
 
-During training, the encoder receives the full observed input sequence, such as past weather patterns over several weeks in the domain of weather forcasting. The decoder is provided with the leftmost portion of the target sequence, which is, the known values from the beginning of the forecast window. For example, if the goal is to predict the temperature over the next 10 days, the decoder might initially receive only a start-of-sequence token or the first known value and must predict the next value in the sequence. @aggarwalNeuralNetworksDeep2023
+During training, the encoder receives the full observed input sequence, such as past weather patterns over several weeks in the domain of weather forecasting. The decoder is provided with the leftmost portion of the target sequence, which is, the known values from the beginning of the forecast window. For example, if the goal is to predict the temperature over the next 10 days, the decoder might initially receive only a start-of-sequence token or the first known value and must predict the next value in the sequence. @aggarwalNeuralNetworksDeep2023
 
 
 Although the original Transformer combines encoder and decoder modules, simplified variants such as BERT and GPT-3 omit either the decoder or encoder component. BERT uses an encoder-only architecture suited for classification and representation tasks, while GPT-3 is built on a decoder-only architecture optimized for generative tasks.

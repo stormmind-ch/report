@@ -54,13 +54,13 @@ The original dataset, discussed in @data provided by #abbr.a[WSL] contained only
 $ 
   "Dates" times "Municiaplities" 
 $ 
-Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields _Extent of Damage_ and _Main Process_ were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municipalities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields _Extent of Damage_ and _Main Process_ were filled with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consisted of 52'399'36 rows of which:
   - 52'372'088 represented non-damage instances
   - 24'613 corresponded to small damage events
   - 1'800 were classified as medium damage
   - 859 indicated large-scale damages
 
-What stands out in particular is the uneven distribution. In addition to the imbalance between damage and no-damage cases, the distribution of damage severity itself is also highly skewed. As a reference, a distribution following a Poisson process would be expected.
+What stands out in particular is the uneven distribution. In addition to the imbalance between damage and no-damage cases, the distribution of damage severity itself is also highly skewed. As a reference, a distribution based on the theoretical Poisson distribution is provided.
 
 #figure(
   image("images/plot_für_damian_poisson.png", width: 70%),
@@ -73,13 +73,13 @@ To address the extreme class imbalance and to comply with #abbr.pla[WSL] data us
 $
 sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2 
 $ @23Clustering
-where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the _KMeans_ algorithim from SciKitLearn @ScikitlearnMachineLearning. 
+where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning. 
 
 To ensure deterministic behavior of the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: _random_state= $42$_ and _n_init = $10$_.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
 
 #figure(
   image("images/kmeans-clusters6-plot.png", width: 60%),
-caption: [Example clustering of all Swiss municiaplities with $k=6$. The black crosses indicate the centroids of the respective clusters.]
+caption: [Example clustering of all Swiss municipalities with $k=6$. The black crosses indicate the centroids of the respective clusters.]
 )<6-clusters>
 
 Determining the optimal number of clusters proved to be challenging, as no clear "elbow point" could be identified in the curve shown in @elbow-plot. Instead of relying on a single fixed value, we opted to use a set of cluster counts with $k = 3$ and $k = 6$. This range was chosen based on the observation that the within-cluster sum of squares decreases most noticeably in this interval, indicating a diminishing return in compactness beyond six clusters. Furthermore, we will use a more finer granularity of $k=26$.
@@ -95,7 +95,7 @@ The data were then aggregated at weekly intervals. For each cluster and week, th
 $ 
 "Damage"_("week") = sum_("day" in "week") "MeanDamage"_("class"("day")) 
 $ 
-$"MeanDamage"_("class"("day"))$ is the average damage in CHF for the class of the damage event on that day. The averages were provided by K. Liechti (#abbr.a[WSL]):
+$"MeanDamage"_("class"("day"))$ is the average damage in CHF for the class of the damage event on that day. The averages were provided by Liechti:
 - Class 1 (small): 0.06 Mio CHF
 - Class 2 (medium): 0.8 Mio CHF
 - Class 3 (large): 11.3 Mio CHF
@@ -107,7 +107,7 @@ The final dataset consists of entries with the following attributes per time win
 - _damage_grouped_: aggregated and binned damage label (0-3)
 To convert the continuous aggregated damage values into categorical classes, we defined a binning procedure based on quantiles of the non-zero damage distribution.
 
-Let $D = {d_1, d_2, dots, d_n}$ be the set of non-zero aggregated damae values and $q_1, q_2, q_3$ be the proportions of the damage classes where $q_1 = 0.9005, q_2 = 0.0667, q_3 = 0.0328$. The bin thresholds $T_("lowe")$ and $T_("mid")$ were computed as: 
+Let $D = {d_1, d_2, dots, d_n}$ be the set of non-zero aggregated damage values and $q_1, q_2, q_3$ be the proportions of the damage classes where $q_1 = 0.9005, q_2 = 0.0667, q_3 = 0.0328$. The bin thresholds $T_("lowe")$ and $T_("mid")$ were computed as: 
 $ 
   T_("low") = "percentile"(D, 100 * q_1) \ T_("mid") = "percentile"(D, 100 * (q_1 + q_2)) 
 $ 
@@ -117,5 +117,5 @@ They also depend on the number of spatial clusters $k$, which determines how man
   - Class 2: $(T_("low"), T_("mid")]$
   - Class 3: $(T_("mid"), infinity)$
 
-*Weeather Data Interpolation*
+*Weather Data Interpolation*
 For each cluster and week, the corresponding weekly sum of rain, average temperature, and average sunshine duration were computed based on the weather at the cluster centroid. These values were then assigned to all municipalities within the respective cluster.
