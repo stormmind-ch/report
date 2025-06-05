@@ -2,7 +2,7 @@
 #import "../../abbr.typ"
 = Discussion and Outlook
 
-Due to the unavailability of Dr. Liechti during the final phase of the project, the planned demonstration could not be conducted. The final version of this thesis will be submitted to her for review.
+Due to the unavailability of Liechti during the final phase of the project, the planned demonstration could not be conducted. The final version of this thesis will be submitted to her for review.
 
 While the results obtained from the evaluated deep learning models are not yet sufficient for deployment in a real-world storm damage forecasting system, this thesis represents a pioneering effort in this domain. The models explored, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, were trained exclusively on weather data. However, storm damage is influenced by a complex interplay of environmental, infrastructural, and geographical factors, many of which were not incorporated into the current models.
 
