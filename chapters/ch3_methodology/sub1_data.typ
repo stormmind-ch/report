@@ -51,7 +51,7 @@ The original dataset, discussed in @data provided by #abbr.a[WSL] contained only
 $ 
   "Dates" times "Municiaplities" 
 $ 
-Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields `Extent of Damage` and `Main Process` were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municiaplities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields _Extent of Damage_ and _Main Process_ were inputed with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consited of 52'399'36 rows of which:
   - 52'372'088 represented non-damage instances
   - 24'613 corresponded to small damage events
   - 1'800 were classified as medium damage
@@ -63,9 +63,9 @@ To address the extreme class imbalance and to comply with #abbr.pla[WSL] data us
 $
 sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2 
 $ @23Clustering
-where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the `KMeans` algorithim from SciKitLearn @ScikitlearnMachineLearning. 
+where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the _KMeans_ algorithim from SciKitLearn @ScikitlearnMachineLearning. 
 
-To ensure deterministic behavior of the `KMeans` algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: `random_state`= $42$ and `n_init` = $10$.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
+To ensure deterministic behavior of the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: _random_state= $42$_ and _n_init = $10$_.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
 
 #figure(
   image("images/kmeans-clusters6-plot.png", width: 60%),
@@ -91,10 +91,10 @@ $"MeanDamage"_("class"("day"))$ is the average damage in CHF for the class of th
 - Class 3 (large): 11.3 Mio CHF
  
 The final dataset consists of entries with the following attributes per time window (week) and cluster center:
-- `end_date`: last day of the week
-- `center_municipality`: name of the cluster centroid
-- `cluster_center_latitude`, `cluster_center_longitude`: Geographical coordinates of the cluster center
-- `damage_grouped`: aggregated and binned damage label (0-3)
+- _end_date_: last day of the week
+- _center_municipality_: name of the cluster centroid
+- _cluster_center_latitude_, _cluster_center_longitude_: Geographical coordinates of the cluster center
+- _damage_grouped_: aggregated and binned damage label (0-3)
 To convert the continuous aggregated damage values into categorical classes, we defined a binning procedure based on quantiles of the non-zero damage distribution.
 
 Let $D = {d_1, d_2, dots, d_n}$ be the set of non-zero aggregated damae values and $q_1, q_2, q_3$ be the proportions of the damage classes where $q_1 = 0.9005, q_2 = 0.0667, q_3 = 0.0328$. The bin thresholds $T_("lowe")$ and $T_("mid")$ were computed as: 

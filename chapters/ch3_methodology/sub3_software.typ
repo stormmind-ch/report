@@ -26,9 +26,9 @@ The architecture is organized as follows:
     - Forecaset: Represents the output produced by a deep learning model.
     - WeatherData: eteorological data required for performing inference with the deep learning models.
 
-- *Application Layer*: Defines the system's use cases and orchestrates business rules by coordinating entities. It is responsible for implementing application-specific logic while remaining independent of external technologies. This layer also defines interfaces, named `Ports` that describe the required functionality from the infrastructure layer.
+- *Application Layer*: Defines the system's use cases and orchestrates business rules by coordinating entities. It is responsible for implementing application-specific logic while remaining independent of external technologies. This layer also defines interfaces, named _Ports_ that describe the required functionality from the infrastructure layer.
 
-A central part of this layer is the inference orchestration logic, which involves multiple sequential steps. To manage this complexity, we adopted the Chain of Responsibility design pattern @ChainResponsibility. This allows each step in the inference process to be encapsulated in a dedicated handler that can pass the request along the chain. The chain is hold by the `ForecastService` class, which is shown on the bottom left corner of @backend_application.
+A central part of this layer is the inference orchestration logic, which involves multiple sequential steps. To manage this complexity, we adopted the Chain of Responsibility design pattern @ChainResponsibility. This allows each step in the inference process to be encapsulated in a dedicated handler that can pass the request along the chain. The chain is hold by the _ForecastService_ class, which is shown on the bottom left corner of @backend_application.
 
 #figure(
   image("images/backend_application.png"),
@@ -36,13 +36,13 @@ A central part of this layer is the inference orchestration logic, which involve
     Class Diagram for Application Layer of the Backend
   ],
 )<backend_application>
-- *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (`Ports`) defined in the Application Layer. It is responsible for «integrating external systems and technologies, such as:
+- *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (_Ports_) defined in the Application Layer. It is responsible for «integrating external systems and technologies, such as:
   - PostgreSQL, using Spring Data JPA for data persistence,
   - the Deep Java Library (DJL) for running deep learning model inference,
   - and Open-Meteo APIs for weather data retrieval.
   This layer encapsulates all technical details and external dependencies, keeping the rest of the system decoupled from implementation concerns.
 
-  To support modular weather data retrieval, the Factory Pattern is employed in the `OpenMeteoWeatherFetcherFactory`. This allows dynamic instantiation of the appropriate `WeatherFetcher` implementation based on the request context.
+  To support modular weather data retrieval, the Factory Pattern is employed in the _OpenMeteoWeatherFetcherFactory_. This allows dynamic instantiation of the appropriate _WeatherFetcher_ implementation based on the request context.
 
   In addition, the Decorator Pattern is used to compose weather fetchers with different temporal scopes:
   The base fetcher retrieves current-week data.
@@ -50,7 +50,7 @@ A central part of this layer is the inference orchestration logic, which involve
 
   Persistence adapters implement the required interfaces by delegating to Spring Data JPA repositories. These adapters act as bridges between the domain model and the database, handling entity retrieval and storage.
 
-  The `ModelInferenceServiceFactory` uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type.
+  The _ModelInferenceServiceFactory_ uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type.
 
   The most important infrastructure classes are illustrated in @backend_infrastructure
 
@@ -62,9 +62,9 @@ caption: [Class Diagram for Infrastructure Layer of the Backend ]
   
   Each controller corresponds to a specific use case or domain concept:
 
-  - `DamageController` manages endpoints for recording and retrieving individual damage events.
-  - `GroupedDamageController` provides access to aggregated damage data grouped by municipality.
-  - `ForecastController` serves endpoints for requesting deep learning model forecasts, either for all municipalities or a specific one.
+  - _DamageController_ manages endpoints for recording and retrieving individual damage events.
+  - _GroupedDamageController_ provides access to aggregated damage data grouped by municipality.
+  - _ForecastController_ serves endpoints for requesting deep learning model forecasts, either for all municipalities or a specific one.
 
 This separation of concerns enhances testability and makes it straightforward to substitute components (e.g., switch databases) without affecting core logic.
 
@@ -147,13 +147,13 @@ Deployment is managed via a virtual instance hosted on the *OpenStack* cluster o
 
 The application consists of two components: a backend and a frontend. Both are containerized using Docker and deployed with Kubernetes. The use of Kubernetes enables dynamic scalability, allowing the application to adapt to changing resource demands.
 
-The frontend runs on port 80 within its pod and communicates over TCP. To manage and route incoming traffic, *Traefik* is used as an ingress controller. It is configured to forward requests to `stormmind.ch`, including the root path `/` and all subpaths, to the frontend pod. Requests to `api.stormmind.ch` are routed to the backend service, which listens on port 8080. All HTTP traffic is automatically redirected to HTTPS to ensure secure communication.
+The frontend runs on port 80 within its pod and communicates over TCP. To manage and route incoming traffic, *Traefik* is used as an ingress controller. It is configured to forward requests to _stormmind.ch_, including the root path _/_ and all subpaths, to the frontend pod. Requests to _api.stormmind.ch_ are routed to the backend service, which listens on port 8080. All HTTP traffic is automatically redirected to HTTPS to ensure secure communication.
 
 Both the backend and frontend deployments are configured to always pull the latest Docker image and to retain only one previous ReplicaSet. This setup simplifies the deployment process and reduces potential ambiguity when identifying the active version.
 
-To enable HTTPS functionality, a `ClusterIssuer` and a `Certificate` resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*, making them available to Traefik for encrypted traffic handling.
+To enable HTTPS functionality, a _ClusterIssuer_ and a _Certificate_ resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*, making them available to Traefik for encrypted traffic handling.
 
-For continuous integration and deployment, two separate GitHub Actions pipelines were implemented—one for the frontend and one for the backend. Both workflows are triggered on each push to the `main` branch. The pipelines establish an SSH connection to the machine running the Kubernetes cluster, pull the latest project state, build new Docker images, push them to Docker Hub, and trigger a rollout of the updated containers.
+For continuous integration and deployment, two separate GitHub Actions pipelines were implemented—one for the frontend and one for the backend. Both workflows are triggered on each push to the _main_ branch. The pipelines establish an SSH connection to the machine running the Kubernetes cluster, pull the latest project state, build new Docker images, push them to Docker Hub, and trigger a rollout of the updated containers.
 
 Given the moderate size of the project, this CI/CD approach was deliberately chosen over the integration of additional DevOps tools in order to keep operational overhead low.
 
