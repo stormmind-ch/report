@@ -60,6 +60,13 @@ Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all
   - 1'800 were classified as medium damage
   - 859 indicated large-scale damages
 
+What stands out in particular is the uneven distribution. In addition to the imbalance between damage and no-damage cases, the distribution of damage severity itself is also highly skewed. As a reference, a distribution following a Poisson process would be expected.
+
+#figure(
+  image("images/plot_für_damian_poisson.png", width: 70%),
+caption: [distribution of damages compared to the expected Poisson distribution.]
+)
+
 *Spatial Clustering*: 
 
 To address the extreme class imbalance and to comply with #abbr.pla[WSL] data usage disclaimer (@disclaimer), we aggregated municipalities into $k$ spatial clusters using k-means clustering on geographic coordinates (latitude $lambda$ and longitude $phi$). Let $x_i= (lambda_i, phi_i)$ be the coordinates for municipality $i$. The clustering objective was to minimize: 
