@@ -23,8 +23,8 @@ The architecture is organized as follows:
     - Damage: Represents a damage event recorded in the #abbr.a[WSL] database. It is also persisted in our PostgreSQL database.
     - GroupedDamage: Aggregated damage records grouped by municipality. This entity is materialized as a view in the PostgreSQL database.
     - Inference:  Encapsulates the input data required for making predictions using the deep learning models.
-    - Forecaset: Represents the output produced by a deep learning model.
-    - WeatherData: eteorological data required for performing inference with the deep learning models.
+    - Forecast: Represents the output produced by a deep learning model.
+    - WeatherData: Meteorological data required for performing inference with the deep learning models.
 
 - *Application Layer*: Defines the system's use cases and orchestrates business rules by coordinating entities. It is responsible for implementing application-specific logic while remaining independent of external technologies. This layer also defines interfaces, named _Ports_ that describe the required functionality from the infrastructure layer.
 
@@ -39,7 +39,7 @@ A central part of this layer is the inference orchestration logic, which involve
 - *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (_Ports_) defined in the Application Layer. It is responsible for «integrating external systems and technologies, such as:
   - PostgreSQL, using Spring Data JPA for data persistence,
   - the Deep Java Library (DJL) for running deep learning model inference,
-  - and Open-Meteo APIs for weather data retrieval.
+  - and open-meteo APIs for weather data retrieval.
   This layer encapsulates all technical details and external dependencies, keeping the rest of the system decoupled from implementation concerns.
 
   To support modular weather data retrieval, the Factory Pattern is employed in the _OpenMeteoWeatherFetcherFactory_. This allows dynamic instantiation of the appropriate _WeatherFetcher_ implementation based on the request context.
@@ -54,7 +54,7 @@ A central part of this layer is the inference orchestration logic, which involve
 
   The most important infrastructure classes are illustrated in @backend_infrastructure
 
-#figure(image("images/backend_infrastructure.png"), 
+#figure(image("images/backend_infrastructure.png", width: 100%), 
 caption: [Class Diagram for Infrastructure Layer of the Backend ]
 )<backend_infrastructure>
 
@@ -67,7 +67,7 @@ caption: [Class Diagram for Infrastructure Layer of the Backend ]
   - _ForecastController_ serves endpoints for requesting deep learning model forecasts, either for all municipalities or a specific one.
 
 This separation of concerns enhances testability and makes it straightforward to substitute components (e.g., switch databases) without affecting core logic.
-
+#pagebreak()
 *Caching:*
 
 After the initial deployment, user tests were conducted as outlined in the frontend test concept chapter. During these tests, a noticeable and user-unfriendly delay was observed. The issue was traced back to the request responsible for retrieving forecast data for all municipalities in Switzerland, which depends on the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023. Since this request must aggregate weather data across a large number of locations, it involves considerable processing time.
@@ -101,7 +101,7 @@ To better assess the performance characteristics of this request, response times
 caption: [Comparison of forecast retrieval times for all municipalities: locally with caching, locally without caching, and via the production API with caching.\
 *Note:* For caching scenarios, the initial request populates the cache and thus exhibits similar latency to uncached retrieval. The cache is valid for 24 hours. In the case of the production system, the initial daily request had already been completed, resulting in no noticeable difference between the first and subsequent requests.]
 )<caching-times-test>
-#pagebreak()
+
 #figure(table(
   columns: 4,
 
@@ -112,7 +112,7 @@ caption: [Comparison of forecast retrieval times for all municipalities: locally
 caption: [Average request times\
 *Note:* To account for cache warm-up, only requests two to ten were included in the calculation of the average request time.]
 )<caching-times-averages>
-
+#pagebreak()
 *Test Concept*
 
 All technically relevant logic components from the application package are covered by unit tests. These tests verify the behavior of each class in isolation from external dependencies by using mocks or stubs. The goal was to achieve a test coverage of 80% for these classes, ensuring correct handling of inputs, states, and error scenarios.

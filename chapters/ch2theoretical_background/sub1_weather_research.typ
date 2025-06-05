@@ -5,7 +5,7 @@
 The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung
 Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered in the model. The influencing factors discussed were:
 
-*Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. However, no definitive or commonly accepted values could be established. Given the timeframe of the thesis project, limited further research could not provide any conclusive informations.\
+*Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. However, no definitive or commonly accepted values could be established. Given the timeframe of the thesis project, limited further research could not provide any conclusive information.\
 
 *Forest/Deforestation*: Deforestation is widely recognized as a contributing factor to landslides, primarily due to the loss of root systems that stabilize the soil @Erdrutsch2025.  Liechti confirmed this statement but also pointed out that forests themselves possess considerable weight, which may also contribute to slope instability. Applying this insight would require additional data and investigation.
 

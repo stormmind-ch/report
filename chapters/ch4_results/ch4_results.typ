@@ -14,7 +14,7 @@
 
 = Results<results-ai>
 
-The following section presents the results of our comparative evaluation of three deep learning architectures, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, applied to the task of binary storm damage forecasting. This experimental block aims to answer three key questions:
+The following section presents the results of our comparative evaluation of three deep learning architectures, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, applied to the task of binary storm damage forecasting. It aims to answer three key questions:
 1.  Which architecture achieves the best performance on the held out test set?
 2. Does increased model complexity (e.g., through temporal modeling in LSTM or long-range dependency modeling in Transformers) lead to better forecasting performance compared to the baseline #abbr.a[FNN]?
 3. How does spatial granularity, implemented through cluster sizes $k in {3, 6, 26}$, affect model performance? 3 and 6 were chosen as number of clusters due to the highest decreasing within sum of cluster centroid as described in @data. The number of 26 was chosen as it aligns with the number of Cantons of Switzerland and we wanted to test on a more finer granularity. It is explicitly stated that the constructed clusters do not precisely correspond to the canton borders, as municipalities are assigned to clusters using the K-means algorithm, as detailed in @data_preparation.
@@ -47,6 +47,6 @@ This section summarizes the key findings in direct response to the research ques
 
 1. The Transformer consistently achieved the highest macro-averaged F1 scores across the cluster configurations $k in {3, 6\}$. While the performance gains were modest, the Transformer outperformed both the #abbr.a[FNN] and the #abbr.a[LSTM] models, indicating its superior capability in capturing relevant patterns for storm damage forecasting.
 2. Increased complexity did not uniformly translate into better performance. The #abbr.a[LSTM], although more complex than #abbr.a[FNN], performed worse in several configurations. In contrast, the Transformer—which introduces even greater complexity through self-attention mechanisms—demonstrated slight but consistent improvements over both #abbr.a[FNN] and #abbr.a[LSTM]. This suggests that not all forms of complexity are equally beneficial, and that architectural innovations like attention may offer more value than merely increasing parameter count or depth.
-3. Model performance tended to decline slightly as the number of spatial clusters increased. This may be attributed to increased class imbalance at finer granularities, where the proportion of “no-damage” samples rises, making storm damage harder to detect.
+3. Model performance tended to decline slightly as the number of spatial clusters increased. This may be attributed to increased class imbalance at finer granularity, where the proportion of “no-damage” samples rises, making storm damage harder to detect.
 
 In summary, while the Transformer emerged as the most effective model, its advantage over the simpler #abbr.a[FNN] was relatively small. This makes the #abbr.a[FNN] a strong candidate for practical applications requiring lower computational overhead. At the same time, the success of the Transformer supports further exploration of self-attention mechanisms for this forecasting task.

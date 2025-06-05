@@ -1,7 +1,7 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
 == #abbr.pll[FNN]: Results
-In this section, the in dept results of the #abbr.a[FNN] model are reported. As shown in @fnn-results-table-detail, the models was relativly stable across the different cluster sizes. Although accuracy improved with finer granularity, this may be attributed to increased class imbalance, which can artificially inflate accuracy by favoring the majority class.
+In this section, the in dept results of the #abbr.a[FNN] model are reported. As shown in @fnn-results-table-detail, the models was relatively stable across the different cluster sizes. Although accuracy improved with finer granularity, this may be attributed to increased class imbalance, which can artificially inflate accuracy by favoring the majority class.
 #figure(table(columns: 4,
   align: center,
 
