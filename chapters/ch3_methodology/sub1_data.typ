@@ -1,28 +1,31 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
-The underlying data was provided by the #abbr.a[WSL], with Dr. K. Liechti serving as the primary contact. Her contributions offered valuable insights not only into the dataset itself but also into the relevant geographical and meteorological processes.
+
+=== Data<data>
+
+The underlying data was provided by the #abbr.a[WSL], with Liechti serving as the primary contact. Her contributions offered valuable insights not only into the dataset itself but also into the relevant geographical and meteorological processes.
 
 In accordance with the legal restrictions outlined in @disclaimer—specifically, the rounding of damage values and the aggregation of location data—the use of #abbr.pla[WSL] data in this thesis was subject to certain limitations. Interestingly, these constraints ultimately proved advantageous for the modeling process, as evidenced by the experimental results.
 
 The sources for the recorded incidents were local and regional Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. /*Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.*/
 
-As outlined in @weather-features, the scope of the dataset was extensive. The features selected for this thesis were limited to the following: “Gemeindenamen”, “Datum”, “Hauptprozess”, and “Schadensausmass”, which were identified as the most relevant variables related to damage.
+As outlined in @weather-features, the scope of the dataset was extensive. The features selected for this thesis were limited to the following: “Gemeindenamen”, “Datum”, “Hauptprozess” #footnote[fall, slide, water/debris flow; the damage-causing process], and “Schadensausmass”, which were identified as the most relevant variables related to damage.
 
-Based on the inputs of K. Liechti, the relevant meteorological variables were identified as sunshine duration, temperature, snowfall, and rainfall.\ 
+Based on the inputs of Liechti, the relevant meteorological variables were identified as sunshine duration, temperature, snowfall, and rainfall.\ 
 The rationale for this selection is briefly summarized below; detailed explanations can be found in @weather-research:\
 Sunshine hours influence ground temperature, which in turn can cause snowmelt or thaw ground frost.\
 The temperature at 2 meters above ground (from @zippenfenigOpenMeteocomWeatherAPI2023) was used, as it provides a more meaningful indication of potential snowmelt. In this context, the influence of frozen ground was considered less significant and therefore not explicitly taken into account.\
 Snowfall can contribute to snowmelt processes later in the seasonal cycle.\
-Rainfall directly contributes to the potential for flooding and can also indirectly increase ground temperature. 
+Rainfall directly contributes to the potential for flooding. 
 
-In a subsequent experiment/*@fnn_experiment*/, snowfall was found to have no significant impact and was therefore completely removed from the dataset.
+In a subsequent experiment, snowfall was found to have no significant short-term impact or correlation with the data and was therefore completely removed from the dataset.
 
 === Data Cleaning
 
 The damage data referenced in @data required several processing steps before it could be used in the modeling phase.
-As noted in @disclaimer, the municipality names correspond to the administrative boundaries of 1996 and are thus not up to date. To identify outdated names, GPS coordinates were retrieved using the Geocoding API @OpenCageEasyOpen. For approximately 300 out of 2759 municipalities, no coordinates could be retrieved. Manual analysis of these cases revealed recurring issues.
+As noted in @disclaimer, the municipality names correspond to the administrative boundaries of 1996 and are thus not up to date. To identify outdated names, GPS coordinates were retrieved using the Geocoding API @OpenCageEasyOpen. For approximately 300 out of 2759 municipalities, no coordinates could be retrieved. Manual analysis of these cases revealed the following recurring issues.
 
-For some incidents, as described in @data, #abbr.s[WSL] could not determine the exact location and had to assign them to a canton (30 of 28,515 cases), region (3), or district (10). Due to their low frequency, these entries were excluded from the dataset.
+For some incidents, as described in @data, #abbr.s[WSL] could not determine the exact location and had to assign them to a canton (30 of 28,515 cases), region (3), or district (10).Due to their low occurrence, these entries were excluded from the dataset.
 
 Common abbreviations used in the #abbr.pla[WSL] dataset—such as “a.A.” for “am Albis” or “St.” for “Sankt”—were standardized.
 Additionally, some municipalities had been merged into others since 1996. These cases were manually updated with their current names.
@@ -31,16 +34,16 @@ The weather data required less preprocessing. In eight municipalities, occasiona
 
 === Availability of Sources and Data Collection<aosadc>
 
-The data currently in use was collected with relatively little difficulty. The damage data was kindly provided by K. Liechti from the #abbr.a[WSL] following a formal request via email @liechtiREAnfrageZur2024.
+The data currently in use was collected with relatively little difficulty. The damage data was kindly provided by Liechti from the #abbr.a[WSL] following a formal request via email @liechtiREAnfrageZur2024.
 
 For the collection of weather data, the initial approach was to use official government data provided by MeteoSwiss @MeteoSwissIDAWEBLogin. However, due to the structure of the website and the raw nature of the station-based measurement data, this approach was ultimately abandoned.  
-During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered.The open-meteo API is an open-source project that aggregates weather data from various national meteorological services @OpenMeteocom. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
+During further research, the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023 was discovered. The open-meteo API is an open-source project that aggregates weather data from various national meteorological services @OpenMeteocom. To avoid excessive costs, a free academic access key was requested and kindly provided @zippenfenigProfessionalAPIKey.
 
 To obtain information on soil conditions, the first resource consulted was the Swiss federal geoportal map.geo.admin @MapsSwitzerlandSwiss. However, the format of the data was mostly incompatible with the tools available for this thesis.  
 An alternative considered was the GIS Browser @GISBrowserGeoportalKanton, which is the cantonal equivalent of map.geo.admin @MapsSwitzerlandSwiss. Unfortunately, it posed the same limitations as the federal source.
 
 Given that new buildings are constantly being constructed in Switzerland and that the Swiss Confederation is actively researching locations for a nuclear waste repository @VergrabenUndVergessen2019, it was assumed that public institutions must maintain relevant geotechnical data. First, the building construction office of Affoltern am Albis was contacted @duchaudPhoneCallHochbau2025. They referred the inquiry to the cantonal building construction office, which also denied possession of such data and redirected the request to the Office for Spatial Development @PhoneCallHochbau2025. The contact person from the Office for Spatial Development @muellerPhoneCallAmt2025 was likewise unable to provide relevant data or further contacts. Their suggestion was to consult the GIS Browser @GISBrowserGeoportalKanton or map.geo.admin @MapsSwitzerlandSwiss. After these repeated unsuccessful attempts, the GIS Helpdesk was contacted @ueltschiBodenbeschaffenheitskarte. The proposed solution @fachstellegisAREJIRAGIS2262EXTERN was again to use the GIS Browser or map.geo.admin, which had already proven inadequate.  
-Due to time constraints, this approach was ultimately abandoned.
+Due to time constraints, efforts to retrieve soil data were ultimately discontinued.
 
 === Data Preparation<data_preparation>
 After collecting all relevant datasets, a series of preprocessing steps were applied to construct a complete spatio-temporal dataset suitable for storm damage forecasting.

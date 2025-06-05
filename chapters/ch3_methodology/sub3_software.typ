@@ -115,21 +115,27 @@ caption: [Average request times\
 
 *Test Concept*
 
-All technically relevant logic components (e.g., services, handlers, business logic classes) are covered by unit tests. These tests verify the behavior of each class in isolation from external dependencies by using mocks or stubs. The goal is to achieve high test coverage of the core logic and to ensure the correct handling of inputs, states, and error scenarios.
+All technically relevant logic components from the application package are covered by unit tests. These tests verify the behavior of each class in isolation from external dependencies by using mocks or stubs. The goal was to achieve a test coverage of 80% for these classes, ensuring correct handling of inputs, states, and error scenarios.
+#figure(
+  image("images/Screenshot 2025-06-05 at 18.01.28.png", width: 60%),
+  caption: [
+    Test coverage analysis of the application package using JaCoCo
+
+  ],
+)
+
 
 === Frontend
 
 #figure(
   image("images/Stormmind_Deployment.png", width: 110%),
   caption: [
-    web routing: created with
-    apple freeform, laptop from chatgpt
+    web routing #footnote[laptop generated with chatgpt
     (prompt: "erstelle mir ein png eines minimalistischen
-    laptops ohne hintergrund")
+    laptops ohne hintergrund")] 
 
   ],
 )
-
 *Technologies*
 
 The frontend of the application is implemented using *React* and structured as a separate repository based on the *Vite* build tool. It follows a modular and maintainable architecture, distinguishing clearly between application logic and user interface components.
@@ -145,7 +151,7 @@ Given the small scope of the frontend, automated testing was not conducted. Func
 
 Deployment is managed via a virtual instance hosted on the *OpenStack* cluster of the ZHAW @LoginOpenStackDashboard. DNS configuration was performed using *Hosttech*, directing traffic to the appropriate backend infrastructure.
 
-The application consists of two components: a backend and a frontend. Both are containerized using Docker and deployed with Kubernetes. The use of Kubernetes enables dynamic scalability, allowing the application to adapt to changing resource demands.
+The application consists of two components: a backend and a frontend. Both are containerized using Docker and deployed on a Kubernetes cluster. The use of Kubernetes enables dynamic scalability, allowing the application to adapt to changing resource demands.
 
 The frontend runs on port 80 within its pod and communicates over TCP. To manage and route incoming traffic, *Traefik* is used as an ingress controller. It is configured to forward requests to _stormmind.ch_, including the root path _/_ and all subpaths, to the frontend pod. Requests to _api.stormmind.ch_ are routed to the backend service, which listens on port 8080. All HTTP traffic is automatically redirected to HTTPS to ensure secure communication.
 

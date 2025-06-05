@@ -24,7 +24,6 @@
         #v-space
 
         #v(1fr)
-
         #grid(
           columns: (1fr, 60%), align(horizon, image("images/zhaw_rgb.jpg", width: 75%)), align(left)[
           
