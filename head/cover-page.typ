@@ -28,17 +28,18 @@
         #grid(
           columns: (1fr, 60%), align(horizon, image("images/zhaw_rgb.jpg", width: 75%)), align(left)[
           
-            Submitted on: \
-            #h(2cm) 06.06.2025\
-            Authors:\
-            #h(2cm) Gämperli Nils\
-            #h(2cm) Ueltschi Damian
+            Submitted on: 
+            #h(2.01cm) 06.06.2025\
             #v-space
-            Supervisor:\
-            #h(2cm)Andreas Meier
+            Authors:
+            #h(2.94cm) Gämperli Nils\
+            #h(4.49cm) Ueltschi Damian
             #v-space
-            Study Program:\
-            #h(2cm) Computer Science
+            Supervisor:
+            #h(2.445cm)Andreas Meier
+            #v-space
+            Study Program:
+            #h(1.7cm) Computer Science
             
           ],
         )
