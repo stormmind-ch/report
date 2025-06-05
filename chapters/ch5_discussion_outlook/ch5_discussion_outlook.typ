@@ -2,13 +2,9 @@
 #import "../../abbr.typ"
 = Discussion and Outlook
 
-Due to the unavailability of Dr. Liechti during the final phase of the project, the planned demonstration could not be conducted. The final version of this thesis will be submitted to her for review.
 
-While the results obtained from the evaluated deep learning models are not yet sufficient for deployment in a real-world storm damage forecasting system, this thesis represents a pioneering effort in this domain. The models explored, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, were trained exclusively on weather data. However, storm damage is influenced by a complex interplay of environmental, infrastructural, and geographical factors, many of which were not incorporated into the current models.
-
-This limitation highlights a key direction for future research: integrating additional data sources such as vegetation cover, infrastructure type, topography, or soil saturation. We believe that with a richer feature set and deeper domain knowledge, model performance can be substantially improved.
-
-As discussed in @compareable-projects, large companies are actively pursuing similar solutions, underscoring both the relevance and the difficulty of the task. We hope that the methods and findings of this thesis serve as a foundation for future work in this space.
-
-In particular, we see great potential in future collaborations with #abbr.s[WSL], leveraging their expertise and datasets. Additional data collection and careful feature engineering are essential to better understand which variables are most predictive of storm damage.
-
+This thesis presents a first step toward deep learning-based storm damage forecasting. Although the evaluated models—#abbr.a[FNN], #abbr.a[LSTM], and Transformer—are not yet suitable for real-world deployment, their performance marks an important foundation for future research. The planned demonstration and expert assessment by Liechti, could not be conducted due to her unavailability during the project’s final phase. The final version of this work will be submitted to her for review, with a concluding summary published on _stormmind.ch_. \
+All models were trained solely on weather data, yet storm damage depends on a complex interplay of environmental, infrastructural, and geographical factors, many of which were not included in the current modeling approach.
+This shortcoming points to a key opportunity for future research: incorporating additional data sources such as vegetation cover, infrastructure types, topography, and soil saturation. We believe that with an expanded feature set and increased domain knowledge, the predictive accuracy of these models can be significantly enhanced.
+As discussed in @compareable-projects, major industry players are actively pursuing comparable solutions, underscoring both the relevance and the inherent difficulty of this problem. It is our hope that the methods and insights presented in this thesis will provide a meaningful foundation for future work in this area.
+In particular, we see promising potential for collaboration with #abbr.s[WSL], whose datasets and expertise could substantially support continued development. Further data collection and careful feature engineering will be critical in identifying the most predictive variables for storm damage forecasting.

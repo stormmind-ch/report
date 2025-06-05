@@ -1,8 +1,6 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
-=== LSTM Neural Network
-
-*Test Set Performance*
+== #abbr.l[LSTM]: Results
 #figure(table(columns: 4,
   align: center,
 
@@ -16,12 +14,3 @@
 ),
 caption: [Performance Metrics of the #abbr.a[LSTM] model. We provide the mean over the top 3 of the 20 runs and the variance.]
 )<lstm-resutls-table>
-#figure(
-  image("images/lstm-roc.png", width: 50%),
-  caption: [Training of the #abbr.a[FNN]]
-)<fnn_roc>
-
-#figure(
-  image("images/lstm-classification-report.png", width: 50%),
-  caption: [Confusion Matrix of the #abbr.a[FNN]]
-)<cr_fnn>

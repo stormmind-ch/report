@@ -1,10 +1,6 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
-=== Transformer
-
-*Cross Validation Results*
-
-*Test Set Performance*
+== Transformer: Results
 #figure(table(columns: 4,
   align: center,
 
