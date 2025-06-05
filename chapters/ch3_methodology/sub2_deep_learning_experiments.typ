@@ -59,7 +59,7 @@ Given these outcomes and the underlying class distribution, we reframed the prob
 
 === #abbr.l[FNN] based forecasting model <fnn_setup>
 Our first experiment employed a baseline #abbr.a[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
-The network consists of 10 fully connected layers with #abbr.a[ReLU] activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
+The network consists of 10 fully connected layers with #abbr.a[ReLU] #footnote([The #abbr.a[ReLU] activation function is defined as: $"ReLU"(x) = x^+ = max(0, x)$]) activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
 
 #figure(
   image("images/fnn_illustration-experiment.png", width: 100%),

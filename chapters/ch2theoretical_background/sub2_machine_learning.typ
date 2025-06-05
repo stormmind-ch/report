@@ -3,8 +3,6 @@
 == Deep Learning
 Deep Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.a[NN] architectures, as they form the core modeling approach used in this project.
 
-=== Activation Functions
-*TODO*
 
 === #abbr.l[FNN] <fnn>
 #abbr.a[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
@@ -124,7 +122,7 @@ The #abbr.a[VGP] is a challenge encountered during the training of #abbr.pla[RNN
 
 === #abbr.l[LSTM]
 #abbr.pla[LSTM] are a special form of #abbr.pla[RNN] designed to address the #abbr.a[VGP] while having a more fine-grained control over the previous input data and were introduced for the first time by  Sepp Hochreiter in 1997 @hochreiterLongShortTermMemory1997. They are an enhancement because the reccurent mechanism that controls how the hidden state $h_t$ is processed. To achieve this aim, we introduce a new hidden state of the same dimesion as $h_t$, which is called the cell state and is denoted as $c_t$. 
-The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow of information using a set of gating mechanisms. These gates regulate how information is added to, removed from, or exposed from the cell state. Each gate is implemented as a sigmoid-activated neural layer and serves a distinct role in the update process.
+The key innovation of the #abbr.a[LSTM]  lies in its ability to control the flow of information using a set of gating mechanisms. These gates regulate how information is added to, removed from, or exposed from the cell state. Each gate is implemented as a sigmoid-activated #footnote([The Sigmoid function is defined as: $sigma(x) = 1 / (1 + e^(-x))$@SigmoidFunction2025]) neural layer and serves a distinct role in the update process.
 
 *Architecture*
 
@@ -146,7 +144,7 @@ At each time step $t$ with a given input vector $x_t$, previous hidden state $h_
 - Output Gate (shown as the red part in @lstm-illustration): Determines which part of the cell state influences the hidden state and therefore the output. It is calculated with: 
   - $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
 - Candidate Cell State: Calculate possible candidates $tilde(c_t)$ which can be added to the cell state, calculated as: 
-  - $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$
+  - $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$ #footnote([The tanh function is defined as: $tanh(x) = (e^x -e^(-x))/(e^x+ e^(-x)) $])
 - Cell state update: Given the candidates, the cell state can be updated as:
   - $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
 - Hidden state update:  The final hidden state is updated by applying the output gate to the activated cell state. It is calculated with: 
@@ -161,7 +159,7 @@ In the following section, the core components and mechanisms of the Transformer 
 
 *Architecture*
 
-An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "softmax"((Q K^T)/sqrt(d_k)) V $ #footnote([$M^T$ represents the transposed matrix of $M$])
+An important concept in the Transformer architecture is Attention. It allows the model to capture dependencies between elements in the input sequence. An attention function can be viewed as a mapping from a query and a set of key–value pairs to an output. The output is a weighted sum of the values, where the weights are determined by a compatibility function between the query and the keys. This mechanism is illustrated in @self-attention-ill, where the input sequence is linearly projected into query, key, and value matrices to compute attention scores and generate contextualized representations. This procedure can be expressed with: $ "Attention"(Q,K, V) = "Softmax"((Q K^T)/sqrt(d_k)) V $ #footnote([$M^T$ represents the transposed matrix of $M$]) #footnote([the Softmax activation function is defined as: $"Softmax"(arrow(x))_i = e^(x_i)/ (sum_(j=1)^(K) e^(x_j))$ @SoftmaxFunction2025 ])
 @vaswaniAttentionAllYou2023 
 
 When the dot product $Q K^T$ yields large values, the resulting attention scores can produce extremely sharp probability distributions after applying the softmax function. This can lead to vanishing gradients during training, making optimization unstable. To mitigate this effect, the attention scores are scaled by a factor of $1/(sqrt(d_k))$, where $d_k$ is the dimensionality of the key vector. @vaswaniAttentionAllYou2023
