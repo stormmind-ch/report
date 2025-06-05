@@ -1,8 +1,7 @@
-// English abstract
+#import "../abbr-impl.typ"
+#import "../abbr.typ"
 = Abstract
-*TODO*
-Extreme weather events cause considerable damage to infrastructure, the economy and the environment worldwide. Predicting such damage can help to optimize preventive measures and reduce costs. In this project, a Deep Learning models were developed that analyzes historical weather data and damage reports to predict potential storm damage in Switzerland based on new weather forecasts. Using modern machine learning techniques, relevant patterns are recognized in order to train a predictive model. The model is tested for accuracy and optimized to enable reliable predictions. 
 
+Storms have caused over 11.2 billion Swiss francs in damages in Switzerland over the past five decades, yet the true cost may be even higher when considering the psychological toll on affected populations. This thesis explores whether Deep Learning models can forecast such storm-induced damages using only meteorological data. We compare three architectures: #abbr.l[FNN], #abbr.l[LSTM] and Transformer models, across various spatial granularities. To combat class imbalance, we introduced spatial clustering of municipalities and weekly temporal aggregation. Our best-performing model, a Transformer trained on six spatial clusters, achieved an accuracy of 70.25% in binary storm damage forecaesting. The final system was deployed as a publicly accessible web service (_stormmind.ch_), enabling real-time inference from current weather forecasts. This work not only demonstrates the feasibility of AI-driven storm damage forecasting, but also lays the groundwork for more comprehensive models integrating geospatial and infrastructural data in future research.
 
-Key words: Machine Learning, Neural Network, Storm Damages// put your text here
-
+_Key words: Deep Learning, Storm Forecasting, Transformer, Time Series, Switzerland, Web Application_
