@@ -30,8 +30,8 @@ To complete a forward pass, this procedure is applied sequentially from the inpu
 
 #math.equation(block: true, supplement: auto, 
 $
-    y_1 = f(sum_i^n w_(i j) x_i) "[input to hidden layer]"\
-    y_(j+1) = f(sum_i^n w_(i j) y_j)  forall j in {1 dots L-1}"[hidden to hidden layer]"\
+    y_1 = f(sum_(i=1)^n w_(i j) x_i) "[input to hidden layer]"\
+    y_(j+1) = f(sum_(i=1)^n w_(i j) y_j)  forall j in {1 dots L-1}"[hidden to hidden layer]"\
     o = f(w_(i j+1) y_j) "[hidden to output layer]"
 $ 
 )<forwardpass> @aggarwalNeuralNetworksDeep2023
@@ -45,7 +45,7 @@ The backpropagation training algorithm is used to train all deep learning models
 
 *For a fixed and finite training set*:
 The objective function represents the total error between the desired and actual outputs of all the output neurons for all the training patterns.
-
+#pagebreak()
 *Error Function*
 
 #math.equation(
@@ -86,7 +86,7 @@ where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to
 The feedforward #abbr.pla[FNN] models discussed in @fnn can only handle inputs of fixed size, making them ill-suited for sequential data such as time series or language, where the input length can vary. To overcome this limitation, we introduce #abbr.pla[RNN], a class of models designed specifically to handle sequences of arbitrary length.
 
 Unlike FNNs, an #abbr.a[RNN] processes input one step at a time while maintaining a hidden state that carries information across time steps. This allows the model to "remember" relevant context from earlier in the sequence. @fig:rnn shows a simple #abbr.a[RNN] with an input size of 1, while @fig:unrolled_rnn illustrates the same #abbr.a[RNN] unrolled over 4 time steps, highlighting how information flows through the sequence.
-
+#pagebreak()
 *Architecture*
 
 A #abbr.a[RNN] consits of the following components:
@@ -140,7 +140,7 @@ Schematic illustration of an #abbr.a[LSTM] cell highlighting the internal gating
 At each time step $t$ with a given input vector $x_t$, previous hidden state $h_(t-1)$ and previous cell state $c_(t-1)$, the #abbr.a[LSTM] performs the following computations. Here $w_x$ represents a complete weights matrix for each gate, $b_x$ denotes the bias for the corresponding gates, and $sigma$ denotes the sigmoid function:
 
 - Forget Gate (shown in the blue part of @lstm-illustration): This gate decides which parts of the previous cell state should be forgotten. The value of the forget gate is calculated as: 
-  - $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
+  - $f_t = sigma(w_f [h_(t-1), x_t] + b_f) $
 - Input Gate (shown in the green part of @lstm-illustration ): Decides which new information will be added to the cell state and is calculated as:
   - $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
 - Output Gate (shown as the red part in @lstm-illustration): Determines which part of the cell state influences the hidden state and therefore the output. It is calculated with: 
@@ -185,7 +185,7 @@ Multi-head attention not only improves model performance but also enables parall
 
 #figure(image("images/multiheadattention.png"),
 caption: [Multi-head attention mechanism. The input matrix $X$ of shape $D times N$, is linearly projected into multiple sets of Queries, Keys, and Values. Each set defines an individual attention head (e.g., Head 1, Head 2), which independently computes scaled dot-product attention. The outputs from all $H$ heads, each of size $D/H times N$, are then concatenated and projected through a final linear layer to produce the output matrix $O$ of shape $D times N$. @princeUnderstandingDeepLearning])<multi-head-attention>
-
+#pagebreak()
 *Embedding*
 
 In tasks such as machine translation, input sequences composed of discrete tokens (e.g., words) must first be mapped to continuous vector representations through an embedding layer, which captures semantic information about each token. In contrast, time series data is inherently numerical and already exists in a continuous vector space. Nevertheless, to align the input dimensionality with the model's internal representation size (denoted as d_model in the Transformer architecture), we apply a linear transformation to project the raw input features into the desired embedding space.
