@@ -12,14 +12,16 @@ All features were normalized using Z-score normalization, defined as $Z = (X - m
 #figure(
   table(
     columns: 6,
-    table.header([Nr of Clusters], [Set], [Number of Patterns], [Years], [Damages], [No Damages]),
-    [3],[Train], [6'573], [1971–2013], [2'242],[4'331],
+    table.header([Nr of Clusters], [Set], [Number of Patterns], [Years], [Damages], [No Damages]), table.hline(),
+    [3],[Train], [6'573], [1971–2013], [2'242],[4'331], 
     [3],[Test], [1'566], [2013–2023], [697], [859],
+    table.hline(),
     [6],[Train], [13'146], [1971–2013], [2'872],[10'274],
     [6],[Test], [3'132], [2013–2023], [910], [2'222],
+    table.hline(),
     [26],[Train], [52'376], [2013–2023], [4'590], [2'222],
     [26],[Test], [13'572], [2013–2023], [11'955], [1'617],
-
+table.hline()
   ),
   caption: [Summary of dataset splits used for training and evaluation.]
 )<datasets_split>

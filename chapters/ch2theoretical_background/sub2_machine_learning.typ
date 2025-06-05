@@ -143,13 +143,13 @@ At each time step $t$ with a given input vector $x_t$, previous hidden state $h_
   - $f_t = sigma(w_f [h_(t-1), x_t]) + b_f) $
 - Input Gate (shown in the green part of @lstm-illustration ): Decides which new information will be added to the cell state and is calculated as:
   - $i_t = sigma(w_i [h_(t-1), x_t] + b_i)$
-- Output Gate (shown as the red part in @lstm-illustration): Determines which part of the cell state influences the hidden state and therefore the output. It is computed with: 
+- Output Gate (shown as the red part in @lstm-illustration): Determines which part of the cell state influences the hidden state and therefore the output. It is calculated with: 
   - $o_t = sigma(w_o [h_(t-1), x_t] + b_o)$
-- Candidate Cell State: Computes possible candidates $tilde(c_t)$ which can be added to the cell state, computed as: 
+- Candidate Cell State: Calculate possible candidates $tilde(c_t)$ which can be added to the cell state, calculated as: 
   - $tilde(c_t) = tanh(w_c [h_(t-1), x_t] + b_c)$
 - Cell state update: Given the candidates, the cell state can be updated as:
   - $c_t = f_t dot c_(t-1) + i_t dot tilde(c_t)$
-- Hidden state update:  The final hidden state is computed by applying the output gate to the activated cell state. It is computed with: 
+- Hidden state update:  The final hidden state is updated by applying the output gate to the activated cell state. It is calculated with: 
   - $h_t = o_t dot tanh(c_t)$
 
 @PyTorchFoundation, @thakurLSTMItsEquations2018  
