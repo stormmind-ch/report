@@ -4,7 +4,7 @@
 
 Due to the unavailability of Dr. Liechti during the final phase of the project, the planned demonstration could not be conducted. The final version of this thesis will be submitted to her for review.
 
-While the results obtained from the evaluated deep learning models are not yet sufficient for deployment in a real-world storm damage forecasting system, this thesis represents a pioneering effort in this domain. The models explored—FNN, LSTM, and Transformer—were trained exclusively on weather data. However, storm damage is influenced by a complex interplay of environmental, infrastructural, and geographical factors, many of which were not incorporated into the current models.
+While the results obtained from the evaluated deep learning models are not yet sufficient for deployment in a real-world storm damage forecasting system, this thesis represents a pioneering effort in this domain. The models explored, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, were trained exclusively on weather data. However, storm damage is influenced by a complex interplay of environmental, infrastructural, and geographical factors, many of which were not incorporated into the current models.
 
 This limitation highlights a key direction for future research: integrating additional data sources such as vegetation cover, infrastructure type, topography, or soil saturation. We believe that with a richer feature set and deeper domain knowledge, model performance can be substantially improved.
 

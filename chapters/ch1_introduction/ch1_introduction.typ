@@ -5,12 +5,12 @@ The objective of this project is to explore initial steps toward predicting or f
 
 To achieve this, we:
 
-- Construct a preprocessing pipeline that aggregates weather and damage data at weekly resolution and applies K-means clustering to group spatial locations.
-- Train and compare three neural network architectures of increasing complexity: a #abbr.a[FNN] as a baseline, a #abbr.a[LSTM] to capture short-term temporal dependencies, and a Transformer model to investigate the benefits of long-range attention mechanisms.
-- Evaluate the performance of each model across different levels of spatial granularity (using cluster counts $k in {3, 6, 26}$) and report average metrics across multiple training runs to account for variance and ensure reproducibility
-- Develop a software application that visualizes predictions and demonstrates how such a model could be deployed in practice.
+- Constructed a preprocessing pipeline that aggregates weather and damage data at weekly resolution and applies K-means clustering to group spatial locations.
+- Trained and compare three neural network architectures of increasing complexity: a #abbr.a[FNN] as a baseline, a #abbr.a[LSTM] to capture short-term temporal dependencies, and a Transformer model to investigate the benefits of long-range attention mechanisms.
+- Evaluated the performance of each model across different levels of spatial granularity (using cluster counts $k in {3, 6, 26}$) and presented average metrics across multiple training runs to account for variance and ensure reproducibility
+- Developed a software application that visualizes predictions and demonstrates how such a model could be applied in practice.
 
-This thesis serves two purposes: to empirically evaluate deep learning methods for storm damage forecasting, and to provide a extensible framework for future research.
+This thesis serves two purposes: to empirically evaluate deep learning methods for storm damage forecasting, and to provide an extensible framework for future research.
 
 == Comparable projects<compareable-projects>
 The following projects demonstrate how AI is being applied in practice to address specific natural hazard challenges, from storm damage assessment to avalanche forecasting.

@@ -4,17 +4,17 @@
 Deep Learning has gained increasing popularity in recent years, particularly through advancements in #abbr.pla[NN]. These developments have significantly expanded the capabilities of automated data-driven modeling across various domains. In this chapter, we focus primarily on #abbr.a[NN] architectures, as they form the core modeling approach used in this project.
 
 
-=== Feedforward Neural Networks <fnn>
-#abbr.l[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
+=== #abbr.l[FNN] <fnn>
+#abbr.a[FNN] are a class of machine learning models inspired by the structure and function of the human brain. In biological systems, neurons are interconnected through synapses, and their strengths change in response to external stimuli—a process that underlies learning. #abbr.a[FNN] mimic this behavior by using computational units, also called neurons, connected by weighted links.
 
 *Architecture*
 
-An #abbr.pla[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic Graph with inter-connections. It contains a set of neurons distributed in different layers.
-- Each neuron has a activation function.
-- The first layer, shown on the left side in @nn-img, is called the input layer and has no predacessors. Additionally, is their input value the same as their output value.
-- The last layer, shown on the right side in @nn-img, is called the output layer and have no successors. Their value represents the output of the Network
+A #abbr.a[FNN] trained with backpropagation, which is discussed in @backprop, can be illustrated as a directed acyclic graph with inter-connections. It contains a set of neurons distributed in different layers.
+- Each neuron has an activation function.
+- The first layer, shown on the left side in @nn-img, is called the input layer and has no predacessors. Furthermore, its input value the same as their output value.
+- The last layer, shown on the right side in @nn-img, is called the output layer and has no successors. Its value represents the output of the Network.
 - All other neurons are grouped in the so called hidden layers. In @nn-img this is represented by the layer in the middle. A neural network can have an arbitrary amount of hidden layers. 
-- The edges in the inter-connection graph, are the weights, which represent an arbitrary number in $RR$ and are updated during the trianing process.
+- The edges in the graph, are the weights, which represent an arbitrary number in $RR$ and are updated during the trianing process.
 
 #figure(image("images/Neural_Network_Illustration.png", width: 60%), 
 caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSVG])
@@ -22,24 +22,24 @@ caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSV
 
 *Computation of the Output* 
 
-The computation of the output in a #abbr.a[FNN] is referred to as a forward pass. Each neuron calculates its output by applying an activation function $f$ to sum of its inputs. For input neuron $i$, the aggregated input (also called the potential) is denoted as $xi_i$, yielding the expression $y = f(sum_i^n xi_i)$.
+The computation of the output in a #abbr.a[FNN] is referred to as a forward pass. Each neuron calculates its output by applying an activation function $f$ to sum of its inputs. For input neuron $i$, the aggregated input (also called the potential) is denoted as $xi_i$, yielding the expression $y = f(sum_(i=1)^n xi_i)$.
 
 To complete a forward pass, this procedure is applied sequentially from the input layer through the hidden layers to the output layer. At each step, inputs are scaled by weight $w_(i j)$ before being summed and passed through the activation function. This process is captured by the following equations:
 
 #math.equation(block: true, supplement: auto, 
 $
     y_1 = f(sum_i^n w_(i j) x_i) "[input to hidden layer]"\
-    y_(j+1) = f(sum_i^n w_(i j) y_j)  forall j in {1 dots k-1}"[hidden to hidden layer]"\
+    y_(j+1) = f(sum_i^n w_(i j) y_j)  forall j in {1 dots L-1}"[hidden to hidden layer]"\
     o = f(w_(i j+1) y_j) "[hidden to output layer]"
 $ 
 )<forwardpass> @aggarwalNeuralNetworksDeep2023
-where $j$ denotes the layer, ascending from input layer to output layer, $f$ activation function, $w_(i j)$ weight at index $i$ and layer $j$, $x$ as input at index $i$. The state of the neuron in the output layer $o$ can then by denoted as the output vector.
+where $j$ denotes the layer, ascending from input layer to output layer, $L$ the number of layers, $f$ activation function, $w_(i j)$ weight at index $i$ and layer $j$, $x$ as input at index $i$. The state of the neuron in the output layer $o$ can then by denoted as the output vector.
 
 
 === The Backpropagation Training Algorithm<backprop>
 The backpropagation training algorithm is used to train all deep learning models described in this section. 
 
-*Objective*: To identify a set of weights that guarantees that for every input vector, the output vector generated by the network is identical to (or sufficiently close to) the desired output vector.
+*Objective*: To calculate a set of weights which guarantees that for every input vector, the output vector generated by the network is identical to (or sufficiently close to) the desired output vector.
 
 *For a fixed and finite training set*:
 The objective function represents the total error between the desired and actual outputs of all the output neurons for all the training patterns.
@@ -54,7 +54,7 @@ The objective function represents the total error between the desired and actual
 )<errorfunction> @mrazovaMultilayeredNeuralNetworks
 
 The error function measures how far the actual output is from the desired output.
-Where $P$ is the number of training patterns, $N$ the number of output neurons, $d_(i p)$ is the desired output for pattern $p$, $y_(i p)$ the actual output of the neuron $i$ and output neuron $i$.
+Where $P$ is the number of training patterns, $N$ the number of output neurons, $d_(i p)$ is the desired output for pattern $p$, $y_(i p)$ the actual output of the neuron $i$.
 
 *Procedure*
 #figure(
@@ -80,7 +80,7 @@ Where $P$ is the number of training patterns, $N$ the number of output neurons, 
 where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$, $w_(i j)$ the weight with index $i$ at layer $j$ and $t$ to the timestep.
 
 === Recurrent Neural Networks
-The feedforward #abbr.pla[FNN] discussed in @fnn are inherently limited to fixed-size, unordered input representations. This makes them unsuitable for sequential data, where both the order and length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]. @fig:rnn shows a #abbr.a[RNN] for a input size of 1 and @fig:unrolled_rnn shows a unrolled #abbr.a[RNN] of size 4.
+The feedforward #abbr.pla[FNN] discussed in @fnn are inherently limited to fixed-size input. This makes them unsuitable for sequential data, where the length of the input can vary. To address this limitation, we introduce a class of models specifically designed to process variable-length sequences: #abbr.pla[RNN]. @fig:rnn shows a #abbr.a[RNN] for a input size of 1 and @fig:unrolled_rnn shows a unrolled #abbr.a[RNN] of size 4.
 
 *Architecture*
 

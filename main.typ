@@ -19,7 +19,7 @@
 #include "head/preface.typ"
 
 
-#outline(title: "Contents")
+#outline(title: "Table of Contents")
 
 
 

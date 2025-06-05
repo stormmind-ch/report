@@ -168,7 +168,7 @@ long } }
   show outline: it => {
     in-outline.update(true)
     // Show table of contents, list of figures, list of tables, etc. in the table of contents
-    set heading(outlined: true)
+    set heading(outlined: false)
     it
     in-outline.update(false)
   }
@@ -212,17 +212,17 @@ long } }
   }, gap: 1.5em)
   set figure.caption(separator: [ -- ])
 
-  show figure.caption: it =>{
-    if it.kind == table {
-      align(center, it)
-    } else {
-      align(left, it)
-    }
-  }
+  show figure.caption: it => box(
+  inset: (left: 1.5em, right: 1.5em),
+  align(center)[
+    #it
+    ]
+  )
+
   show figure.where(kind: table): it => {
-    set figure.caption(position: top)
+    set figure.caption(position: bottom)
     // Break large tables across pages.
-    set block(breakable: true)
+    set block(breakable: false)
     it
   }
   set table(stroke: none)
