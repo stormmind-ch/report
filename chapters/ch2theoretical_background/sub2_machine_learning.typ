@@ -168,7 +168,7 @@ In tasks involving sequential data, such as language modeling or time series for
 
 #figure(image("images/self-attention.png"),
 caption: [
-Self-attention mechanism illustrated with matrices. All matrices have shape $D dot N$, where $D$ is the sequence length and $N$ is the feature dimension. The input matrix is projected into three separate matrices: Queries ($Q$), Keys ($K$), and Values ($V$). The attention weights are computed by multiplying $Q$ with the transpose of $K$, followed by applying the Softmax function. The result is then used to weight the $V$ matrix, producing the final output as $"Softmax"(Q K^T) dot V$.
+Self-attention mechanism illustrated with matrices. All matrices have shape $D dot N$, where $D$ is the sequence length and $N$ is the feature dimension. The input matrix is projected into three separate matrices: Queries ($Q$), Keys ($K$), and Values ($V$). $W_(q, k, v)$ represents a learnable weights matrix for each projection $Q, K, V$. The attention values are computed by multiplying $Q$ with the transpose of $K$, followed by applying the Softmax function. The result is then used to weight the $V$ matrix, producing the final output as $"Softmax"(Q K^T) dot V$. 
 @princeUnderstandingDeepLearning
 ]
 )<self-attention-ill>
