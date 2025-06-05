@@ -53,7 +53,7 @@ The objective function represents the total error between the desired and actual
   $
     E = 1 /2 sum_p^P sum_i^N (y_(i p) - d_(i p))^2 
   $
-)<errorfunction> @mrazovaMultilayeredNeuralNetworks
+)<errorfunction> @mrazovaMultilayeredNeuralNetworks2024
 
 The error function measures how far the actual output is from the desired output.
 Where $P$ is the number of training patterns, $N$ the number of output neurons, $d_(i p)$ is the desired output for pattern $p$, $y_(i p)$ the actual output of the neuron $i$.
@@ -78,7 +78,7 @@ Where $P$ is the number of training patterns, $N$ the number of output neurons, 
     w_(i j)(t + 1) = w_(i j) + Delta_E w_(i j) (t) \
     Delta_E w_(i j) = - (partial E) / (partial w_(i j)) = - (partial E) / (partial y_j) (partial y_j) / (partial xi_j) (partial xi_j) / (partial w_(i j))
   $
-)#cite(<mrazovaMultilayeredNeuralNetworks>)
+)#cite(<mrazovaMultilayeredNeuralNetworks2024>)
 
 where $Delta_E w_(i j)$ denotes the change of the Error Function with respect to $w_(i j)$, $E$ the Error Function, $y_j$ the output of the output neuron $j$, $xi_j$ the potential of the neuron $j$, $w_(i j)$ the weight with index $i$ at layer $j$ and $t$ to the timestep.
 
