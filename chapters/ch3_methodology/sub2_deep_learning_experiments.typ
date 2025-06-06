@@ -45,7 +45,8 @@ To address class imbalance in the storm damage classes, class-specific weights w
 After all folds were completed, the model with the highest average F1-score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
 
 #figure(image("images/training-pipeline.png", width: 60%),
-caption: [End-to-end training pipeline, from dataset preparation through cross-validation and final testing.])<training-pipeline>
+caption: [End-to-end training pipeline, from dataset preparation through cross-validation and final testing.#footnote["train on each fold" symbol generated with chatgpt
+    (prompt: "create a png icon which can be used in a diagram which explains deep learning model training")] ])<training-pipeline>
 
 === Initial Findings and Design Decisions
 

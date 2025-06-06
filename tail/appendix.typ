@@ -46,6 +46,16 @@ The following must be observed when publishing:
 == Original Data Features<weather-features>
 Gemeinde,	Gemeindenummer,	Weitere Gemeinde,	Kanton,	Prozessraum,	MAXO Datum,	Datum,	MAXO Zeit,	Zeit,	Gewässer,	Weitere Gewässer,	Hauptprozess,	Hauptprozess Rutschung Unterteilung, Hauptprozess Wasser/Murgang Unterteilung, Weitere Prozesse,	Schadensausmass: gering [0.01-0.4]; mittel [0.4-2]; gross/katastrophal[>2] oder Todesfall [Mio. CHF],	x-Koordinate,	y-Koordinate,	Schadenszentrum; Gemeindegebiet falls nicht bekannt,	Grossereignisnummer; mehrere Ereignisse; welche aufgrund meteorologischer oder räumlicher Gegebenheiten zusammengefasst werden,	Gewitterdauer MAXO,	Gewitterdauer [Std.],	Gewitter Niederschlagsmenge MAXO,	Gewitter Niederschlagsmenge [mm],	Dauerregen Dauer MAXO,	Dauerregen Dauer [Std.],	Dauerregen Niederschlagsmenge MAXO,Dauerregen Niederschlagsmenge [mm], Schneeschmelze MAXO, Schneeschmelze, Ursache nicht bestimmbar MAXO, Ursache nicht bestimmbar, ID
 
+#pagebreak()
 
+== Declaration of AI Tools
 
+ChatGPT was utilized for the following tasks:
+	-	Reformulating text and correcting spelling and grammar
+	-	Assisting with research by identifying relevant sources (via Deepsearch)
+	-	Generating code skeletons for test implementations
+
+Grok was utilized for the following tasks:
+	-	Assisting with research by identifying relevant sources
+	-	Generating templates for .yaml files in the infrastructure repository @StormmindchInfrastructure
 
