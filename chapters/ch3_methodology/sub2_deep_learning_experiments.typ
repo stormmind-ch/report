@@ -58,17 +58,17 @@ Given these outcomes and the underlying class distribution, we reframed the prob
 
 
 === #abbr.l[FNN] based forecasting model <fnn_setup>
-Our first experiment employed a baseline #abbr.a[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
-The network consists of 10 fully connected layers with #abbr.a[ReLU] #footnote([The #abbr.a[ReLU] activation function is defined as: $"ReLU"(x) = x^+ = max(0, x)$]) activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer and Cross Entropy Loss Function. 
+Our first experiment employed a #abbr.a[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
+The network consists of 10 fully connected layers with #abbr.a[ReLU] #footnote([The #abbr.a[ReLU] activation function is defined as: $"ReLU"(x) = x^+ = max(0, x)$]) activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer @kingmaAdamMethodStochastic2017 and Cross Entropy Loss Function. 
 
 #figure(
   image("images/fnn_illustration-experiment.png", width: 100%),
-  caption: [Illustration of the  #abbr.a[FNN]: 3 Input Neurons, 2 Output Neurons. 8 hidden layers with Neurons variing between 8 and 64 as shown in the illustration respectively.]
+  caption: [Illustration of the  #abbr.a[FNN]: 3 Input Neurons, 2 Output Neurons. 8 hidden layers with Neurons varying between 8 and 64 as shown in the illustration respectively.]
   )<fnn_experiment>
 
 === #abbr.a[LSTM] based Forecasting Model<lstm-setup>
 
-To model temporal dependencies in the weather-related input features, we implemented a sequence model based on #abbr.a[LSTM] units. The architecture is illustrated in @lstm-model and consists of a stack of 10 #abbr.a[LSTM] layers followed by a fully connected output layer.
+To model temporal dependencies in the weather-related input features, we implemented a sequence model based on #abbr.a[LSTM] units. The architecture is illustrated in @lstm-model and consists of a stack of $m = 10$ #abbr.a[LSTM] layers followed by a fully connected output layer.
 
 The LSTM block, shown in the middle of @lstm-model, receives as input a multivariate time series of weather features, such as temperature, rainfall, and temperature, over a fixed sequence window.
 
@@ -84,9 +84,9 @@ This architecture was chosen based on the findings of Steven Elsworht et. al in 
 
 In addition to recurrent architectures, we implemented a Transformer-based model to evaluate whether attention mechanisms could better capture long-range temporal dependencies in the weather time series data. The architecture is shown in @transformer-architecture and is composed of a sequence embedding layer, positional encoding, stacked Transformer encoder layers, and a feedforward output layer. This results in an encoder-only Transformer architecture, similar to the one used in the well-known language model BERT @devlinBERTPretrainingDeep2019, which also addresses a classification task—though in the domain of textual data. Since our task is likewise a classification problem, we adopted a similar architecture.
 
-The input to the model is a multivariate sequence of weather observations, same as in @lstm-setup. Each input vector at a time step is first passed through a linear embedding layer that projects it to a fixed-dimensional representation (_d_model_). Since Transformers do not have a built-in notion of sequence order, a trainable positional encoding is added to each embedded input vector. This enables the model to learn relative and absolute temporal positions within the input sequence. @vaswaniAttentionAllYou2023
+The input to the model is a multivariate sequence of weather observations, same as in @lstm-setup. Each input vector at a time step is first passed through a linear embedding layer that projects it to a fixed-dimensional representation (_d_model_ $= 256$). Since Transformers do not have a built-in notion of sequence order, a trainable positional encoding is added to each embedded input vector. This enables the model to learn relative and absolute temporal positions within the input sequence. @vaswaniAttentionAllYou2023
 
-The core of the architecture is a Transformer encoder block consisting of _6_ stacked layers of multi-head self-attention and feedforward sub-layers. Here we used the built in Transformer module of the PyTorch Library @PyTorchFoundation.
+The core of the architecture is a Transformer encoder block consisting of $m = 6$ stacked layers of multi-head self-attention and feedforward sub-layers. Here we used the built in Transformer module of the PyTorch Library @PyTorchFoundation.
 These layers allow each time step to attend to all others in the sequence, enabling the model to capture both short- and long-term dependencies without recurrence. The encoder is used in a self-contained manner, where the same input matrix $x$ is used as both the query and context for attention. Since our task does not involve sequence generation, no autoregressive decoder is required.
 
 The Transformer output is then passed through an additional feedforward layer with ReLU activation, followed by a final linear layer that maps the representation to the target space of 2. As in the LSTM model, only the representation of the final time step is used for prediction, assuming the most recent observations are most relevant for forecasting the next event.

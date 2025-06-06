@@ -124,10 +124,10 @@ All technically relevant logic components from the application package are cover
 
 
 === Frontend
-
-*Technologies*
-
 The frontend of the application is implemented using *React* and structured as a separate repository based on the *Vite* build tool. It follows a modular and maintainable architecture, distinguishing clearly between application logic and user interface components.
+
+#figure(image("images/frontend_screenshot.png", width: 66%), 
+caption: [Screenshot of the frontend in production, displaying the homepage with a visual summary of historical storm damage data.])
 
 Routing is handled on the client side, and the overall structure aligns with modern single-page application principles. The development setup emphasizes performance, scalability, and a clear separation of concerns.
 
