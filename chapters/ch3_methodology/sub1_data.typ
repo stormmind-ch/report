@@ -64,7 +64,7 @@ What stands out in particular is the uneven distribution. In addition to the imb
 
 #figure(
   image("images/plot_für_damian_poisson.png", width: 70%),
-caption: [distribution of damages compared to the expected Poisson distribution.]
+caption: [Distribution of damages compared to the expected Poisson distribution.]
 )
 
 *Spatial Clustering*: 
