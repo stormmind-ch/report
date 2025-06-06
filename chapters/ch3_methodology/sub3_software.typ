@@ -144,7 +144,7 @@ The application consists of two components: a backend and a frontend. Both are c
 
 The frontend runs on port 80 within its pod and communicates over TCP. To manage and route incoming traffic, *Traefik* is used as an ingress controller. It is configured to forward requests to _stormmind.ch_, including the root path _/_ and all subpaths, to the frontend pod. Requests to _api.stormmind.ch_ are routed to the backend service, which listens on port 8080. All HTTP traffic is automatically redirected to HTTPS to ensure secure communication.
 
-Both the backend and frontend deployments are configured to always pull the latest Docker image and to retain only one previous ReplicaSet. This setup simplifies the deployment process and reduces potential ambiguity when identifying the active version.
+Both the backend and frontend deployments are configured to always pull the latest Docker image and to retain only one previous _ReplicaSet_. This setup simplifies the deployment process and reduces potential ambiguity when identifying the active version.
 
 To enable HTTPS functionality, a _ClusterIssuer_ and a _Certificate_ resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*, making them available to Traefik for encrypted traffic handling.
 
