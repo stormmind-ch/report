@@ -40,9 +40,9 @@ caption: [Chronological 5-fold cross-validation. Each fold validates on a later 
 <cv-visualization>
 
 Within each fold, the model was trained over multiple epochs, which is shown in @training-pipeline on the 4th line. We used the Adam optimizer @kingmaAdamMethodStochastic2017, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks. To further improve training stability and avoid overfitting, we employed a learning rate scheduler (_ReduceLROnPlateau_), which reduces the learning rate by a factor of 0.5 if the validation loss does not improve for 5 consecutive epochs.
-To address class imbalance in the storm damage classes, class-specific weights were computed from the training set and used in the respective loss function. At the end of each epoch, the models performance was evaluated on the validation fold using accuracy, precision, recall, and F1 score, which were logged via #abbr.a[WANDB].
+To address class imbalance in the storm damage classes, class-specific weights were computed from the training set and used in the respective loss function. At the end of each epoch, the models performance was evaluated on the validation fold using accuracy, precision, recall, and F1-score, which were logged via #abbr.a[WANDB].
 
-After all folds were completed, the model with the highest average F1 score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
+After all folds were completed, the model with the highest average F1-score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
 
 #figure(image("images/training-pipeline.png", width: 60%),
 caption: [End-to-end training pipeline, from dataset preparation through cross-validation and final testing.])<training-pipeline>
@@ -100,7 +100,7 @@ The Transformer output is then passed through an additional feedforward layer wi
 
 === Model Comparison Setup
 
-To ensure a fair comparison, all models were trained under the same experimental conditions. Hyperparameter optimization was performed using the Sweep API provided by #abbr.a[WANDB], with a maximum of 20 trials per architecture. The hyperparameters were optimized via Bayesian search, which balances exploration and exploitation to efficiently converge to high-performing configurations. @WeightsBiases
+To ensure a fair comparison, all models were trained under the same experimental conditions. Hyperparameter optimization was performed using the Sweep API provided by #abbr.a[WANDB], with a maximum of 20 (7) trials per architecture. The hyperparameters were optimized via Bayesian search, which balances exploration and exploitation to efficiently converge to high-performing configurations. @WeightsBiases
 
 #figure(
   table(
