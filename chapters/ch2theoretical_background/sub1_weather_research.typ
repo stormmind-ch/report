@@ -1,6 +1,6 @@
 #import "../../abbr-impl.typ"
 #import "../../abbr.typ"
-== Weather Research<weather-research>
+== Influencing Factors<weather-research>
 
 The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung
 Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered in the model. The influencing factors discussed were:
