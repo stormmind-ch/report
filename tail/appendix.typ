@@ -48,7 +48,7 @@ Gemeinde,	Gemeindenummer,	Weitere Gemeinde,	Kanton,	Prozessraum,	MAXO Datum,	Dat
 
 #pagebreak()
 
-== Declaration of AI Tools
+== Declaration of #abbr.a[AI] Tools
 
 ChatGPT was utilized for the following tasks:
 	-	Reformulating text and correcting spelling and grammar

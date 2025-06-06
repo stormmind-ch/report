@@ -14,19 +14,19 @@
 
 = Results<results-ai>
 
-The following section presents the results of our comparative evaluation of three deep learning architectures, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, applied to the task of binary storm damage forecasting. The inter-model comparison is summarized in @experiment-1 and @experiment-2. Detailed results for each architecture are provided in their respective subsections. 
+The following section presents the results of our comparative evaluation of three deep learning architectures, #abbr.a[FNN], #abbr.a[LSTM], and Transformer, applied to the task of binary storm damage forecasting. The inter-model comparison is summarized in @experiment-1 and @experiment-2. Detailed results for each architecture are provided in @in-depth-model-analysis.
 
 This section aims to answer three key questions:
 1.  Which architecture achieves the best performance on the held out test set?
 2. Does increased model complexity (e.g., through temporal modeling in LSTM or long-range dependency modeling in Transformers) lead to better forecasting performance compared to the baseline #abbr.a[FNN]?
-3. How does spatial granularity, implemented through cluster sizes $k in {3, 6}$, affect model performance? 3 and 6 were chosen as number of clusters due to the highest decreasing within sum of cluster centroid as described in @data. 
+3. How does spatial granularity, implemented through cluster sizes $k in {3, 6}$, affect model performance? Cluster sizes of 3 and 6 were chosen due to the findings in @data. 
 Additionally, we conducted an experiment with $k = 26$ clusters to evaluate model performance at a finer spatial granularity. The results are presented in @experiment-2.
 
 #pagebreak()
 
 == Experiment 1<experiment-1>
 To ensure statistically robust comparisons, we report the mean and variance of all evaluation metrics across the 3 best runs over the 20 independent runs, following the best practices recommended in X. Bouthillier et. Al. "Accounting for Variance in Machine Learning Benchmarks" @bouthillierAccountingVarianceMachine2021. The reason for only choosing the top 3 runs per model and cluster, is to eliminate any negative outliers. We are more interested in what the model is capable to do in its best configuration, rather than accounting for worse configurations.
-For inter-model comparison, we primarily use the macro-averaged F1-score on the test set, as summarized in @model-comparison-to-cluster-3-6. This metric is particularly appropriate given the class imbalance described in @data, as it gives equal importance to both classes. Since the minority class (damage) represents the critical target, macro-F1 is better suited than accuracy alone. Additional metrics, including accuracy, AUC, precision, recall, and specificity, are discussed in detail in the model-specific result subsections.
+For inter-model comparison, we primarily use the macro-averaged F1-score on the test set, as summarized in @model-comparison-to-cluster-3-6. This metric is particularly appropriate given the class imbalance described in @data, as it gives equal importance to both classes. Since the minority class (damage) represents the critical target, macro-F1 is better suited than accuracy alone. Additional metrics, including accuracy, AUC, precision, recall, and specificity, are discussed in detail in @in-depth-model-analysis
 #figure(table(
   columns: 3,
 
@@ -36,7 +36,7 @@ For inter-model comparison, we primarily use the macro-averaged F1-score on the 
   [*#abbr.s[LSTM]*],[$0.67 plus.minus script(2.2e-6)$],[$0.65 plus.minus script(3e-7)$],
   [*Transformer*],[$0.68 plus.minus script(1.4e-6)$],[$0.67 plus.minus script(7.9e-8)$]
 ),
-caption: [Average test macro F1-score and variance for each model across different spatial cluster configurations.Each value represents the mean F1-score over the top 3 runs from the  20 independent training runs, with the corresponding variance shown. Results are grouped by the number of spatial clusters $k in {3, 6}$ used during data preparation.]
+caption: [Average test macro F1-score and variance for each model across different spatial cluster configurations. Each value represents the mean F1-score over the top 3 runs from the  20 independent training runs, with the corresponding variance shown. Results are grouped by the number of spatial clusters $k in {3, 6}$ used during data preparation.]
 )<model-comparison-to-cluster-3-6>
 
 @model-comparison-to-cluster-3-6 shows that the Transformer model achieved the highest macro-averaged F1-score with $k = 3$ clusters, outperforming both the #abbr.a[FNN] and #abbr.a[LSTM] models. In addition to achieving the best score, the Transformer also exhibited the lowest variance among the top 3 runs, indicating greater consistency and stability in performance. This suggests that the attention-based architecture is better suited for capturing the patterns necessary for storm damage prediction in this setup.
@@ -46,7 +46,7 @@ Interestingly, the #abbr.a[LSTM] model performed worse than the simpler #abbr.a[
 #pagebreak()
 
 == Experiment 2<experiment-2>
-This subsection presents the results of a finer-grained experimental setup using $k = 26$ clusters. The choice of $k = 26$ was motivated by the number of cantons in Switzerland. However, it is important to note that the resulting clusters do not precisely correspond to canton boundaries, as municipalities were grouped using the K-means algorithm (see @data_preparation).
+This subsection presents the results of a finer-grained experimental setup using $k = 26$ clusters. The choice of $k = 26$ was motivated by the number of cantons in Switzerland. However, it is important to note that the resulting clusters do not correspond to canton boundaries, as municipalities were grouped using the K-means algorithm (see @data_preparation).
 
 The experimental procedure was identical to that of Experiment 1 (@experiment-1), with the exception that only 6 runs were performed instead of 20. This reduction was due to computational constraints.
 
@@ -60,13 +60,13 @@ The results for all models in this configuration are summarized in @model-compar
   [*#abbr.a[LSTM]*], [$0.6 plus.minus script(5.5e-5)$],
   [*Transformer*], [$0.57 plus.minus script(0.0056)$],
 ),
-caption: [Average test macro F1-score and variance for each model.Each value represents the mean F1-score over the top 3 runs from the  6 independent training runs, with the corresponding variance shown.])<model-comparison-26>
+caption: [Average test macro F1-score and variance for each model. Each value represents the mean F1-score over the top 3 runs from the  6 independent training runs, with the corresponding variance shown.])<model-comparison-26>
 
 In this experiment, the #abbr.a[FNN] outperformed both the #abbr.a[LSTM] and Transformer models. This result may reflect the limited number of training runs available for hyperparameter optimization. During prior experiments, the #abbr.a[LSTM] and Transformer models required substantially more sweep iterations to converge on high-performing configurations, whereas the #abbr.a[FNN] typically reached optimal settings with fewer trials.
 
 Therefore, the results in this section should be interpreted with caution. Rather than indicating a fundamental advantage of the #abbr.a[FNN] at higher spatial granularity, the outcome likely reflects an underexploration of the hyperparameter space for the more complex models. As such, this experiment should be viewed as a preliminary probe for future research rather than a conclusive benchmark.
 #pagebreak()
-== In depth model analysis
+== In depth model analysis<in-depth-model-analysis>
 To complement the macro-F1 comparison, we provide a detailed breakdown of additional performance metrics, accuracy, AUC, precision, and specificity, for all models across the three spatial configurations ($k in {3, 6, 26}$). The following table summarizes the results:
 #figure(table(
   columns: 5,

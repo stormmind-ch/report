@@ -2,8 +2,8 @@
 #import "../../abbr.typ"
 == Influencing Factors<weather-research>
 
-The causes mentioned in this section are neither exhaustive nor account for all damages listed in @dmg_xl. In a conversation with Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung
-Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered in the model. The influencing factors discussed were:
+The causes mentioned in this section are neither exhaustive nor account for all damages listed in the #abbr.a[WSL] dataset @dmg_xl. In a conversation with Liechti #footnote[Dr. Käthi Liechti, Wissenschaftliche Mitarbeiterin Gebirgshydrologie und Massenbewegung
+Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing factors were discussed, of which only a subset were considered for the data modeling. The influencing factors discussed were:
 
 *Topological gradients*: The question addressed was whether known threshold values of slope (in percent or degrees) exist to differentiate between low, intermediate, and high landslide risk. However, no definitive or commonly accepted values could be established. Given the timeframe of the thesis project, limited further research could not provide any conclusive information.\
 
@@ -23,11 +23,11 @@ Hydrologische Vorhersagen, Eidg. Forschungsanstalt WSL], several contributing fa
 
 === Reasons for Flooding
 
-Flooding is primarily mitigated by the soil's capacity to absorb water. The composition of the topsoil is the most relevant factor: a non-permeable surface—such as rock or compacted clay—prevents infiltration, resulting in all incoming water contributing to surface runoff. In contrast, permeable materials such as sand or loose soil can absorb substantial amounts of water, depending on the depth of the soil layer (as detailed in @rfls).  
+Flooding is primarily mitigated by the soil's capacity to absorb water. The composition of the topsoil is the most relevant factor: a non-permeable surface, such as rock or compacted clay, prevents infiltration, resulting in all incoming water contributing to surface runoff. In contrast, permeable materials such as sand or loose soil can absorb substantial amounts of water, depending on the depth of the soil layer (as detailed in @rfls).  
 Even permeable ground can temporarily become impermeable during early spring when frozen. Conversely, drought has a similar effect: extended periods of high temperature and absent precipitation dry out the surface layer of the soil, thereby reducing or even eliminating its ability to absorb water. The behavior of completely dry soil is comparable to that of any other non-permeable material.  
-All of these mechanisms are governed by the total water input, which originates either from rainfall, melting snow, or soil conditions. @liechtiAustauschUnwetterschaedenUnd2025
+All of these mechanisms are governed by the total water input, which originates either from rainfall, melting snow, or temperature. @liechtiAustauschUnwetterschaedenUnd2025
 
-Prolonged precipitation continuously supplies water to the soil. If the ground is permeable and allows both infiltration and subsurface drainage, the overall impact remains limited. However, when the absorbed water cannot drain away, saturation occurs. Once the soil reaches full capacity, it effectively becomes impermeable—regardless of its natural permeability—and behaves like rock or clay, leading to increased surface runoff.  
+Prolonged precipitation continuously supplies water to the soil. If the ground is permeable and allows both infiltration and subsurface drainage, the overall impact remains limited. However, when the absorbed water cannot drain away, saturation occurs. Once the soil reaches full capacity, it effectively becomes impermeable and behaves like rock or clay, leading to increased surface runoff.  
 In addition, sudden and sustained temperature increases—often cause significant snowmelt—can further augment the water load on the soil surface alongside rainfall.
 @liechtiAustauschUnwetterschaedenUnd2025
 

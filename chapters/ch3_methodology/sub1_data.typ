@@ -8,10 +8,10 @@ The underlying data was provided by the #abbr.a[WSL], with Liechti serving as th
 In accordance with the legal restrictions outlined in @disclaimer—specifically, the rounding of damage values and the aggregation of location data—the use of #abbr.pla[WSL] data in this thesis was subject to certain limitations. Interestingly, these constraints ultimately proved advantageous for the modeling process, as evidenced by the experimental results.
 
 The sources for the recorded incidents were local and regional Swiss newspapers. As a result, the accuracy of the incident locations cannot be guaranteed, and the (financial) extent of the damages is only an approximation. In some cases, the location could not be precisely determined; thus, only the region or canton was recorded. /*Due to these uncertainties, the financial extent had to be rounded, and the damages grouped by canton or region prior to publication.*/
-
+#pagebreak()
 As outlined in @weather-features, the scope of the dataset was extensive. The features selected for this thesis were limited to the following: “Gemeindenamen”, “Datum”, “Hauptprozess” #footnote[fall, slide, water/debris flow; the damage-causing process], and “Schadensausmass”, which were identified as the most relevant variables related to damage.
 
-Based on the inputs of Liechti, the relevant meteorological variables were identified as sunshine duration, temperature, snowfall, and rainfall.\ 
+Based on the inputs of Liechti, the relevant meteorological variables were defined as sunshine duration, temperature, snowfall, and rainfall.\ 
 The rationale for this selection is briefly summarized below; detailed explanations can be found in @weather-research:\
 Sunshine hours influence ground temperature, which in turn can cause snowmelt or thaw ground frost.\
 The temperature at 2 meters above ground was used, as it provides a more meaningful indication of potential snowmelt. In this context, the influence of frozen ground was considered less significant and therefore not explicitly taken into account.\
@@ -28,7 +28,7 @@ As noted in @disclaimer, the municipality names correspond to the administrative
 For some incidents, as described in @data, #abbr.s[WSL] could not determine the exact location and had to assign them to a canton (30 of 28,515 cases), region (3), or district (10).Due to their low occurrence, these entries were excluded from the dataset.
 
 Common abbreviations used in the #abbr.pla[WSL] dataset—such as “a.A.” for “am Albis” or “St.” for “Sankt”—were standardized.
-Additionally, some municipalities had been merged into others since 1996. These cases were manually updated with their current names.
+Additionally, some municipalities had been merged into others since 1996. These cases were manually updated,  based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz.
 
 The weather data required less preprocessing. In eight municipalities, occasional values were set to 'null' (no data available); these were replaced by 0.
 
@@ -54,7 +54,7 @@ The original dataset, discussed in @data provided by #abbr.a[WSL] contained only
 $ 
   "Dates" times "Municiaplities" 
 $ 
-Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municipalities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields _Extent of Damage_ and _Main Process_ were filled with zeros. Furthermore, due to political changes over the decades (e.g., municipal mergers), all historical municipality names were mapped to their most recent equivalent, based on the Swiss official commune register  @AmtlichesGemeindeverzeichnisSchweiz. As a result, the final base dataset consisted of 52'399'36 rows of which:
+Let $D$ denote the set of all the dates from 1972 to 2023 and $M$ the set of all Swiss municipalities based on the Swiss official commune register @AmtlichesGemeindeverzeichnisSchweiz published in 2013. We constructed: $ X = {(d, m)} | d in D, m in M $ This set was then left-joined with the original storm damage records. For entries where no damage was reported, the fields _Extent of Damage_ and _Main Process_ were filled with zeros. As a result, the final base dataset consisted of 52'399'36 rows of which:
   - 52'372'088 represented non-damage instances
   - 24'613 corresponded to small damage events
   - 1'800 were classified as medium damage
@@ -75,7 +75,7 @@ sum_(i=1)^N min_(j in {1 dots k})(norm(x_i - mu_j))^2
 $ @23Clustering
 where $mu_j$ denotes the centroid of cluster $j$. This was implemented using the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning. 
 
-To ensure deterministic behavior of the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the random_state parameter and a fixed number of initializations. In particular, we set: _random_state= $42$_ and _n_init = $10$_.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The random_state controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
+To ensure deterministic behavior of the _KMeans_ algorithm from SciKitLearn @ScikitlearnMachineLearning, we specified both the _random_state_ parameter and a fixed number of initializations. In particular, we set: _random_state= $42$_ and _n_init = $10$_.  This guarantees that, for a given number of clusters $k$, the clustering results are identical across repeated runs. The _random_state_ controls the random number generation used for centroid initialization, and setting it ensures reproducibility of the clustering outcome. @ScikitlearnMachineLearning @6-clusters presents an illustrative example of the spatial clustering of all municipalities into $k=6$ clusters. 
 
 #figure(
   image("images/kmeans-clusters6-plot.png", width: 60%),
@@ -91,7 +91,7 @@ Each damage entry was then aggregated per cluster center and normalized by a wei
 
 *Temporal Grouping*: 
 
-The data were then aggregated at weekly intervals. For each cluster and week, the total storm damage was computed by summing the mean monetary value assigned to each damage class. Specifically, each daily damage event was replaced by the average monetary damage associated with its class (as derived from the original dataset). Then, the total weekly damage was calculated as:
+The data was then aggregated at weekly intervals. For each cluster and week, the total storm damage was computed by summing the mean monetary value assigned to each damage class. Specifically, each daily damage event was replaced by the average monetary damage associated with its class (as derived from the original dataset). Then, the total weekly damage was calculated as:
 $ 
 "Damage"_("week") = sum_("day" in "week") "MeanDamage"_("class"("day")) 
 $ 
@@ -112,7 +112,7 @@ $
   T_("low") = "percentile"(D, 100 * q_1) \ T_("mid") = "percentile"(D, 100 * (q_1 + q_2)) 
 $ 
 They also depend on the number of spatial clusters $k$, which determines how many data points contribute to the distribution of damages per region.  Then, the aggregated damage values were classified into four ordinal classes based on the following thresholds:
-  - Class 0: $(d = 0)$
+  - Class 0: $d = 0$
   - Class 1: $(0, T_("low")]$
   - Class 2: $(T_("low"), T_("mid")]$
   - Class 3: $(T_("mid"), infinity)$

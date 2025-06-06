@@ -6,7 +6,7 @@ The backend was implemented in Java, a type-safe language. To accelerate develop
 
 Data persistence is handled by PostgreSQL, an open-source relational database.
 
-To enable model inference within the backend, we integrated the #abbr.a[DJL] @DJLDeepJava. DJL provides a high-level Java API for loading and running deep learning models, allowing seamless integration of our trained PyTorch models into the Spring Boot service. It also supports GPU acceleration via CUDA, significantly reducing inference latency on compatible hardware.
+To enable model inference within the backend, we integrated the #abbr.a[DJL] @DJLDeepJava. DJL provides a high-level Java API for loading and running deep learning models, allowing seamless integration of our trained PyTorch models into the Spring Boot service.
 
 *Architecture*
 
@@ -17,7 +17,7 @@ caption: [Illustration of the applied Clean Architecture of the Backend]
 
 The architecture is organized as follows:
 
-- *Domain Layer*: Encapsulates the core business entities and domain logic. It is entirely decoupled from technical concerns and external frameworks, as illustrated by the inner circle of the @clean-architecture. The following core entities have been defined:
+- *Domain Layer*: Encapsulates the core business entities. It is entirely decoupled from technical concerns and external frameworks, as illustrated by the inner circle of the @clean-architecture. The following core entities have been defined:
     - Municipality: Represents a geographic administrative unit.
     - MunicipalityToCluster: Maps each municipality to its corresponding cluster, based on the chosen number of clusters $k$.
     - Damage: Represents a damage event recorded in the #abbr.a[WSL] database. It is also persisted in our PostgreSQL database.
@@ -26,6 +26,7 @@ The architecture is organized as follows:
     - Forecast: Represents the output produced by a deep learning model.
     - WeatherData: Meteorological data required for performing inference with the deep learning models.
 
+#pagebreak()
 - *Application Layer*: Defines the system's use cases and orchestrates business rules by coordinating entities. It is responsible for implementing application-specific logic while remaining independent of external technologies. This layer also defines interfaces, named _Ports_ that describe the required functionality from the infrastructure layer.
 
 A central part of this layer is the inference orchestration logic, which involves multiple sequential steps. To manage this complexity, we adopted the Chain of Responsibility design pattern @ChainResponsibility. This allows each step in the inference process to be encapsulated in a dedicated handler that can pass the request along the chain. The chain is hold by the _ForecastService_ class, which is shown on the bottom left corner of @backend_application.
@@ -68,7 +69,7 @@ This separation of concerns enhances testability and makes it straightforward to
 #pagebreak()
 *Caching:*
 
-After the initial deployment, user tests were conducted as outlined in the frontend test concept chapter. During these tests, a noticeable and user-unfriendly delay was observed. The issue was traced back to the request responsible for retrieving forecast data for all municipalities in Switzerland, which depends on the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023. Since this request must aggregate weather data across a large number of locations, it involves considerable processing time.
+After the initial deployment, user tests were conducted as outlined in the next chapter. During these tests, a noticeable and user-unfriendly delay was observed. The issue was traced back to the request responsible for retrieving forecast data for all municipalities in Switzerland, which depends on the open-meteo API @zippenfenigOpenMeteocomWeatherAPI2023. Since this request must aggregate weather data across a large number of locations, it involves considerable processing time.
 
 To better assess the performance characteristics of this request, response times were measured and compared under different conditions. The following tables present both the individual request durations and the corresponding average values across varying caching and deployment scenarios.
 // (0.02+0.019+0.016+0.012+0.019+0.014+0.017+0.016+0.014)/9 = 
@@ -122,23 +123,25 @@ All technically relevant logic components from the application package are cover
   ],
 )
 
-
+#pagebreak()
 === Frontend
 The frontend of the application is implemented using *React* and structured as a separate repository based on the *Vite* build tool. It follows a modular and maintainable architecture, distinguishing clearly between application logic and user interface components.
+
+Routing is handled on the client side, and the overall structure aligns with modern single-page application principles. The development setup emphasizes performance, scalability, and a clear separation of concerns.
 
 #figure(image("images/frontend_screenshot.png", width: 66%), 
 caption: [Screenshot of the frontend in production, displaying the homepage with a visual summary of historical storm damage data.])
 
-Routing is handled on the client side, and the overall structure aligns with modern single-page application principles. The development setup emphasizes performance, scalability, and a clear separation of concerns.
+
 
 *Test Concept* <fft>
 
 Given the small scope of the frontend, automated testing was not conducted. Functional correctness was instead ensured through manual testing during development.
-
+#pagebreak()
 
 === CI/CD and Deployment
 
-Deployment is managed via a virtual instance hosted on the *OpenStack* cluster of the ZHAW @LoginOpenStackDashboard. DNS configuration was performed using *Hosttech*, directing traffic to the appropriate backend infrastructure.
+Deployment is managed via a virtual instance hosted on the *OpenStack* cluster of the ZHAW @LoginOpenStackDashboard. DNS configuration was performed using *Hosttech*, directing traffic to the appropriate physical infrastructure.
 
 The application consists of two components: a backend and a frontend. Both are containerized using Docker and deployed on a Kubernetes cluster. The use of Kubernetes enables dynamic scalability, allowing the application to adapt to changing resource demands. @web-routing illustrates the request flow when a user accesses _stormmind.ch_, showing how traffic is routed to the appropriate frontend or backend service.
 
@@ -146,10 +149,10 @@ The frontend runs on port 80 within its pod and communicates over TCP. To manage
 
 Both the backend and frontend deployments are configured to always pull the latest Docker image and to retain only one previous _ReplicaSet_. This setup simplifies the deployment process and reduces potential ambiguity when identifying the active version.
 
-To enable HTTPS functionality, a _ClusterIssuer_ and a _Certificate_ resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*, making them available to Traefik for encrypted traffic handling.
+To enable HTTPS functionality, a _ClusterIssuer_ and a _Certificate_ resource were configured within the Kubernetes cluster. These components automatically request and manage TLS certificates from *Let's Encrypt*@LetsEncrypt, making them available to Traefik for encrypted traffic handling.
 
 #figure(
-  image("images/Stormmind_Deployment.png", width: 110%),
+  image("images/Stormmind_Deployment.png", width: 90%),
   caption: [
     Web routing form client to _stormmind.ch_ #footnote[laptop generated with chatgpt
     (prompt: "erstelle mir ein png eines minimalistischen
@@ -162,4 +165,4 @@ For continuous integration and deployment, two separate GitHub Actions pipelines
 
 Given the moderate size of the project, this CI/CD approach was deliberately chosen over the integration of additional DevOps tools in order to keep operational overhead low.
 
-*Argo CD* is used to monitor the state of the Kubernetes cluster and manage application deployments, including version control and scaling.
+*Argo CD* @ArgoCDDeclarative is used to monitor the state of the Kubernetes cluster and manage application deployments, including version control and scaling.

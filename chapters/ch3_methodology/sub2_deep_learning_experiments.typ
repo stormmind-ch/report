@@ -7,7 +7,7 @@ The goal of the experiments was to identify the most suitable deep learning arch
 
 As shown in @datasets_split, the dataset was split temporally into a training set and a hold-out test set in order to simulate realistic forecasting scenarios and to prevent information leakage. The training set spans the years 1972–2013, while the test set covers the period from 2013 to 2023.
 
-All features were normalized using Z-score normalization, defined as $Z = (X - mu) / sigma$ @StandardScore2025, where $X$ denotes the value to be normalized. The mean $mu$ and standard deviation $sigma$ were computed from the training set only, and these values were reused to normalize the test set. This ensures that no information from the test set leaks into the training or validation stages.
+All features were normalized using Z-score normalization, defined as $Z = (X - mu) / sigma$ @StandardScore2025, where $X$ denotes the value to be normalized. The mean $mu$ and standard deviation $sigma$ were computed from the training set only, and these values were reused to normalize the test set. This ensures that no information from the test set leaks into the training stages.
 
 #figure(
   table(
@@ -35,16 +35,15 @@ We first initialized the environment by detecting the available compute device (
 
 The dataset was initially split into training and test sets as shown in @datasets_split, followed by 5-fold cross-validation on the training portion using a custom splitter based on SciKit-Learn's _BaseCrossValidator_ @ScikitlearnMachineLearning. This custom method, _ClusteredTimeSeriesSplit_, is shown in @cv-visualization. It ensures chronological consistency by keeping validation data strictly later in time than training data within each geographic cluster.
 
-#figure(image("images/fold-cross-validation.png", width: 90%),
+#figure(image("images/fold-cross-validation.png", width: 85%),
 caption: [Chronological 5-fold cross-validation. Each fold validates on a later time window, preserving the time series structure.])
 <cv-visualization>
 
-Within each fold, the model was trained over multiple epochs, which is shown in @training-pipeline on the 4th line. We used the Adam optimizer @kingmaAdamMethodStochastic2017, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks. To further improve training stability and avoid overfitting, we employed a learning rate scheduler (_ReduceLROnPlateau_), which reduces the learning rate by a factor of 0.5 if the validation loss does not improve for 5 consecutive epochs.
-To address class imbalance in the storm damage classes, class-specific weights were computed from the training set and used in the respective loss function. At the end of each epoch, the models performance was evaluated on the validation fold using accuracy, precision, recall, and F1-score, which were logged via #abbr.a[WANDB].
-
+For each fold, the model was trained over multiple epochs, which is shown in @training-pipeline on the 4th line.At the end of each epoch, the models performance was evaluated on the validation fold using accuracy, precision, recall, and F1-score, which were logged via #abbr.a[WANDB]. We used the Adam optimizer @kingmaAdamMethodStochastic2017, as it provides adaptive learning rate updates and has been shown to work well in practice for deep learning tasks.
+To address class imbalance in the storm damage classes, class-specific weights were computed from the training set and used in the respective loss function. 
 After all folds were completed, the model with the highest average F1-score across validation folds was selected. As shown in steps 5 and 6 of @training-pipeline, this model was retrained on the entire training set without validation and subsequently evaluated on the held-out test set. The final performance metrics were recorded in the experiment summary for comparison between architectures.
 
-#figure(image("images/training-pipeline.png", width: 60%),
+#figure(image("images/training-pipeline.png", width: 54%),
 caption: [End-to-end training pipeline, from dataset preparation through cross-validation and final testing.#footnote["train on each fold" symbol generated with chatgpt
     (prompt: "create a png icon which can be used in a diagram which explains deep learning model training")] ])<training-pipeline>
 
@@ -54,20 +53,20 @@ In the early stages of model development, we conducted exploratory experiments u
 
 As shown in @data, the dataset is highly imbalanced, with the vast majority of events corresponding to class 0 (no damage) or low average damage values. This imbalance caused the model to exploit the loss function by minimizing risk through constant prediction of the dominant class. Consequently, it failed to capture meaningful distinctions between damage levels.
 
-Given these outcomes and the underlying class distribution, we reframed the problem as a binary classification task: predicting whether any storm damage will occur (damage/no-damage). This formulation reduces modeling complexity and mitigates the effects of class imbalance, while still offering practical value for early-warning systems and resource allocation.
+Given these outcomes and the underlying class distribution, we reframed the problem as a binary classification task: predicting whether any storm damage will occur (damage/no-damage). This formulation reduces modeling complexity and mitigates the effects of class imbalance, while still offering practical value.
 
+#pagebreak()
 
-
-=== #abbr.l[FNN] based forecasting model <fnn_setup>
+=== #abbr.s[FNN]-Based forecasting model <fnn_setup>
 Our first experiment employed a #abbr.a[FNN], whose architecture is illustrated in @fnn_experiment. The #abbr.a[FNN] was used as a baseline model, as they are simple to create and light in computation time. 
-The network consists of 10 fully connected layers with #abbr.a[ReLU] #footnote([The #abbr.a[ReLU] activation function is defined as: $"ReLU"(x) = x^+ = max(0, x)$]) activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting. The model was trained using the Adam optimizer @kingmaAdamMethodStochastic2017 and Cross Entropy Loss Function. 
+The network consists of 10 fully connected layers with #abbr.a[ReLU] #footnote([The #abbr.a[ReLU] activation function is defined as: $"ReLU"(x) = x^+ = max(0, x)$]) activation functions. This depth was chosen to for a sufficient level of non-linearity to capture complex feature interactions, while keeping the model small enough to avoid overfitting.
 
 #figure(
   image("images/fnn_illustration-experiment.png", width: 100%),
   caption: [Illustration of the  #abbr.a[FNN]: 3 Input Neurons, 2 Output Neurons. 8 hidden layers with Neurons varying between 8 and 64 as shown in the illustration respectively.]
   )<fnn_experiment>
 
-=== #abbr.a[LSTM] based Forecasting Model<lstm-setup>
+=== #abbr.s[LSTM]-Based Forecasting Model<lstm-setup>
 
 To model temporal dependencies in the weather-related input features, we implemented a sequence model based on #abbr.a[LSTM] units. The architecture is illustrated in @lstm-model and consists of a stack of $m = 10$ #abbr.a[LSTM] layers followed by a fully connected output layer.
 
@@ -98,10 +97,11 @@ The Transformer output is then passed through an additional feedforward layer wi
     Architecture of the Transformer-based forecasting model. The model includes input embeddings, positional encoding, stacked self-attention layers, and a feedforward output module.
     ]
 )<transformer-architecture>
+@vaswaniAttentionAllYou2023
 
 === Model Comparison Setup
 
-To ensure a fair comparison, all models were trained under the same experimental conditions. Hyperparameter optimization was performed using the Sweep API provided by #abbr.a[WANDB], with a maximum of 20 (7) trials per architecture. The hyperparameters were optimized via Bayesian search, which balances exploration and exploitation to efficiently converge to high-performing configurations. @WeightsBiases
+To ensure a fair comparison, all models were trained under the same experimental conditions. Hyperparameter optimization was performed using the Sweep API provided by #abbr.a[WANDB], with a maximum of 20 #footnote([For experiment 2 we reduced the maximum to 6]) trials per architecture. The hyperparameters were optimized via Bayesian search, which balances exploration and exploitation to efficiently converge to high-performing configurations. @WeightsBiases
 
 #figure(
   table(
@@ -112,11 +112,11 @@ To ensure a fair comparison, all models were trained under the same experimental
     [Batch Size], [[32, 64, 128]],
     [Learning Rate], [0.00001–0.01],
     [Epochs], [10–100],
-    [Sequence Length], [[0, 2, 4, 12, 52]],
+    [Sequence Length (weeks)], [[0, 2, 4, 12, 52]],
   ),
   caption: [Hyperparameter search space used during model sweeps.]
 )
 
-In addition, to assess the impact of spatial aggregation on model performance, each architecture was trained using different cluster counts ($k in {3, 6, 26}$), which determine the number of geographic regions derived from the spatial clustering process (see @data_preparation). By evaluating model performance across different levels of spatial granularity, we aimed to determine whether finer or coarser regional segmentation improves generalization and damage detection performance.
+In addition, to assess the impact of spatial aggregation on model performance, each architecture was trained using different cluster counts ($k in {3, 6, 26}$), which determine the number of geographic regions derived from the spatial clustering process (see @data_preparation). By evaluating model performance across different levels of spatial granularity, we aimed to determine whether finer or coarser regional segmentation improves generalization and damage detection performance. (See @results-ai for results)
 
 
