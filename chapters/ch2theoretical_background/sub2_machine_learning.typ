@@ -22,7 +22,7 @@ caption: [Illustration of a Neural Network with 3 layers. Illustrated with @NNSV
 
 *Computation of the Output* 
 
-The computation of the output in a #abbr.a[FNN] is referred to as a forward pass. Each neuron calculates its output by applying an activation function $f$ to sum of its inputs. For input neuron $i$, the aggregated input (also called the potential) is denoted as $xi_i$, yielding the expression $y = f(sum_(i=1)^n xi_i)$.
+The computation of the output in a #abbr.a[FNN] is referred to as a forward pass. Each neuron calculates its output by applying an activation function $f$ to sum of its inputs. For neuron $i$, the aggregated input (also called the potential) is denoted as $xi_i$, yielding the expression $y = f(sum_(i=1)^n xi_i)$.
 
 To complete a forward pass, this procedure is applied sequentially from the input layer through the hidden layers to the output layer. At each step, inputs are scaled by weight $w_(i j)$ before being summed and passed through the activation function. This process is captured by the following equations:
 
