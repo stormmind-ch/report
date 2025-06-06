@@ -33,7 +33,7 @@ A central part of this layer is the inference orchestration logic, which involve
 #figure(
   image("images/backend_application.png"),
   caption: [
-    Class Diagram for Application Layer of the Backend
+    Class Diagram of the Backend Application Layer, highlighting the key components. Less relevant classes have been omitted for clarity.
   ],
 )<backend_application>
 - *Infrastructure Layer*: The Infrastructure Layer provides concrete implementations of the interfaces (_Ports_) defined in the Application Layer. It is responsible for «integrating external systems and technologies, such as:
@@ -42,7 +42,7 @@ A central part of this layer is the inference orchestration logic, which involve
   - and open-meteo APIs for weather data retrieval.
   This layer encapsulates all technical details and external dependencies, keeping the rest of the system decoupled from implementation concerns.
 
-  To support modular weather data retrieval, the Factory Pattern is employed in the _OpenMeteoWeatherFetcherFactory_. This allows dynamic instantiation of the appropriate _WeatherFetcher_ implementation based on the request context.
+  To support modular weather data retrieval, the Factory Pattern is employed in the _OpenMeteoWeatherFetcherFactory_, which is shown in the lower half of @backend_infrastructure. This allows dynamic instantiation of the appropriate _WeatherFetcher_ implementation based on the request context.
 
   In addition, the Decorator Pattern is used to compose weather fetchers with different temporal scopes:
   The base fetcher retrieves current-week data.
@@ -50,15 +50,13 @@ A central part of this layer is the inference orchestration logic, which involve
 
   Persistence adapters implement the required interfaces by delegating to Spring Data JPA repositories. These adapters act as bridges between the domain model and the database, handling entity retrieval and storage.
 
-  The _ModelInferenceServiceFactory_ uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type.
-
-  The most important infrastructure classes are illustrated in @backend_infrastructure
+  The _ModelInferenceServiceFactory_ uses a simple factory mechanism to return the appropriate model-specific inference service (e.g., FNN, LSTM, Transformer) depending on the requested type. This is illustrated in the top-left corner of @backend_infrastructure, where a single service (_FNNModelInferenceService_) is depicted for clarity.
 
 #figure(image("images/backend_infrastructure.png", width: 100%), 
-caption: [Class Diagram for Infrastructure Layer of the Backend ]
+caption: [Class Diagram of the Backend Infrastructure Layer, highlighting the key components. Less relevant classes have been omitted for clarity.]
 )<backend_infrastructure>
 
-- *Presentation Layer*: Exposes the application's functionality to external clients via RESTful HTTP APIs, implemented using Spring MVC. It is responsible for handling incoming HTTP requests, delegating execution to the appropriate application services or adapters, and formatting responses using Data Transfer Objects (DTOs).
+- *Presentation Layer*: Exposes the application's functionality to external clients via RESTful HTTP APIs, implemented using Spring Boot. It is responsible for handling incoming HTTP requests, delegating execution to the appropriate application services or adapters, and formatting responses using Data Transfer Objects (DTOs).
   
   Each controller corresponds to a specific use case or domain concept:
 
